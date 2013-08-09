@@ -79,15 +79,15 @@ static struct cleanup *
 make_my_cleanup2 (struct cleanup **pmy_chain, make_cleanup_ftype *function,
 		  void *arg,  void (*free_arg) (void *))
 {
-  struct cleanup *new
+  struct cleanup *new_cleanup
     = (struct cleanup *) xmalloc (sizeof (struct cleanup));
   struct cleanup *old_chain = *pmy_chain;
 
-  new->next = *pmy_chain;
-  new->function = function;
-  new->free_arg = free_arg;
-  new->arg = arg;
-  *pmy_chain = new;
+  new_cleanup->next = *pmy_chain;
+  new_cleanup->function = function;
+  new_cleanup->free_arg = free_arg;
+  new_cleanup->arg = arg;
+  *pmy_chain = new_cleanup;
 
   gdb_assert (old_chain != NULL);
   return old_chain;

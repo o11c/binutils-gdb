@@ -584,18 +584,18 @@ som_current_sos (void)
     {
       char *namebuf;
       CORE_ADDR addr;
-      struct so_list *new;
+      struct so_list *new_so;
       struct cleanup *old_chain;
       int errcode;
       struct dld_list dbuf;
       gdb_byte tsdbuf[4];
 
-      new = (struct so_list *) xmalloc (sizeof (struct so_list));
-      old_chain = make_cleanup (xfree, new);
+      new_so = (struct so_list *) xmalloc (sizeof (struct so_list));
+      old_chain = make_cleanup (xfree, new_so);
 
-      memset (new, 0, sizeof (*new));
-      new->lm_info = xmalloc (sizeof (struct lm_info));
-      make_cleanup (xfree, new->lm_info);
+      memset (new_so, 0, sizeof (*new_so));
+      new_so->lm_info = xmalloc (sizeof (struct lm_info));
+      make_cleanup (xfree, new_so->lm_info);
 
       read_memory (lm, (gdb_byte *)&dbuf, sizeof (struct dld_list));
 
@@ -607,15 +607,15 @@ som_current_sos (void)
 		 safe_strerror (errcode));
       else
 	{
-	  strncpy (new->so_name, namebuf, SO_NAME_MAX_PATH_SIZE - 1);
-	  new->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
+	  strncpy (new_so->so_name, namebuf, SO_NAME_MAX_PATH_SIZE - 1);
+	  new_so->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
 	  xfree (namebuf);
-	  strcpy (new->so_original_name, new->so_name);
+	  strcpy (new_so->so_original_name, new_so->so_name);
 	}
 
-	if (new->so_name[0] && !match_main (new->so_name))
+	if (new_so->so_name[0] && !match_main (new_so->so_name))
 	  {
-	    struct lm_info *lmi = new->lm_info;
+	    struct lm_info *lmi = new_so->lm_info;
 	    unsigned int tmp;
 
 	    lmi->lm_addr = lm;
@@ -641,41 +641,43 @@ som_current_sos (void)
 	      = extract_unsigned_integer (tsdbuf, 4, byte_order);
 
 #ifdef SOLIB_SOM_DBG
-	    printf ("\n+ library \"%s\" is described at %s\n", new->so_name,
+	    printf ("\n+ library \"%s\" is described at %s\n", new_so->so_name,
 	    	    paddress (target_gdbarch (), lm));
-	    printf ("  'version' is %d\n", new->lm_info->struct_version);
-	    printf ("  'bind_mode' is %d\n", new->lm_info->bind_mode);
+	    printf ("  'version' is %d\n", new_so->lm_info->struct_version);
+	    printf ("  'bind_mode' is %d\n", new_so->lm_info->bind_mode);
 	    printf ("  'library_version' is %d\n", 
-	    	    new->lm_info->library_version);
+	    	    new_so->lm_info->library_version);
 	    printf ("  'text_addr' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->text_addr));
+	    	    paddress (target_gdbarch (), new_so->lm_info->text_addr));
 	    printf ("  'text_link_addr' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->text_link_addr));
+	    	    paddress (target_gdbarch (),
+			      new_so->lm_info->text_link_addr));
 	    printf ("  'text_end' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->text_end));
+	    	    paddress (target_gdbarch (), new_so->lm_info->text_end));
 	    printf ("  'data_start' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->data_start));
+	    	    paddress (target_gdbarch (), new_so->lm_info->data_start));
 	    printf ("  'bss_start' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->bss_start));
+	    	    paddress (target_gdbarch (), new_so->lm_info->bss_start));
 	    printf ("  'data_end' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->data_end));
+	    	    paddress (target_gdbarch (), new_so->lm_info->data_end));
 	    printf ("  'got_value' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->got_value));
+	    	    paddress (target_gdbarch (), new_so->lm_info->got_value));
 	    printf ("  'tsd_start_addr' is %s\n",
-	    	    paddress (target_gdbarch (), new->lm_info->tsd_start_addr));
+	    	    paddress (target_gdbarch (),
+			      new_so->lm_info->tsd_start_addr));
 #endif
 
-	    new->addr_low = lmi->text_addr;
-	    new->addr_high = lmi->text_end;
+	    new_so->addr_low = lmi->text_addr;
+	    new_so->addr_high = lmi->text_end;
 
 	    /* Link the new object onto the list.  */
-	    new->next = NULL;
-	    *link_ptr = new;
-	    link_ptr = &new->next;
+	    new_so->next = NULL;
+	    *link_ptr = new_so;
+	    link_ptr = &new_so->next;
 	  }
  	else
 	  {
-	    free_so (new);
+	    free_so (new_so);
 	  }
 
       lm = EXTRACT (next);

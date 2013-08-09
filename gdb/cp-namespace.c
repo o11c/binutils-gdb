@@ -133,7 +133,7 @@ cp_add_using_directive (const char *dest,
                         struct obstack *obstack)
 {
   struct using_direct *current;
-  struct using_direct *new;
+  struct using_direct *new_direct;
   
   /* Has it already been added?  */
 
@@ -170,39 +170,40 @@ cp_add_using_directive (const char *dest,
       return;
     }
 
-  new = obstack_alloc (obstack, (sizeof (*new)
+  new_direct = obstack_alloc (obstack, (sizeof (*new_direct)
 				 + (VEC_length (const_char_ptr, excludes)
-				    * sizeof (*new->excludes))));
-  memset (new, 0, sizeof (*new));
+				    * sizeof (*new_direct->excludes))));
+  memset (new_direct, 0, sizeof (*new_direct));
 
   if (copy_names)
     {
-      new->import_src = obstack_copy0 (obstack, src, strlen (src));
-      new->import_dest = obstack_copy0 (obstack, dest, strlen (dest));
+      new_direct->import_src = obstack_copy0 (obstack, src, strlen (src));
+      new_direct->import_dest = obstack_copy0 (obstack, dest, strlen (dest));
     }
   else
     {
-      new->import_src = src;
-      new->import_dest = dest;
+      new_direct->import_src = src;
+      new_direct->import_dest = dest;
     }
 
   if (alias != NULL && copy_names)
-    new->alias = obstack_copy0 (obstack, alias, strlen (alias));
+    new_direct->alias = obstack_copy0 (obstack, alias, strlen (alias));
   else
-    new->alias = alias;
+    new_direct->alias = alias;
 
   if (declaration != NULL && copy_names)
-    new->declaration = obstack_copy0 (obstack,
+    new_direct->declaration = obstack_copy0 (obstack,
 				      declaration, strlen (declaration));
   else
-    new->declaration = declaration;
+    new_direct->declaration = declaration;
 
-  memcpy (new->excludes, VEC_address (const_char_ptr, excludes),
-	  VEC_length (const_char_ptr, excludes) * sizeof (*new->excludes));
-  new->excludes[VEC_length (const_char_ptr, excludes)] = NULL;
+  memcpy (new_direct->excludes, VEC_address (const_char_ptr, excludes),
+	  VEC_length (const_char_ptr, excludes)
+	  * sizeof (*new_direct->excludes));
+  new_direct->excludes[VEC_length (const_char_ptr, excludes)] = NULL;
 
-  new->next = using_directives;
-  using_directives = new;
+  new_direct->next = using_directives;
+  using_directives = new_direct;
 }
 
 /* Test whether or not NAMESPACE looks like it mentions an anonymous

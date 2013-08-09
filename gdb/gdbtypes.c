@@ -3612,7 +3612,7 @@ recursive_dump_type (struct type *type, int spaces)
 
 struct type_pair
 {
-  struct type *old, *new;
+  struct type *old, *new_type;
 };
 
 static hashval_t
@@ -3668,7 +3668,7 @@ copy_type_recursive (struct objfile *objfile,
   pair.old = type;
   slot = htab_find_slot (copied_types, &pair, INSERT);
   if (*slot != NULL)
-    return ((struct type_pair *) *slot)->new;
+    return ((struct type_pair *) *slot)->new_type;
 
   new_type = alloc_type_arch (get_type_arch (type));
 
@@ -3677,7 +3677,7 @@ copy_type_recursive (struct objfile *objfile,
   stored
     = obstack_alloc (&objfile->objfile_obstack, sizeof (struct type_pair));
   stored->old = type;
-  stored->new = new_type;
+  stored->new_type = new_type;
   *slot = stored;
 
   /* Copy the common fields of types.  For the main type, we simply

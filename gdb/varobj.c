@@ -710,7 +710,7 @@ static void
 install_dynamic_child (struct varobj *var,
 		       VEC (varobj_p) **changed,
 		       VEC (varobj_p) **type_changed,
-		       VEC (varobj_p) **new,
+		       VEC (varobj_p) **new_children,
 		       VEC (varobj_p) **unchanged,
 		       int *cchanged,
 		       int index,
@@ -722,9 +722,9 @@ install_dynamic_child (struct varobj *var,
       /* There's no child yet.  */
       struct varobj *child = varobj_add_child (var, name, value);
 
-      if (new)
+      if (new_children)
 	{
-	  VEC_safe_push (varobj_p, *new, child);
+	  VEC_safe_push (varobj_p, *new_children, child);
 	  *cchanged = 1;
 	}
     }
@@ -770,7 +770,7 @@ static int
 update_dynamic_varobj_children (struct varobj *var,
 				VEC (varobj_p) **changed,
 				VEC (varobj_p) **type_changed,
-				VEC (varobj_p) **new,
+				VEC (varobj_p) **new_children,
 				VEC (varobj_p) **unchanged,
 				int *cchanged,
 				int update_children,
@@ -906,7 +906,7 @@ update_dynamic_varobj_children (struct varobj *var,
 	    gdbpy_print_stack ();
 	  install_dynamic_child (var, can_mention ? changed : NULL,
 				 can_mention ? type_changed : NULL,
-				 can_mention ? new : NULL,
+				 can_mention ? new_children : NULL,
 				 can_mention ? unchanged : NULL,
 				 can_mention ? cchanged : NULL, i,
 				 xstrdup (name), v);
@@ -1674,7 +1674,7 @@ varobj_update (struct varobj **varp, int explicit)
 {
   int type_changed = 0;
   int i;
-  struct value *new;
+  struct value *new_val;
   VEC (varobj_update_result) *stack = NULL;
   VEC (varobj_update_result) *result = NULL;
 
@@ -1708,15 +1708,15 @@ varobj_update (struct varobj **varp, int explicit)
 	 the frame in which a local existed.  We are letting the 
 	 value_of_root variable dispose of the varobj if the type
 	 has changed.  */
-      new = value_of_root (varp, &type_changed);
-      if (update_type_if_necessary(*varp, new))
+      new_val = value_of_root (varp, &type_changed);
+      if (update_type_if_necessary(*varp, new_val))
 	  type_changed = 1;
       r.varobj = *varp;
       r.type_changed = type_changed;
-      if (install_new_value ((*varp), new, type_changed))
+      if (install_new_value ((*varp), new_val, type_changed))
 	r.changed = 1;
       
-      if (new == NULL)
+      if (new_val == NULL)
 	r.status = VAROBJ_NOT_IN_SCOPE;
       r.value_installed = 1;
 
@@ -1751,15 +1751,15 @@ varobj_update (struct varobj **varp, int explicit)
 	{
 	  struct type *new_type;
 
-	  new = value_of_child (v->parent, v->index);
-	  if (update_type_if_necessary(v, new))
+	  new_val = value_of_child (v->parent, v->index);
+	  if (update_type_if_necessary(v, new_val))
 	    r.type_changed = 1;
-	  if (new)
-	    new_type = value_type (new);
+	  if (new_val)
+	    new_type = value_type (new_val);
 	  else
 	    new_type = v->root->lang_ops->type_of_child (v->parent, v->index);
 
-	  if (varobj_value_has_mutated (v, new, new_type))
+	  if (varobj_value_has_mutated (v, new_val, new_type))
 	    {
 	      /* The children are no longer valid; delete them now.
 	         Report the fact that its type changed as well.  */
@@ -1771,7 +1771,7 @@ varobj_update (struct varobj **varp, int explicit)
 	      r.type_changed = 1;
 	    }
 
-	  if (install_new_value (v, new, r.type_changed))
+	  if (install_new_value (v, new_val, r.type_changed))
 	    {
 	      r.changed = 1;
 	      v->updated = 0;
@@ -1784,7 +1784,7 @@ varobj_update (struct varobj **varp, int explicit)
       if (v->dynamic->pretty_printer != NULL)
 	{
 	  VEC (varobj_p) *changed = 0, *type_changed = 0, *unchanged = 0;
-	  VEC (varobj_p) *new = 0;
+	  VEC (varobj_p) *new_children = 0;
 	  int i, children_changed = 0;
 
 	  if (v->frozen)
@@ -1816,14 +1816,15 @@ varobj_update (struct varobj **varp, int explicit)
 
 	  /* If update_dynamic_varobj_children returns 0, then we have
 	     a non-conforming pretty-printer, so we skip it.  */
-	  if (update_dynamic_varobj_children (v, &changed, &type_changed, &new,
+	  if (update_dynamic_varobj_children (v, &changed, &type_changed,
+					      &new_children,
 					      &unchanged, &children_changed, 1,
 					      v->from, v->to))
 	    {
-	      if (children_changed || new)
+	      if (children_changed || new_children)
 		{
 		  r.children_changed = 1;
-		  r.new = new;
+		  r.new_children = new_children;
 		}
 	      /* Push in reverse order so that the first child is
 		 popped from the work stack first, and so will be

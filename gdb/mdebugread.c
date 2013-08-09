@@ -432,24 +432,24 @@ static struct parse_stack
 static void
 push_parse_stack (void)
 {
-  struct parse_stack *new;
+  struct parse_stack *new_stack;
 
   /* Reuse frames if possible.  */
   if (top_stack && top_stack->prev)
-    new = top_stack->prev;
+    new_stack = top_stack->prev;
   else
-    new = (struct parse_stack *) xzalloc (sizeof (struct parse_stack));
+    new_stack = (struct parse_stack *) xzalloc (sizeof (struct parse_stack));
   /* Initialize new frame with previous content.  */
   if (top_stack)
     {
-      struct parse_stack *prev = new->prev;
+      struct parse_stack *prev = new_stack->prev;
 
-      *new = *top_stack;
-      top_stack->prev = new;
-      new->prev = prev;
-      new->next = top_stack;
+      *new_stack = *top_stack;
+      top_stack->prev = new_stack;
+      new_stack->prev = prev;
+      new_stack->next = top_stack;
     }
-  top_stack = new;
+  top_stack = new_stack;
 }
 
 /* Exit a lexical context.  */

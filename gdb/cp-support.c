@@ -328,25 +328,25 @@ replace_typedefs_qualified_name (struct demangle_parse_info *info,
     {
       if (d_left (comp)->type == DEMANGLE_COMPONENT_NAME)
 	{
-	  struct demangle_component new;
+	  struct demangle_component new_comp;
 
 	  ui_file_write (buf, d_left (comp)->u.s_name.s,
 			 d_left (comp)->u.s_name.len);
 	  name = ui_file_obsavestring (buf, &info->obstack, &len);
-	  new.type = DEMANGLE_COMPONENT_NAME;
-	  new.u.s_name.s = name;
-	  new.u.s_name.len = len;
-	  if (inspect_type (info, &new, finder, data))
+	  new_comp.type = DEMANGLE_COMPONENT_NAME;
+	  new_comp.u.s_name.s = name;
+	  new_comp.u.s_name.len = len;
+	  if (inspect_type (info, &new_comp, finder, data))
 	    {
 	      char *n, *s;
 	      long slen;
 
-	      /* A typedef was substituted in NEW.  Convert it to a
+	      /* A typedef was substituted in NEW_COMP.  Convert it to a
 		 string and replace the top DEMANGLE_COMPONENT_QUAL_NAME
 		 node.  */
 
 	      ui_file_rewind (buf);
-	      n = cp_comp_to_string (&new, 100);
+	      n = cp_comp_to_string (&new_comp, 100);
 	      if (n == NULL)
 		{
 		  /* If something went astray, abort typedef substitutions.  */

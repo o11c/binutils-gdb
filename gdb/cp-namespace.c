@@ -660,16 +660,17 @@ lookup_symbol_file (const char *name,
       if (prefix_len == 0)
 	{
 	  struct type *type;
-	  struct symbol *this;
+	  struct symbol *this_sym;
 
-	  this = lookup_language_this (language_def (language_cplus), block);
-	  if (this == NULL)
+	  this_sym = lookup_language_this (language_def (language_cplus),
+					   block);
+	  if (this_sym == NULL)
 	    {
 	      do_cleanups (cleanup);
 	      return NULL;
 	    }
 
-	  type = check_typedef (TYPE_TARGET_TYPE (SYMBOL_TYPE (this)));
+	  type = check_typedef (TYPE_TARGET_TYPE (SYMBOL_TYPE (this_sym)));
 	  klass = xstrdup (TYPE_NAME (type));
 	  nested = xstrdup (name);
 	}

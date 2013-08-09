@@ -8,7 +8,7 @@
 
    Copyright 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
    1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
-   2010, 2011, 2012
+   2010, 2011, 2012, 2013
    Free Software Foundation, Inc.
 
    Written by Cygnus Support.
@@ -36,9 +36,9 @@
    E.g. align to an 8-byte boundary with argument of 8.  Take care never
    to wrap around if the address is within boundary-1 of the end of the
    address space.  */
-#define BFD_ALIGN(this, boundary)					  \
-  ((((bfd_vma) (this) + (boundary) - 1) >= (bfd_vma) (this))		  \
-   ? (((bfd_vma) (this) + ((boundary) - 1)) & ~ (bfd_vma) ((boundary)-1)) \
+#define BFD_ALIGN(item, boundary)					  \
+  ((((bfd_vma) (item) + (boundary) - 1) >= (bfd_vma) (item))		  \
+   ? (((bfd_vma) (item) + ((boundary) - 1)) & ~ (bfd_vma) ((boundary)-1)) \
    : ~ (bfd_vma) 0)
 
 /* If you want to read and write large blocks, you might want to do it

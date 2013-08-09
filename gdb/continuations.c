@@ -39,13 +39,13 @@ make_continuation (struct continuation **pmy_chain,
 		   continuation_ftype *function,
 		   void *arg,  void (*free_arg) (void *))
 {
-  struct continuation *new = XNEW (struct continuation);
+  struct continuation *new_cont = XNEW (struct continuation);
 
-  new->next = *pmy_chain;
-  new->function = function;
-  new->free_arg = free_arg;
-  new->arg = arg;
-  *pmy_chain = new;
+  new_cont->next = *pmy_chain;
+  new_cont->function = function;
+  new_cont->free_arg = free_arg;
+  new_cont->arg = arg;
+  *pmy_chain = new_cont;
 }
 
 static void

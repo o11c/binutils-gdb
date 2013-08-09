@@ -1414,7 +1414,7 @@ augment_type_symtab (struct objfile *objfile, struct symtab *primary_symtab)
 struct context_stack *
 push_context (int desc, CORE_ADDR valu)
 {
-  struct context_stack *new;
+  struct context_stack *new_ctx;
 
   if (context_stack_depth == context_stack_size)
     {
@@ -1424,18 +1424,18 @@ push_context (int desc, CORE_ADDR valu)
 		  (context_stack_size * sizeof (struct context_stack)));
     }
 
-  new = &context_stack[context_stack_depth++];
-  new->depth = desc;
-  new->locals = local_symbols;
-  new->old_blocks = pending_blocks;
-  new->start_addr = valu;
-  new->using_directives = using_directives;
-  new->name = NULL;
+  new_ctx = &context_stack[context_stack_depth++];
+  new_ctx->depth = desc;
+  new_ctx->locals = local_symbols;
+  new_ctx->old_blocks = pending_blocks;
+  new_ctx->start_addr = valu;
+  new_ctx->using_directives = using_directives;
+  new_ctx->name = NULL;
 
   local_symbols = NULL;
   using_directives = NULL;
 
-  return new;
+  return new_ctx;
 }
 
 /* Pop a context block.  Returns the address of the context block just

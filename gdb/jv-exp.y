@@ -1417,20 +1417,21 @@ static struct expression *
 copy_exp (struct expression *expr, int endpos)
 {
   int len = length_of_subexp (expr, endpos);
-  struct expression *new
-    = (struct expression *) malloc (sizeof (*new) + EXP_ELEM_TO_BYTES (len));
-  new->nelts = len;
-  memcpy (new->elts, expr->elts + endpos - len, EXP_ELEM_TO_BYTES (len));
-  new->language_defn = 0;
+  struct expression *new_expr
+    = (struct expression *) malloc (sizeof (*new_expr)
+				    + EXP_ELEM_TO_BYTES (len));
+  new_expr->nelts = len;
+  memcpy (new_expr->elts, expr->elts + endpos - len, EXP_ELEM_TO_BYTES (len));
+  new_expr->language_defn = 0;
 
-  return new;
+  return new_expr;
 }
 
 /* Insert the expression NEW into the current expression (expout) at POS.  */
 static void
-insert_exp (int pos, struct expression *new)
+insert_exp (int pos, struct expression *new_expr)
 {
-  int newlen = new->nelts;
+  int newlen = new_expr->nelts;
 
   /* Grow expout if necessary.  In this function's only use at present,
      this should never be necessary.  */
@@ -1449,6 +1450,6 @@ insert_exp (int pos, struct expression *new)
       expout->elts[i + newlen] = expout->elts[i];
   }
   
-  memcpy (expout->elts + pos, new->elts, EXP_ELEM_TO_BYTES (newlen));
+  memcpy (expout->elts + pos, new_expr->elts, EXP_ELEM_TO_BYTES (newlen));
   expout_ptr += newlen;
 }

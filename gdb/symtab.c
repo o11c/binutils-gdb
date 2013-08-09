@@ -4031,29 +4031,29 @@ completion_list_add_name (const char *symname,
      of matches.  Note that the name is moved to freshly malloc'd space.  */
 
   {
-    char *new;
+    char *new_str;
 
     if (word == sym_text)
       {
-	new = xmalloc (strlen (symname) + 5);
-	strcpy (new, symname);
+	new_str = xmalloc (strlen (symname) + 5);
+	strcpy (new_str, symname);
       }
     else if (word > sym_text)
       {
 	/* Return some portion of symname.  */
-	new = xmalloc (strlen (symname) + 5);
-	strcpy (new, symname + (word - sym_text));
+	new_str = xmalloc (strlen (symname) + 5);
+	strcpy (new_str, symname + (word - sym_text));
       }
     else
       {
 	/* Return some of SYM_TEXT plus symname.  */
-	new = xmalloc (strlen (symname) + (sym_text - word) + 5);
-	strncpy (new, word, sym_text - word);
-	new[sym_text - word] = '\0';
-	strcat (new, symname);
+	new_str = xmalloc (strlen (symname) + (sym_text - word) + 5);
+	strncpy (new_str, word, sym_text - word);
+	new_str[sym_text - word] = '\0';
+	strcat (new_str, symname);
       }
 
-    VEC_safe_push (char_ptr, return_val, new);
+    VEC_safe_push (char_ptr, return_val, new_str);
   }
 }
 
@@ -4598,30 +4598,30 @@ static void
 add_filename_to_list (const char *fname, const char *text, const char *word,
 		      VEC (char_ptr) **list)
 {
-  char *new;
+  char *new_str;
   size_t fnlen = strlen (fname);
 
   if (word == text)
     {
       /* Return exactly fname.  */
-      new = xmalloc (fnlen + 5);
-      strcpy (new, fname);
+      new_str = xmalloc (fnlen + 5);
+      strcpy (new_str, fname);
     }
   else if (word > text)
     {
       /* Return some portion of fname.  */
-      new = xmalloc (fnlen + 5);
-      strcpy (new, fname + (word - text));
+      new_str = xmalloc (fnlen + 5);
+      strcpy (new_str, fname + (word - text));
     }
   else
     {
       /* Return some of TEXT plus fname.  */
-      new = xmalloc (fnlen + (text - word) + 5);
-      strncpy (new, word, text - word);
-      new[text - word] = '\0';
-      strcat (new, fname);
+      new_str = xmalloc (fnlen + (text - word) + 5);
+      strncpy (new_str, word, text - word);
+      new_str[text - word] = '\0';
+      strcat (new_str, fname);
     }
-  VEC_safe_push (char_ptr, *list, new);
+  VEC_safe_push (char_ptr, *list, new_str);
 }
 
 static int

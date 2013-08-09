@@ -531,15 +531,15 @@ jit_symtab_open_impl (struct gdb_symbol_callbacks *cb,
 
 static int
 compare_block (const struct gdb_block *const old,
-               const struct gdb_block *const new)
+               const struct gdb_block *const new_block)
 {
   if (old == NULL)
     return 1;
-  if (old->begin < new->begin)
+  if (old->begin < new_block->begin)
     return 1;
-  else if (old->begin == new->begin)
+  else if (old->begin == new_block->begin)
     {
-      if (old->end > new->end)
+      if (old->end > new_block->end)
         return 1;
       else
         return 0;

@@ -338,9 +338,10 @@ find_typedef_in_hash (const struct type_print_options *flags, struct type *t)
    NEW is the new name for a type TYPE.  */
 
 void
-typedef_print (struct type *type, struct symbol *new, struct ui_file *stream)
+typedef_print (struct type *type, struct symbol *new_sym,
+	       struct ui_file *stream)
 {
-  LA_PRINT_TYPEDEF (type, new, stream);
+  LA_PRINT_TYPEDEF (type, new_sym, stream);
 }
 
 /* The default way to print a typedef.  */

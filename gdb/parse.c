@@ -146,13 +146,13 @@ static struct funcall *funcall_chain;
 void
 start_arglist (void)
 {
-  struct funcall *new;
+  struct funcall *new_call;
 
-  new = (struct funcall *) xmalloc (sizeof (struct funcall));
-  new->next = funcall_chain;
-  new->arglist_len = arglist_len;
+  new_call = (struct funcall *) xmalloc (sizeof (struct funcall));
+  new_call->next = funcall_chain;
+  new_call->arglist_len = arglist_len;
   arglist_len = 0;
-  funcall_chain = new;
+  funcall_chain = new_call;
 }
 
 /* Return the number of arguments in a function call just terminated,

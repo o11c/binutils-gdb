@@ -1792,10 +1792,10 @@ again:
         while (**pp && **pp != '#')
           {
             struct type *arg_type = read_type (pp, objfile);
-            struct type_list *new = alloca (sizeof (*new));
-            new->type = arg_type;
-            new->next = arg_types;
-            arg_types = new;
+            struct type_list *new_types = alloca (sizeof (*new_types));
+            new_types->type = arg_type;
+            new_types->next = arg_types;
+            arg_types = new_types;
             num_args++;
           }
         if (**pp == '#')
@@ -2977,7 +2977,7 @@ read_struct_fields (struct field_info *fip, char **pp, struct type *type,
 		    struct objfile *objfile)
 {
   char *p;
-  struct nextfield *new;
+  struct nextfield *new_fields;
 
   /* We better set p right now, in case there are no fields at all...    */
 
@@ -2993,11 +2993,11 @@ read_struct_fields (struct field_info *fip, char **pp, struct type *type,
     {
       STABS_CONTINUE (pp, objfile);
       /* Get space to record the next field's data.  */
-      new = (struct nextfield *) xmalloc (sizeof (struct nextfield));
-      make_cleanup (xfree, new);
-      memset (new, 0, sizeof (struct nextfield));
-      new->next = fip->list;
-      fip->list = new;
+      new_fields = (struct nextfield *) xmalloc (sizeof (struct nextfield));
+      make_cleanup (xfree, new_fields);
+      memset (new_fields, 0, sizeof (struct nextfield));
+      new_fields->next = fip->list;
+      fip->list = new_fields;
 
       /* Get the field name.  */
       p = *pp;
@@ -3075,7 +3075,7 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
 		  struct objfile *objfile)
 {
   int i;
-  struct nextfield *new;
+  struct nextfield *new_fields;
 
   if (**pp != '!')
     {
@@ -3115,12 +3115,12 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
 
   for (i = 0; i < TYPE_N_BASECLASSES (type); i++)
     {
-      new = (struct nextfield *) xmalloc (sizeof (struct nextfield));
-      make_cleanup (xfree, new);
-      memset (new, 0, sizeof (struct nextfield));
-      new->next = fip->list;
-      fip->list = new;
-      FIELD_BITSIZE (new->field) = 0;	/* This should be an unpacked
+      new_fields = (struct nextfield *) xmalloc (sizeof (struct nextfield));
+      make_cleanup (xfree, new_fields);
+      memset (new_fields, 0, sizeof (struct nextfield));
+      new_fields->next = fip->list;
+      fip->list = new_fields;
+      FIELD_BITSIZE (new_fields->field) = 0;	/* This should be an unpacked
 					   field!  */
 
       STABS_CONTINUE (pp, objfile);
@@ -3142,8 +3142,8 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
 	}
       ++(*pp);
 
-      new->visibility = *(*pp)++;
-      switch (new->visibility)
+      new_fields->visibility = *(*pp)++;
+      switch (new_fields->visibility)
 	{
 	case VISIBILITY_PRIVATE:
 	case VISIBILITY_PROTECTED:
@@ -3155,8 +3155,8 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
 	  {
 	    complaint (&symfile_complaints,
 		       _("Unknown visibility `%c' for baseclass"),
-		       new->visibility);
-	    new->visibility = VISIBILITY_PUBLIC;
+		       new_fields->visibility);
+	    new_fields->visibility = VISIBILITY_PUBLIC;
 	  }
 	}
 
@@ -3167,7 +3167,7 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
 	   corresponding to this baseclass.  Always zero in the absence of
 	   multiple inheritance.  */
 
-	SET_FIELD_BITPOS (new->field, read_huge_number (pp, ',', &nbits, 0));
+	SET_FIELD_BITPOS (new_fields->field, read_huge_number (pp, ',', &nbits, 0));
 	if (nbits != 0)
 	  return 0;
       }
@@ -3176,8 +3176,8 @@ read_baseclasses (struct field_info *fip, char **pp, struct type *type,
          base class.  Read it, and remember it's type name as this
          field's name.  */
 
-      new->field.type = read_type (pp, objfile);
-      new->field.name = type_name_no_tag (new->field.type);
+      new_fields->field.type = read_type (pp, objfile);
+      new_fields->field.name = type_name_no_tag (new_fields->field.type);
 
       /* Skip trailing ';' and bump count of number of fields seen.  */
       if (**pp == ';')
@@ -4327,7 +4327,7 @@ common_block_end (struct objfile *objfile)
      symbol for the common block name for later fixup.  */
   int i;
   struct symbol *sym;
-  struct pending *new = 0;
+  struct pending *new_pending = 0;
   struct pending *next;
   int j;
 
@@ -4350,7 +4350,7 @@ common_block_end (struct objfile *objfile)
        next = next->next)
     {
       for (j = 0; j < next->nsyms; j++)
-	add_symbol_to_list (next->symbol[j], &new);
+	add_symbol_to_list (next->symbol[j], &new_pending);
     }
 
   /* Copy however much of COMMON_BLOCK we need.  If COMMON_BLOCK is
@@ -4359,9 +4359,9 @@ common_block_end (struct objfile *objfile)
 
   if (common_block != NULL)
     for (j = common_block_i; j < common_block->nsyms; j++)
-      add_symbol_to_list (common_block->symbol[j], &new);
+      add_symbol_to_list (common_block->symbol[j], &new_pending);
 
-  SYMBOL_TYPE (sym) = (struct type *) new;
+  SYMBOL_TYPE (sym) = (struct type *) new_pending;
 
   /* Should we be putting local_symbols back to what it was?
      Does it matter?  */

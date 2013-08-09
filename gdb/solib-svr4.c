@@ -938,7 +938,7 @@ svr4_keep_data_in_core (CORE_ADDR vaddr, unsigned long size)
 {
   struct svr4_info *info;
   CORE_ADDR ldsomap;
-  struct so_list *new;
+  struct so_list *new_so;
   struct cleanup *old_chain;
   CORE_ADDR name_lm;
 
@@ -953,11 +953,11 @@ svr4_keep_data_in_core (CORE_ADDR vaddr, unsigned long size)
   if (!ldsomap)
     return 0;
 
-  new = XZALLOC (struct so_list);
-  old_chain = make_cleanup (xfree, new);
-  new->lm_info = lm_info_read (ldsomap);
-  make_cleanup (xfree, new->lm_info);
-  name_lm = new->lm_info ? new->lm_info->l_name : 0;
+  new_so = XZALLOC (struct so_list);
+  old_chain = make_cleanup (xfree, new_so);
+  new_so->lm_info = lm_info_read (ldsomap);
+  make_cleanup (xfree, new_so->lm_info);
+  name_lm = new_so->lm_info ? new_so->lm_info->l_name : 0;
   do_cleanups (old_chain);
 
   return (name_lm >= vaddr && name_lm < vaddr + size);
@@ -1093,17 +1093,17 @@ svr4_copy_library_list (struct so_list *src)
 
   while (src != NULL)
     {
-      struct so_list *new;
+      struct so_list *new_so;
 
-      new = xmalloc (sizeof (struct so_list));
-      memcpy (new, src, sizeof (struct so_list));
+      new_so = xmalloc (sizeof (struct so_list));
+      memcpy (new_so, src, sizeof (struct so_list));
 
-      new->lm_info = xmalloc (sizeof (struct lm_info));
-      memcpy (new->lm_info, src->lm_info, sizeof (struct lm_info));
+      new_so->lm_info = xmalloc (sizeof (struct lm_info));
+      memcpy (new_so->lm_info, src->lm_info, sizeof (struct lm_info));
 
-      new->next = NULL;
-      *link = new;
-      link = &new->next;
+      new_so->next = NULL;
+      *link = new_so;
+      link = &new_so->next;
 
       src = src->next;
     }
@@ -1278,24 +1278,24 @@ static struct so_list *
 svr4_default_sos (void)
 {
   struct svr4_info *info = get_svr4_info ();
-  struct so_list *new;
+  struct so_list *new_so;
 
   if (!info->debug_loader_offset_p)
     return NULL;
 
-  new = XZALLOC (struct so_list);
+  new_so = XZALLOC (struct so_list);
 
-  new->lm_info = xzalloc (sizeof (struct lm_info));
+  new_so->lm_info = xzalloc (sizeof (struct lm_info));
 
   /* Nothing will ever check the other fields if we set l_addr_p.  */
-  new->lm_info->l_addr = info->debug_loader_offset;
-  new->lm_info->l_addr_p = 1;
+  new_so->lm_info->l_addr = info->debug_loader_offset;
+  new_so->lm_info->l_addr_p = 1;
 
-  strncpy (new->so_name, info->debug_loader_name, SO_NAME_MAX_PATH_SIZE - 1);
-  new->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
-  strcpy (new->so_original_name, new->so_name);
+  strncpy (new_so->so_name, info->debug_loader_name, SO_NAME_MAX_PATH_SIZE - 1);
+  new_so->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
+  strcpy (new_so->so_original_name, new_so->so_name);
 
-  return new;
+  return new_so;
 }
 
 /* Read the whole inferior libraries chain starting at address LM.
@@ -1314,28 +1314,28 @@ svr4_read_so_list (CORE_ADDR lm, CORE_ADDR prev_lm,
 
   for (; lm != 0; prev_lm = lm, lm = next_lm)
     {
-      struct so_list *new;
+      struct so_list *new_so;
       struct cleanup *old_chain;
       int errcode;
       char *buffer;
 
-      new = XZALLOC (struct so_list);
-      old_chain = make_cleanup_free_so (new);
+      new_so = XZALLOC (struct so_list);
+      old_chain = make_cleanup_free_so (new_so);
 
-      new->lm_info = lm_info_read (lm);
-      if (new->lm_info == NULL)
+      new_so->lm_info = lm_info_read (lm);
+      if (new_so->lm_info == NULL)
 	{
 	  do_cleanups (old_chain);
 	  return 0;
 	}
 
-      next_lm = new->lm_info->l_next;
+      next_lm = new_so->lm_info->l_next;
 
-      if (new->lm_info->l_prev != prev_lm)
+      if (new_so->lm_info->l_prev != prev_lm)
 	{
 	  warning (_("Corrupted shared library list: %s != %s"),
 		   paddress (target_gdbarch (), prev_lm),
-		   paddress (target_gdbarch (), new->lm_info->l_prev));
+		   paddress (target_gdbarch (), new_so->lm_info->l_prev));
 	  do_cleanups (old_chain);
 	  return 0;
 	}
@@ -1345,17 +1345,17 @@ svr4_read_so_list (CORE_ADDR lm, CORE_ADDR prev_lm,
          SVR4, it has no name.  For others (Solaris 2.3 for example), it
          does have a name, so we can no longer use a missing name to
          decide when to ignore it.  */
-      if (ignore_first && new->lm_info->l_prev == 0)
+      if (ignore_first && new_so->lm_info->l_prev == 0)
 	{
 	  struct svr4_info *info = get_svr4_info ();
 
-	  info->main_lm_addr = new->lm_info->lm_addr;
+	  info->main_lm_addr = new_so->lm_info->lm_addr;
 	  do_cleanups (old_chain);
 	  continue;
 	}
 
       /* Extract this shared object's name.  */
-      target_read_string (new->lm_info->l_name, &buffer,
+      target_read_string (new_so->lm_info->l_name, &buffer,
 			  SO_NAME_MAX_PATH_SIZE - 1, &errcode);
       if (errcode != 0)
 	{
@@ -1365,23 +1365,23 @@ svr4_read_so_list (CORE_ADDR lm, CORE_ADDR prev_lm,
 	  continue;
 	}
 
-      strncpy (new->so_name, buffer, SO_NAME_MAX_PATH_SIZE - 1);
-      new->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
-      strcpy (new->so_original_name, new->so_name);
+      strncpy (new_so->so_name, buffer, SO_NAME_MAX_PATH_SIZE - 1);
+      new_so->so_name[SO_NAME_MAX_PATH_SIZE - 1] = '\0';
+      strcpy (new_so->so_original_name, new_so->so_name);
       xfree (buffer);
 
       /* If this entry has no name, or its name matches the name
 	 for the main executable, don't include it in the list.  */
-      if (! new->so_name[0] || match_main (new->so_name))
+      if (! new_so->so_name[0] || match_main (new_so->so_name))
 	{
 	  do_cleanups (old_chain);
 	  continue;
 	}
 
       discard_cleanups (old_chain);
-      new->next = 0;
-      **link_ptr_ptr = new;
-      *link_ptr_ptr = &new->next;
+      new_so->next = 0;
+      **link_ptr_ptr = new_so;
+      *link_ptr_ptr = &new_so->next;
     }
 
   return 1;

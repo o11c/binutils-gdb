@@ -783,14 +783,14 @@ varobj_update_one (struct varobj *var, enum print_values print_values,
       ui_out_field_int (uiout, "has_more",
 			varobj_has_more (r->varobj, to));
 
-      if (r->new)
+      if (r->new_children)
 	{
 	  int j;
 	  varobj_p child;
 	  struct cleanup *cleanup;
 
 	  cleanup = make_cleanup_ui_out_list_begin_end (uiout, "new_children");
-	  for (j = 0; VEC_iterate (varobj_p, r->new, j, child); ++j)
+	  for (j = 0; VEC_iterate (varobj_p, r->new_children, j, child); ++j)
 	    {
 	      struct cleanup *cleanup_child;
 
@@ -801,8 +801,8 @@ varobj_update_one (struct varobj *var, enum print_values print_values,
 	    }
 
 	  do_cleanups (cleanup);
-	  VEC_free (varobj_p, r->new);
-	  r->new = NULL;	/* Paranoia.  */
+	  VEC_free (varobj_p, r->new_children);
+	  r->new_children = NULL;	/* Paranoia.  */
 	}
 
       do_cleanups (cleanup);

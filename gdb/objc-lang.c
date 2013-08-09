@@ -411,16 +411,16 @@ static char *msglist_sel;
 void
 start_msglist(void)
 {
-  struct selname *new = 
+  struct selname *new_selname = 
     (struct selname *) xmalloc (sizeof (struct selname));
 
-  new->next = selname_chain;
-  new->msglist_len = msglist_len;
-  new->msglist_sel = msglist_sel;
+  new_selname->next = selname_chain;
+  new_selname->msglist_len = msglist_len;
+  new_selname->msglist_sel = msglist_sel;
   msglist_len = 0;
   msglist_sel = (char *)xmalloc(1);
   *msglist_sel = 0;
-  selname_chain = new;
+  selname_chain = new_selname;
 }
 
 void

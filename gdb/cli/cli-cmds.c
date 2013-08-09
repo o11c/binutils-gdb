@@ -1214,7 +1214,7 @@ show_user (char *args, int from_tty)
 
       c = lookup_cmd (&comname, cmdlist, "", 0, 1);
       /* c->user_commands would be NULL if it's a python command.  */
-      if (c->class != class_user || !c->user_commands)
+      if (c->klass != class_user || !c->user_commands)
 	error (_("Not a user command."));
       show_user_1 (c, "", args, gdb_stdout);
     }
@@ -1222,7 +1222,7 @@ show_user (char *args, int from_tty)
     {
       for (c = cmdlist; c; c = c->next)
 	{
-	  if (c->class == class_user || c->prefixlist != NULL)
+	  if (c->klass == class_user || c->prefixlist != NULL)
 	    show_user_1 (c, "", c->name, gdb_stdout);
 	}
     }

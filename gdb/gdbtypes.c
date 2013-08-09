@@ -2156,7 +2156,7 @@ class_types_same_p (const struct type *a, const struct type *b)
    distance_to_ancestor (A, D, 1) = -1.  */
 
 static int
-distance_to_ancestor (struct type *base, struct type *dclass, int public)
+distance_to_ancestor (struct type *base, struct type *dclass, int is_public)
 {
   int i;
   int d;
@@ -2169,10 +2169,10 @@ distance_to_ancestor (struct type *base, struct type *dclass, int public)
 
   for (i = 0; i < TYPE_N_BASECLASSES (dclass); i++)
     {
-      if (public && ! BASETYPE_VIA_PUBLIC (dclass, i))
+      if (is_public && ! BASETYPE_VIA_PUBLIC (dclass, i))
 	continue;
 
-      d = distance_to_ancestor (base, TYPE_BASECLASS (dclass, i), public);
+      d = distance_to_ancestor (base, TYPE_BASECLASS (dclass, i), is_public);
       if (d >= 0)
 	return 1 + d;
     }

@@ -145,42 +145,42 @@ static PyObject *
 sympy_is_constant (PyObject *self, void *closure)
 {
   struct symbol *symbol = NULL;
-  enum address_class class;
+  enum address_class klass;
 
   SYMPY_REQUIRE_VALID (self, symbol);
 
-  class = SYMBOL_CLASS (symbol);
+  klass = SYMBOL_CLASS (symbol);
 
-  return PyBool_FromLong (class == LOC_CONST || class == LOC_CONST_BYTES);
+  return PyBool_FromLong (klass == LOC_CONST || klass == LOC_CONST_BYTES);
 }
 
 static PyObject *
 sympy_is_function (PyObject *self, void *closure)
 {
   struct symbol *symbol = NULL;
-  enum address_class class;
+  enum address_class klass;
 
   SYMPY_REQUIRE_VALID (self, symbol);
 
-  class = SYMBOL_CLASS (symbol);
+  klass = SYMBOL_CLASS (symbol);
 
-  return PyBool_FromLong (class == LOC_BLOCK);
+  return PyBool_FromLong (klass == LOC_BLOCK);
 }
 
 static PyObject *
 sympy_is_variable (PyObject *self, void *closure)
 {
   struct symbol *symbol = NULL;
-  enum address_class class;
+  enum address_class klass;
 
   SYMPY_REQUIRE_VALID (self, symbol);
 
-  class = SYMBOL_CLASS (symbol);
+  klass = SYMBOL_CLASS (symbol);
 
   return PyBool_FromLong (!SYMBOL_IS_ARGUMENT (symbol)
-			  && (class == LOC_LOCAL || class == LOC_REGISTER
-			      || class == LOC_STATIC || class == LOC_COMPUTED
-			      || class == LOC_OPTIMIZED_OUT));
+			  && (klass == LOC_LOCAL || klass == LOC_REGISTER
+			      || klass == LOC_STATIC || klass == LOC_COMPUTED
+			      || klass == LOC_OPTIMIZED_OUT));
 }
 
 /* Implementation of gdb.Symbol.needs_frame -> Boolean.

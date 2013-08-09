@@ -62,7 +62,7 @@ struct cmd_list_element
     const char *name;
 
     /* Command class; class values are chosen by application program.  */
-    enum command_class class;
+    enum command_class klass;
 
     /* Function definition of this command.  NULL for command class
        names and for help topics that are not really commands.  NOTE:

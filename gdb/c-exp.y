@@ -159,7 +159,7 @@ void yyerror (char *);
 
     struct type_stack *type_stack;
 
-    struct objc_class_str class;
+    struct objc_class_str klass;
   }
 
 %{
@@ -206,7 +206,7 @@ static void c_print_token (FILE *file, int type, YYSTYPE value);
 %token <ssym> UNKNOWN_CPP_NAME
 %token <voidval> COMPLETE
 %token <tsym> TYPENAME
-%token <class> CLASSNAME	/* ObjC Class name */
+%token <klass> CLASSNAME	/* ObjC Class name */
 %type <sval> name
 %type <svec> string_exp
 %type <ssym> name_not_typename
@@ -470,16 +470,16 @@ exp	:	exp OBJC_LBRAC exp1 ']'
 
 exp	: 	OBJC_LBRAC TYPENAME
 			{
-			  CORE_ADDR class;
+			  CORE_ADDR klass;
 
-			  class = lookup_objc_class (parse_gdbarch,
+			  klass = lookup_objc_class (parse_gdbarch,
 						     copy_name ($2.stoken));
-			  if (class == 0)
+			  if (klass == 0)
 			    error (_("%s is not an ObjC Class"),
 				   copy_name ($2.stoken));
 			  write_exp_elt_opcode (OP_LONG);
 			  write_exp_elt_type (parse_type->builtin_int);
-			  write_exp_elt_longcst ((LONGEST) class);
+			  write_exp_elt_longcst ((LONGEST) klass);
 			  write_exp_elt_opcode (OP_LONG);
 			  start_msglist();
 			}
@@ -494,7 +494,7 @@ exp	:	OBJC_LBRAC CLASSNAME
 			{
 			  write_exp_elt_opcode (OP_LONG);
 			  write_exp_elt_type (parse_type->builtin_int);
-			  write_exp_elt_longcst ((LONGEST) $2.class);
+			  write_exp_elt_longcst ((LONGEST) $2.klass);
 			  write_exp_elt_opcode (OP_LONG);
 			  start_msglist();
 			}
@@ -2878,10 +2878,10 @@ classify_name (const struct block *block)
       CORE_ADDR Class = lookup_objc_class (parse_gdbarch, copy);
       if (Class)
 	{
-	  yylval.class.class = Class;
+	  yylval.klass.klass = Class;
 	  sym = lookup_struct_typedef (copy, expression_context_block, 1);
 	  if (sym)
-	    yylval.class.type = SYMBOL_TYPE (sym);
+	    yylval.klass.type = SYMBOL_TYPE (sym);
 	  return CLASSNAME;
 	}
     }

@@ -108,7 +108,7 @@ extern void amd64_collect_fxsave (const struct regcache *regcache, int regnum,
 extern void amd64_collect_xsave (const struct regcache *regcache,
 				 int regnum, void *xsave, int gcore);
 
-void amd64_classify (struct type *type, enum amd64_reg_class class[2]);
+void amd64_classify (struct type *type, enum amd64_reg_class klass[2]);
 
 
 

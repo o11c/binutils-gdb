@@ -83,7 +83,7 @@ struct gdbarch_tdep
 
   /* Used on amd64 only.  Classify TYPE according to calling conventions,
      and store the result in CLASS.  */
-  void (*classify) (struct type *type, enum amd64_reg_class class[2]);
+  void (*classify) (struct type *type, enum amd64_reg_class klass[2]);
 
   /* Used on amd64 only.  Non-zero if the first few MEMORY arguments
      should be passed by pointer.

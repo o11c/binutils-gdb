@@ -105,7 +105,7 @@ struct objc_class_str
   {
     struct stoken stoken;
     struct type *type;
-    int class;
+    int klass;
   };
 
 typedef struct type *type_ptr;

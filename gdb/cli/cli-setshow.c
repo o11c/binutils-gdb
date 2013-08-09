@@ -38,8 +38,8 @@ notify_command_param_changed_p (int param_changed, struct cmd_list_element *c)
   if (param_changed == 0)
     return 0;
 
-  if (c->class == class_maintenance || c->class == class_deprecated
-      || c->class == class_obscure)
+  if (c->klass == class_maintenance || c->klass == class_deprecated
+      || c->klass == class_obscure)
     return 0;
 
   return 1;
@@ -694,7 +694,7 @@ cmd_show_list (struct cmd_list_element *list, int from_tty, char *prefix)
 	}
       else
 	{
-	  if (list->class != no_set_class)
+	  if (list->klass != no_set_class)
 	    {
 	      struct cleanup *option_chain
 		= make_cleanup_ui_out_tuple_begin_end (uiout, "option");

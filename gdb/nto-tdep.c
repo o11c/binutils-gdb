@@ -365,9 +365,9 @@ static const char *nto_thread_state_str[] =
 char *
 nto_extra_thread_info (struct thread_info *ti)
 {
-  if (ti && ti->private
-      && ti->private->state < ARRAY_SIZE (nto_thread_state_str))
-    return (char *)nto_thread_state_str [ti->private->state];
+  if (ti && ti->private_data
+      && ti->private_data->state < ARRAY_SIZE (nto_thread_state_str))
+    return (char *)nto_thread_state_str [ti->private_data->state];
   return "";
 }
 

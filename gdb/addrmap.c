@@ -429,16 +429,16 @@ splay_foreach_copy (splay_tree_node n, void *closure)
 static struct addrmap *
 addrmap_mutable_create_fixed (struct addrmap *self, struct obstack *obstack)
 {
-  struct addrmap_mutable *mutable = (struct addrmap_mutable *) self;
+  struct addrmap_mutable *mutable_map = (struct addrmap_mutable *) self;
   struct addrmap_fixed *fixed;
   size_t num_transitions;
 
   /* Count the number of transitions in the tree.  */
   num_transitions = 0;
-  splay_tree_foreach (mutable->tree, splay_foreach_count, &num_transitions);
+  splay_tree_foreach (mutable_map->tree, splay_foreach_count, &num_transitions);
 
   /* Include an extra entry for the transition at zero (which fixed
-     maps have, but mutable maps do not.)  */
+     maps have, but mutable_map maps do not.)  */
   num_transitions++;
 
   fixed = obstack_alloc (obstack,
@@ -452,7 +452,7 @@ addrmap_mutable_create_fixed (struct addrmap *self, struct obstack *obstack)
 
   /* Copy all entries from the splay tree to the array, in order 
      of increasing address.  */
-  splay_tree_foreach (mutable->tree, splay_foreach_copy, fixed);
+  splay_tree_foreach (mutable_map->tree, splay_foreach_copy, fixed);
 
   /* We should have filled the array.  */
   gdb_assert (fixed->num_transitions == num_transitions);
@@ -496,12 +496,12 @@ static int
 addrmap_mutable_foreach (struct addrmap *self, addrmap_foreach_fn fn,
 			 void *data)
 {
-  struct addrmap_mutable *mutable = (struct addrmap_mutable *) self;
+  struct addrmap_mutable *mutable_map = (struct addrmap_mutable *) self;
   struct mutable_foreach_data foreach_data;
 
   foreach_data.fn = fn;
   foreach_data.data = data;
-  return splay_tree_foreach (mutable->tree, addrmap_mutable_foreach_worker,
+  return splay_tree_foreach (mutable_map->tree, addrmap_mutable_foreach_worker,
 			     &foreach_data);
 }
 

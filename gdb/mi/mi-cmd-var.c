@@ -35,7 +35,7 @@ extern unsigned int varobjdebug;		/* defined in varobj.c.  */
 
 static void varobj_update_one (struct varobj *var,
 			       enum print_values print_values,
-			       int explicit);
+			       int is_explicit);
 
 static int mi_print_value_p (struct varobj *var,
 			     enum print_values print_values);
@@ -705,7 +705,7 @@ mi_cmd_var_update (char *command, char **argv, int argc)
       /* Get varobj handle, if a valid var obj name was specified.  */
       struct varobj *var = varobj_get_handle (name);
 
-      varobj_update_one (var, print_values, 1 /* explicit */);
+      varobj_update_one (var, print_values, 1 /* is_explicit */);
     }
 
   do_cleanups (cleanup);
@@ -715,14 +715,14 @@ mi_cmd_var_update (char *command, char **argv, int argc)
 
 static void
 varobj_update_one (struct varobj *var, enum print_values print_values,
-		   int explicit)
+		   int is_explicit)
 {
   struct ui_out *uiout = current_uiout;
   VEC (varobj_update_result) *changes;
   varobj_update_result *r;
   int i;
   
-  changes = varobj_update (&var, explicit);
+  changes = varobj_update (&var, is_explicit);
   
   for (i = 0; VEC_iterate (varobj_update_result, changes, i, r); ++i)
     {

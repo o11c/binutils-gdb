@@ -1984,7 +1984,7 @@ varobj_value_has_mutated (struct varobj *var, struct value *new_value,
    to point to the new varobj.  */
 
 VEC(varobj_update_result) *
-varobj_update (struct varobj **varp, int explicit)
+varobj_update (struct varobj **varp, int is_explicit)
 {
   int type_changed = 0;
   int i;
@@ -1997,7 +1997,7 @@ varobj_update (struct varobj **varp, int explicit)
      changing type.  One use case for frozen varobjs is
      retaining previously evaluated expressions, and we don't
      want them to be reevaluated at all.  */
-  if (!explicit && (*varp)->frozen)
+  if (!is_explicit && (*varp)->frozen)
     return result;
 
   if (!(*varp)->root->is_valid)

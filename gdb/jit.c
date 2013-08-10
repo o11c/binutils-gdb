@@ -1216,20 +1216,20 @@ static void
 jit_frame_this_id (struct frame_info *this_frame, void **cache,
                    struct frame_id *this_id)
 {
-  struct jit_unwind_private private;
+  struct jit_unwind_private private_unwind;
   struct gdb_frame_id frame_id;
   struct gdb_reader_funcs *funcs;
   struct gdb_unwind_callbacks callbacks;
 
-  private.registers = NULL;
-  private.this_frame = this_frame;
+  private_unwind.registers = NULL;
+  private_unwind.this_frame = this_frame;
 
   /* We don't expect the frame_id function to set any registers, so we
      set reg_set to NULL.  */
   callbacks.reg_get = jit_unwind_reg_get_impl;
   callbacks.reg_set = NULL;
   callbacks.target_read = jit_target_read_impl;
-  callbacks.priv_data = &private;
+  callbacks.priv_data = &private_unwind;
 
   gdb_assert (loaded_jit_reader);
   funcs = loaded_jit_reader->functions;

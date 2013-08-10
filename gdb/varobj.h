@@ -291,7 +291,7 @@ extern void all_root_varobjs (void (*func) (struct varobj *var, void *data),
 			      void *data);
 
 extern VEC(varobj_update_result) *varobj_update (struct varobj **varp, 
-						 int explicit);
+						 int is_explicit);
 
 extern void varobj_invalidate (void);
 

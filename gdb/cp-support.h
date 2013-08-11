@@ -179,7 +179,7 @@ extern struct type *cp_lookup_rtti_type (const char *name,
 
 /* Functions/variables from cp-namespace.c.  */
 
-extern int cp_is_anonymous (const char *namespace);
+extern int cp_is_anonymous (const char *name_space);
 
 extern void cp_add_using_directive (const char *dest,
                                     const char *src,
@@ -196,7 +196,7 @@ extern struct symbol *cp_lookup_symbol_nonlocal (const char *name,
 						 const struct block *block,
 						 const domain_enum domain);
 
-extern struct symbol *cp_lookup_symbol_namespace (const char *namespace,
+extern struct symbol *cp_lookup_symbol_namespace (const char *name_space,
 						  const char *name,
 						  const struct block *block,
 						  const domain_enum domain);

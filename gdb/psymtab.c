@@ -1212,7 +1212,7 @@ psymtab_to_fullname (struct partial_symtab *ps)
     ever returns non-zero, and otherwise returns 0.  */
 
 static int
-map_block (const char *name, domain_enum namespace, struct objfile *objfile,
+map_block (const char *name, domain_enum domain, struct objfile *objfile,
 	   struct block *block,
 	   int (*callback) (struct block *, struct symbol *, void *),
 	   void *data, symbol_compare_ftype *match)
@@ -1224,7 +1224,7 @@ map_block (const char *name, domain_enum namespace, struct objfile *objfile,
        sym != NULL; sym = block_iter_match_next (name, match, &iter))
     {
       if (symbol_matches_domain (SYMBOL_LANGUAGE (sym), 
-				 SYMBOL_DOMAIN (sym), namespace))
+				 SYMBOL_DOMAIN (sym), domain))
 	{
 	  if (callback (block, sym, data))
 	    return 1;
@@ -1239,7 +1239,7 @@ map_block (const char *name, domain_enum namespace, struct objfile *objfile,
 
 static void
 map_matching_symbols_psymtab (struct objfile *objfile,
-			      const char *name, domain_enum namespace,
+			      const char *name, domain_enum domain,
 			      int global,
 			      int (*callback) (struct block *,
 					       struct symbol *, void *),
@@ -1254,7 +1254,7 @@ map_matching_symbols_psymtab (struct objfile *objfile,
     {
       QUIT;
       if (ps->readin
-	  || match_partial_symbol (objfile, ps, global, name, namespace, match,
+	  || match_partial_symbol (objfile, ps, global, name, domain, match,
 				   ordered_compare))
 	{
 	  struct symtab *s = psymtab_to_symtab (objfile, ps);
@@ -1263,7 +1263,7 @@ map_matching_symbols_psymtab (struct objfile *objfile,
 	  if (s == NULL || !s->primary)
 	    continue;
 	  block = BLOCKVECTOR_BLOCK (BLOCKVECTOR (s), block_kind);
-	  if (map_block (name, namespace, objfile, block,
+	  if (map_block (name, domain, objfile, block,
 			 callback, data, match))
 	    return;
 	  if (callback (block, NULL, data))

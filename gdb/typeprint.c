@@ -500,12 +500,12 @@ whatis_command (char *exp, int from_tty)
   whatis_exp (exp, -1);
 }
 
-/* TYPENAME is either the name of a type, or an expression.  */
+/* TYPE_NAME is either the name of a type, or an expression.  */
 
 static void
-ptype_command (char *typename, int from_tty)
+ptype_command (char *type_name, int from_tty)
 {
-  whatis_exp (typename, 1);
+  whatis_exp (type_name, 1);
 }
 
 /* Print integral scalar data VAL, of type TYPE, onto stdio stream STREAM.
@@ -596,16 +596,16 @@ print_type_scalar (struct type *type, LONGEST val, struct ui_file *stream)
    and whatis_command().  */
 
 void
-maintenance_print_type (char *typename, int from_tty)
+maintenance_print_type (char *type_name, int from_tty)
 {
   struct value *val;
   struct type *type;
   struct cleanup *old_chain;
   struct expression *expr;
 
-  if (typename != NULL)
+  if (type_name != NULL)
     {
-      expr = parse_expression (typename);
+      expr = parse_expression (type_name);
       old_chain = make_cleanup (free_current_contents, &expr);
       if (expr->elts[0].opcode == OP_TYPE)
 	{

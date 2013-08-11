@@ -92,7 +92,7 @@ struct block
 	 this block: using directives and the current namespace
 	 scope.  */
       
-      struct block_namespace_info *namespace;
+      struct block_namespace_info *namespace_info;
     }
     cplus_specific;
   }
@@ -119,7 +119,8 @@ struct global_block
 #define BLOCK_FUNCTION(bl)	(bl)->function
 #define BLOCK_SUPERBLOCK(bl)	(bl)->superblock
 #define BLOCK_DICT(bl)		(bl)->dict
-#define BLOCK_NAMESPACE(bl)   (bl)->language_specific.cplus_specific.namespace
+#define BLOCK_NAMESPACE(bl) \
+  (bl)->language_specific.cplus_specific.namespace_info
 
 struct blockvector
 {

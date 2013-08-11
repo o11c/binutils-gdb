@@ -60,7 +60,7 @@ static void overload_list_add_symbol (struct symbol *sym,
 				      const char *oload_name);
 
 static void make_symbol_overload_list_using (const char *func_name,
-					     const char *namespace);
+					     const char *name_space);
 
 static void make_symbol_overload_list_qualified (const char *func_name);
 
@@ -1170,7 +1170,7 @@ overload_list_add_symbol (struct symbol *sym,
 
 struct symbol **
 make_symbol_overload_list (const char *func_name,
-			   const char *namespace)
+			   const char *name_space)
 {
   struct cleanup *old_cleanups;
   const char *name;
@@ -1183,15 +1183,15 @@ make_symbol_overload_list (const char *func_name,
 
   old_cleanups = make_cleanup (xfree, sym_return_val);
 
-  make_symbol_overload_list_using (func_name, namespace);
+  make_symbol_overload_list_using (func_name, name_space);
 
-  if (namespace[0] == '\0')
+  if (name_space[0] == '\0')
     name = func_name;
   else
     {
       char *concatenated_name
-	= alloca (strlen (namespace) + 2 + strlen (func_name) + 1);
-      strcpy (concatenated_name, namespace);
+	= alloca (strlen (name_space) + 2 + strlen (func_name) + 1);
+      strcpy (concatenated_name, name_space);
       strcat (concatenated_name, "::");
       strcat (concatenated_name, func_name);
       name = concatenated_name;
@@ -1220,23 +1220,23 @@ make_symbol_overload_list_block (const char *name,
     overload_list_add_symbol (sym, name);
 }
 
-/* Adds the function FUNC_NAME from NAMESPACE to the overload set.  */
+/* Adds the function FUNC_NAME from NAME_SPACE to the overload set.  */
 
 static void
 make_symbol_overload_list_namespace (const char *func_name,
-                                     const char *namespace)
+                                     const char *name_space)
 {
   const char *name;
   const struct block *block = NULL;
 
-  if (namespace[0] == '\0')
+  if (name_space[0] == '\0')
     name = func_name;
   else
     {
       char *concatenated_name
-	= alloca (strlen (namespace) + 2 + strlen (func_name) + 1);
+	= alloca (strlen (name_space) + 2 + strlen (func_name) + 1);
 
-      strcpy (concatenated_name, namespace);
+      strcpy (concatenated_name, name_space);
       strcat (concatenated_name, "::");
       strcat (concatenated_name, func_name);
       name = concatenated_name;
@@ -1261,7 +1261,7 @@ static void
 make_symbol_overload_list_adl_namespace (struct type *type,
                                          const char *func_name)
 {
-  char *namespace;
+  char *name_space;
   const char *type_name;
   int i, prefix_len;
 
@@ -1285,11 +1285,11 @@ make_symbol_overload_list_adl_namespace (struct type *type,
 
   if (prefix_len != 0)
     {
-      namespace = alloca (prefix_len + 1);
-      strncpy (namespace, type_name, prefix_len);
-      namespace[prefix_len] = '\0';
+      name_space = alloca (prefix_len + 1);
+      strncpy (name_space, type_name, prefix_len);
+      name_space[prefix_len] = '\0';
 
-      make_symbol_overload_list_namespace (func_name, namespace);
+      make_symbol_overload_list_namespace (func_name, name_space);
     }
 
   /* Check public base type */
@@ -1338,7 +1338,7 @@ reset_directive_searched (void *data)
 
 static void
 make_symbol_overload_list_using (const char *func_name,
-				 const char *namespace)
+				 const char *name_space)
 {
   struct using_direct *current;
   const struct block *block;
@@ -1363,7 +1363,7 @@ make_symbol_overload_list_using (const char *func_name,
         if (current->alias != NULL || current->declaration != NULL)
           continue;
 
-        if (strcmp (namespace, current->import_dest) == 0)
+        if (strcmp (name_space, current->import_dest) == 0)
 	  {
 	    /* Mark this import as searched so that the recursive call
 	       does not search it again.  */
@@ -1381,7 +1381,7 @@ make_symbol_overload_list_using (const char *func_name,
       }
 
   /* Now, add names for this namespace.  */
-  make_symbol_overload_list_namespace (func_name, namespace);
+  make_symbol_overload_list_namespace (func_name, name_space);
 }
 
 /* This does the bulk of the work of finding overloaded symbols.

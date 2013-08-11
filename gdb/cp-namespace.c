@@ -210,9 +210,9 @@ cp_add_using_directive (const char *dest,
    namespace; return nonzero if so.  */
 
 int
-cp_is_anonymous (const char *namespace)
+cp_is_anonymous (const char *name_space)
 {
-  return (strstr (namespace, CP_ANONYMOUS_NAMESPACE_STR)
+  return (strstr (name_space, CP_ANONYMOUS_NAMESPACE_STR)
 	  != NULL);
 }
 
@@ -241,30 +241,30 @@ cp_lookup_symbol_nonlocal (const char *name,
 				     block, domain);
 }
 
-/* Look up NAME in the C++ namespace NAMESPACE.  Other arguments are
+/* Look up NAME in the C++ namespace NAME_SPACE.  Other arguments are
    as in cp_lookup_symbol_nonlocal.  If SEARCH is non-zero, search
    through base classes for a matching symbol.  */
 
 static struct symbol *
-cp_lookup_symbol_in_namespace (const char *namespace,
+cp_lookup_symbol_in_namespace (const char *name_space,
                                const char *name,
                                const struct block *block,
                                const domain_enum domain, int search)
 {
-  if (namespace[0] == '\0')
+  if (name_space[0] == '\0')
     {
       return lookup_symbol_file (name, block, domain, 0, search);
     }
   else
     {
-      char *concatenated_name = alloca (strlen (namespace) + 2
+      char *concatenated_name = alloca (strlen (name_space) + 2
 					+ strlen (name) + 1);
 
-      strcpy (concatenated_name, namespace);
+      strcpy (concatenated_name, name_space);
       strcat (concatenated_name, "::");
       strcat (concatenated_name, name);
       return lookup_symbol_file (concatenated_name, block, domain,
-				 cp_is_anonymous (namespace), search);
+				 cp_is_anonymous (name_space), search);
     }
 }
 
@@ -357,7 +357,7 @@ cp_lookup_symbol_imports (const char *scope,
 	  /* If there is an import of a single declaration, compare the
 	     imported declaration (after optional renaming by its alias)
 	     with the sought out name.  If there is a match pass
-	     current->import_src as NAMESPACE to direct the search
+	     current->import_src as NAME_SPACE to direct the search
 	     towards the imported namespace.  */
 	  if (current->declaration
 	      && strcmp (name, current->alias
@@ -403,7 +403,7 @@ cp_lookup_symbol_imports (const char *scope,
 	  else if (current->alias == NULL)
 	    {
 	      /* If this import statement creates no alias, pass
-		 current->inner as NAMESPACE to direct the search
+		 current->inner as NAME_SPACE to direct the search
 		 towards the imported namespace.  */
 	      sym = cp_lookup_symbol_imports (current->import_src,
 					      name, block,
@@ -570,7 +570,7 @@ lookup_namespace_scope (const char *name,
 			const char *scope,
 			int scope_len)
 {
-  char *namespace;
+  char *name_space;
 
   if (scope[scope_len] != '\0')
     {
@@ -595,10 +595,10 @@ lookup_namespace_scope (const char *name,
   /* Okay, we didn't find a match in our children, so look for the
      name in the current namespace.  */
 
-  namespace = alloca (scope_len + 1);
-  strncpy (namespace, scope, scope_len);
-  namespace[scope_len] = '\0';
-  return cp_lookup_symbol_in_namespace (namespace, name,
+  name_space = alloca (scope_len + 1);
+  strncpy (name_space, scope, scope_len);
+  name_space[scope_len] = '\0';
+  return cp_lookup_symbol_in_namespace (name_space, name,
 					block, domain, 1);
 }
 

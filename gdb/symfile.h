@@ -220,11 +220,11 @@ struct quick_symbol_functions
   void (*expand_symtabs_with_fullname) (struct objfile *objfile,
 					const char *fullname);
 
-  /* Find global or static symbols in all tables that are in NAMESPACE 
+  /* Find global or static symbols in all tables that are in DOMAIN
      and for which MATCH (symbol name, NAME) == 0, passing each to 
      CALLBACK, reading in partial symbol tables as needed.  Look
      through global symbols if GLOBAL and otherwise static symbols.
-     Passes NAME, NAMESPACE, and DATA to CALLBACK with each symbol
+     Passes NAME, DOMAIN, and DATA to CALLBACK with each symbol
      found.  After each block is processed, passes NULL to CALLBACK.
      MATCH must be weaker than strcmp_iw_ordered in the sense that
      strcmp_iw_ordered(x,y) == 0 --> MATCH(x,y) == 0.  ORDERED_COMPARE,
@@ -237,7 +237,7 @@ struct quick_symbol_functions
      CALLBACK returns 0 to indicate that the scan should continue, or
      non-zero to indicate that the scan should be terminated.  */
 
-  void (*map_matching_symbols) (const char *name, domain_enum namespace,
+  void (*map_matching_symbols) (const char *name, domain_enum domain,
 				struct objfile *, int global,
 				int (*callback) (struct block *,
 						 struct symbol *, void *),

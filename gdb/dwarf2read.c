@@ -3446,7 +3446,7 @@ dw2_expand_symtabs_with_fullname (struct objfile *objfile,
 }
 
 static void
-dw2_map_matching_symbols (const char * name, domain_enum namespace,
+dw2_map_matching_symbols (const char * name, domain_enum domain,
 			  struct objfile *objfile, int global,
 			  int (*callback) (struct block *,
 					   struct symbol *, void *),

@@ -7484,17 +7484,17 @@ struct type *
 ada_find_parallel_type (struct type *type, const char *suffix)
 {
   char *name;
-  const char *typename = ada_type_name (type);
+  const char *type_name = ada_type_name (type);
   int len;
 
-  if (typename == NULL)
+  if (type_name == NULL)
     return NULL;
 
-  len = strlen (typename);
+  len = strlen (type_name);
 
   name = (char *) alloca (len + strlen (suffix) + 1);
 
-  strcpy (name, typename);
+  strcpy (name, type_name);
   strcpy (name + len, suffix);
 
   return ada_find_parallel_type_with_name (type, name);

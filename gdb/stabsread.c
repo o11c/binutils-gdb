@@ -4548,9 +4548,9 @@ cleanup_undefined_types_1 (void)
 		struct pending *ppt;
 		int i;
 		/* Name of the type, without "struct" or "union".  */
-		const char *typename = TYPE_TAG_NAME (*type);
+		const char *type_name = TYPE_TAG_NAME (*type);
 
-		if (typename == NULL)
+		if (type_name == NULL)
 		  {
 		    complaint (&symfile_complaints, _("need a type name"));
 		    break;
@@ -4568,7 +4568,7 @@ cleanup_undefined_types_1 (void)
 			    && (TYPE_INSTANCE_FLAGS (*type) ==
 				TYPE_INSTANCE_FLAGS (SYMBOL_TYPE (sym)))
 			    && strcmp (SYMBOL_LINKAGE_NAME (sym),
-				       typename) == 0)
+				       type_name) == 0)
                           replace_type (*type, SYMBOL_TYPE (sym));
 		      }
 		  }

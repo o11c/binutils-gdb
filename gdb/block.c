@@ -34,7 +34,7 @@
 struct block_namespace_info
 {
   const char *scope;
-  struct using_direct *using;
+  struct using_direct *using_direct;
 };
 
 static void block_initialize_namespace (struct block *block,
@@ -300,21 +300,21 @@ block_using (const struct block *block)
   if (block == NULL || BLOCK_NAMESPACE (block) == NULL)
     return NULL;
   else
-    return BLOCK_NAMESPACE (block)->using;
+    return BLOCK_NAMESPACE (block)->using_direct;
 }
 
-/* Set BLOCK's using member to USING; if needed, allocate memory via
-   OBSTACK.  (It won't make a copy of USING, however, so that already
+/* Set BLOCK's using member to USING_DIRECT; if needed, allocate memory via
+   OBSTACK.  (It won't make a copy of USING_DIRECT, however, so that already
    has to be allocated correctly.)  */
 
 void
 block_set_using (struct block *block,
-		 struct using_direct *using,
+		 struct using_direct *using_direct,
 		 struct obstack *obstack)
 {
   block_initialize_namespace (block, obstack);
 
-  BLOCK_NAMESPACE (block)->using = using;
+  BLOCK_NAMESPACE (block)->using_direct = using_direct;
 }
 
 /* If BLOCK_NAMESPACE (block) is NULL, allocate it via OBSTACK and
@@ -328,7 +328,7 @@ block_initialize_namespace (struct block *block, struct obstack *obstack)
       BLOCK_NAMESPACE (block)
 	= obstack_alloc (obstack, sizeof (struct block_namespace_info));
       BLOCK_NAMESPACE (block)->scope = NULL;
-      BLOCK_NAMESPACE (block)->using = NULL;
+      BLOCK_NAMESPACE (block)->using_direct = NULL;
     }
 }
 

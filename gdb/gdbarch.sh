@@ -340,8 +340,8 @@ function_list ()
   cat <<EOF
 i:const struct bfd_arch_info *:bfd_arch_info:::&bfd_default_arch_struct::::gdbarch_bfd_arch_info (gdbarch)->printable_name
 #
-i:int:byte_order:::BFD_ENDIAN_BIG
-i:int:byte_order_for_code:::BFD_ENDIAN_BIG
+i:enum bfd_endian:byte_order:::BFD_ENDIAN_BIG
+i:enum bfd_endian:byte_order_for_code:::BFD_ENDIAN_BIG
 #
 i:enum gdb_osabi:osabi:::GDB_OSABI_UNKNOWN
 #

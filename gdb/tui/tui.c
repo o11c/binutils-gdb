@@ -381,9 +381,12 @@ tui_enable (void)
   if (tui_finish_init)
     {
       WINDOW *w;
+      SCREEN *s = newterm(NULL, NULL, NULL);
+      if (!s)
+        error (_("TUI mode not allowed"));
 
-      w = initscr ();
-  
+      w = stdscr;
+
       cbreak ();
       noecho ();
       /* timeout (1); */

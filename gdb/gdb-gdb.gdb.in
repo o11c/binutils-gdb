@@ -21,7 +21,7 @@ if !$gdb_init_done
   # Commands below are not fully compatible with wrapping into an 'if' block.
 end
 
-set prompt (top-gdb) 
+set prompt (top-gdb)
 
 define pdie
   if $argc == 1

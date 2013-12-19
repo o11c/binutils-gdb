@@ -1,5 +1,5 @@
 /* Routines for name->symbol lookups in GDB.
-   
+
    Copyright (C) 2003-2013 Free Software Foundation, Inc.
 
    Contributed by David Carlton <carlton@bactrian.org> and by Kealia,
@@ -44,7 +44,7 @@
    is:
 
    * Add a new element DICT_<IMPL> to dict_type.
-   
+
    * Create a new structure dictionary_<impl>.  If your new
    implementation is a variant of an existing one, make sure that
    their structs have the same initial data members.  Define accessor
@@ -570,7 +570,7 @@ dict_size (const struct dictionary *dict)
 {
   return (DICT_VECTOR (dict))->size (dict);
 }
- 
+
 /* Now come functions (well, one function, currently) that are
    implemented generically by means of the vtable.  Typically, they're
    rarely used.  */
@@ -620,7 +620,7 @@ iterator_next_hashed (struct dict_iterator *iterator)
   struct symbol *next;
 
   next = DICT_ITERATOR_CURRENT (iterator)->hash_next;
-  
+
   if (next == NULL)
     return iterator_hashed_advance (iterator);
   else
@@ -640,7 +640,7 @@ iterator_hashed_advance (struct dict_iterator *iterator)
   for (i = DICT_ITERATOR_INDEX (iterator) + 1; i < nbuckets; ++i)
     {
       struct symbol *sym = DICT_HASHED_BUCKET (dict, i);
-      
+
       if (sym != NULL)
 	{
 	  DICT_ITERATOR_INDEX (iterator) = i;
@@ -665,7 +665,7 @@ iter_match_first_hashed (const struct dictionary *dict, const char *name,
   /* Loop through the symbols in the given bucket, breaking when SYM
      first matches.  If SYM never matches, it will be set to NULL;
      either way, we have the right return value.  */
-  
+
   for (sym = DICT_HASHED_BUCKET (dict, hash_index);
        sym != NULL;
        sym = sym->hash_next)
@@ -675,7 +675,7 @@ iter_match_first_hashed (const struct dictionary *dict, const char *name,
 	{
 	  break;
 	}
-	
+
     }
 
   DICT_ITERATOR_CURRENT (iterator) = sym;
@@ -710,7 +710,7 @@ insert_symbol_hashed (struct dictionary *dict,
   unsigned int hash_index;
   struct symbol **buckets = DICT_HASHED_BUCKETS (dict);
 
-  hash_index = 
+  hash_index =
     dict_hash (SYMBOL_SEARCH_NAME (sym)) % DICT_HASHED_NBUCKETS (dict);
   sym->hash_next = buckets[hash_index];
   buckets[hash_index] = sym;
@@ -768,7 +768,7 @@ expand_hashtable (struct dictionary *dict)
       struct symbol *sym, *next_sym;
 
       sym = old_buckets[i];
-      if (sym != NULL) 
+      if (sym != NULL)
 	{
 	  for (next_sym = sym->hash_next;
 	       next_sym != NULL;
@@ -798,7 +798,7 @@ dict_hash (const char *string0)
      are lower-cased identifiers).  The <suffix> (which can be empty)
      encodes additional information about the denoted entity.  This
      routine hashes such names to msymbol_hash_iw(Pn).  It actually
-     does this for a superset of both valid Pi and of <suffix>, but 
+     does this for a superset of both valid Pi and of <suffix>, but
      in other cases it simply returns msymbol_hash_iw(STRING0).  */
 
   const char *string;
@@ -912,7 +912,7 @@ iter_match_next_linear (const char *name, symbol_compare_ftype *compare,
     }
 
   DICT_ITERATOR_INDEX (iterator) = i;
-  
+
   return retval;
 }
 

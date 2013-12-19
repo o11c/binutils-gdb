@@ -96,7 +96,7 @@ fetch_fpregister (struct regcache *regcache, int regno)
 {
   int ret, tid;
   gdb_byte fp[ARM_LINUX_SIZEOF_NWFPE];
-  
+
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
 
@@ -129,7 +129,7 @@ fetch_fpregs (struct regcache *regcache)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   /* Read the floating point state.  */
   ret = ptrace (PT_GETFPREGS, tid, 0, fp);
   if (ret < 0)
@@ -158,7 +158,7 @@ store_fpregister (const struct regcache *regcache, int regno)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   /* Read the floating point state.  */
   ret = ptrace (PT_GETFPREGS, tid, 0, fp);
   if (ret < 0)
@@ -195,7 +195,7 @@ store_fpregs (const struct regcache *regcache)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   /* Read the floating point state.  */
   ret = ptrace (PT_GETFPREGS, tid, 0, fp);
   if (ret < 0)
@@ -232,7 +232,7 @@ fetch_register (struct regcache *regcache, int regno)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   ret = ptrace (PTRACE_GETREGS, tid, 0, &regs);
   if (ret < 0)
     {
@@ -252,9 +252,9 @@ fetch_register (struct regcache *regcache, int regno)
         regcache_raw_supply (regcache, ARM_PS_REGNUM,
 			     (char *) &regs[ARM_PC_REGNUM]);
     }
-    
+
   if (ARM_PC_REGNUM == regno)
-    { 
+    {
       regs[ARM_PC_REGNUM] = gdbarch_addr_bits_remove
 			      (get_regcache_arch (regcache),
 			       regs[ARM_PC_REGNUM]);
@@ -274,7 +274,7 @@ fetch_regs (struct regcache *regcache)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   ret = ptrace (PTRACE_GETREGS, tid, 0, &regs);
   if (ret < 0)
     {
@@ -306,13 +306,13 @@ store_register (const struct regcache *regcache, int regno)
 {
   int ret, tid;
   elf_gregset_t regs;
-  
+
   if (REG_VALID != regcache_register_status (regcache, regno))
     return;
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   /* Get the general registers from the process.  */
   ret = ptrace (PTRACE_GETREGS, tid, 0, &regs);
   if (ret < 0)
@@ -346,7 +346,7 @@ store_regs (const struct regcache *regcache)
 
   /* Get the thread id for the ptrace call.  */
   tid = GET_THREAD_ID (inferior_ptid);
-  
+
   /* Fetch the general registers.  */
   ret = ptrace (PTRACE_GETREGS, tid, 0, &regs);
   if (ret < 0)
@@ -529,7 +529,7 @@ arm_linux_fetch_inferior_registers (struct target_ops *ops,
       if (arm_linux_vfp_register_count > 0)
 	fetch_vfp_regs (regcache);
     }
-  else 
+  else
     {
       if (regno < ARM_F0_REGNUM || regno == ARM_PS_REGNUM)
         fetch_register (regcache, regno);
@@ -582,7 +582,7 @@ arm_linux_store_inferior_registers (struct target_ops *ops,
    thread debugging.  */
 
 void
-fill_gregset (const struct regcache *regcache,	
+fill_gregset (const struct regcache *regcache,
 	      gdb_gregset_t *gregsetp, int regno)
 {
   arm_linux_collect_gregset (NULL, regcache, regno, gregsetp, 0);
@@ -694,7 +694,7 @@ struct arm_linux_hwbp_cap
 };
 
 /* Get hold of the Hardware Breakpoint information for the target we are
-   attached to.  Returns NULL if the kernel doesn't support Hardware 
+   attached to.  Returns NULL if the kernel doesn't support Hardware
    breakpoints at all, or a pointer to the information structure.  */
 static const struct arm_linux_hwbp_cap *
 arm_linux_get_hwbp_cap (void)
@@ -790,7 +790,7 @@ struct arm_linux_hw_breakpoint
 /* Structure containing arrays of the break and watch points which are have
    active in each thread.
 
-   The Linux ptrace interface to hardware break-/watch-points presents the 
+   The Linux ptrace interface to hardware break-/watch-points presents the
    values in a vector centred around 0 (which is used fo generic information).
    Positive indicies refer to breakpoint addresses/control registers, negative
    indices to watchpoint addresses/control registers.
@@ -802,8 +802,8 @@ struct arm_linux_hw_breakpoint
        ((i << 1) + 1): Address register for breakpoint i.
        ((i << 1) + 2): Control register for breakpoint i.
 
-   This structure is used as a per-thread cache of the state stored by the 
-   kernel, so that we don't need to keep calling into the kernel to find a 
+   This structure is used as a per-thread cache of the state stored by the
+   kernel, so that we don't need to keep calling into the kernel to find a
    free breakpoint.
 
    We treat break-/watch-points with their enable bit clear as being deleted.
@@ -854,16 +854,16 @@ arm_linux_find_breakpoints_by_tid (int tid, int alloc_new)
 }
 
 /* Initialize an ARM hardware break-/watch-point control register value.
-   BYTE_ADDRESS_SELECT is the mask of bytes to trigger on; HWBP_TYPE is the 
+   BYTE_ADDRESS_SELECT is the mask of bytes to trigger on; HWBP_TYPE is the
    type of break-/watch-point; ENABLE indicates whether the point is enabled.
    */
-static arm_hwbp_control_t 
+static arm_hwbp_control_t
 arm_hwbp_control_initialize (unsigned byte_address_select,
 			     arm_hwbp_type hwbp_type,
 			     int enable)
 {
   gdb_assert ((byte_address_select & ~0xffU) == 0);
-  gdb_assert (hwbp_type != arm_hwbp_break 
+  gdb_assert (hwbp_type != arm_hwbp_break
 	      || ((byte_address_select & 0xfU) != 0));
 
   return (byte_address_select << 5) | (hwbp_type << 3) | (3 << 1) | enable;
@@ -912,7 +912,7 @@ arm_linux_hw_breakpoint_initialize (struct gdbarch *gdbarch,
 
 /* Get the ARM hardware breakpoint type from the RW value we're given when
    asked to set a watchpoint.  */
-static arm_hwbp_type 
+static arm_hwbp_type
 arm_linux_get_hwbp_type (int rw)
 {
   if (rw == hw_read)
@@ -938,7 +938,7 @@ arm_linux_hw_watchpoint_initialize (CORE_ADDR addr, int len, int rw,
   mask = (1 << len) - 1;
 
   p->address = (unsigned int) addr;
-  p->control = arm_hwbp_control_initialize (mask, 
+  p->control = arm_hwbp_control_initialize (mask,
 					    arm_linux_get_hwbp_type (rw), 1);
 }
 
@@ -953,7 +953,7 @@ arm_linux_hw_breakpoint_equal (const struct arm_linux_hw_breakpoint *p1,
 /* Insert the hardware breakpoint (WATCHPOINT = 0) or watchpoint (WATCHPOINT
    =1) BPT for thread TID.  */
 static void
-arm_linux_insert_hw_breakpoint1 (const struct arm_linux_hw_breakpoint* bpt, 
+arm_linux_insert_hw_breakpoint1 (const struct arm_linux_hw_breakpoint* bpt,
 				int tid, int watchpoint)
 {
   struct arm_linux_thread_points *t = arm_linux_find_breakpoints_by_tid (tid, 1);
@@ -980,10 +980,10 @@ arm_linux_insert_hw_breakpoint1 (const struct arm_linux_hw_breakpoint* bpt,
     if (!arm_hwbp_control_is_enabled (bpts[i].control))
       {
 	errno = 0;
-	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 1), 
+	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 1),
 		    &bpt->address) < 0)
 	  perror_with_name (_("Unexpected error setting breakpoint address"));
-	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 2), 
+	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 2),
 		    &bpt->control) < 0)
 	  perror_with_name (_("Unexpected error setting breakpoint"));
 
@@ -997,7 +997,7 @@ arm_linux_insert_hw_breakpoint1 (const struct arm_linux_hw_breakpoint* bpt,
 /* Remove the hardware breakpoint (WATCHPOINT = 0) or watchpoint
    (WATCHPOINT = 1) BPT for thread TID.  */
 static void
-arm_linux_remove_hw_breakpoint1 (const struct arm_linux_hw_breakpoint *bpt, 
+arm_linux_remove_hw_breakpoint1 (const struct arm_linux_hw_breakpoint *bpt,
 				 int tid, int watchpoint)
 {
   struct arm_linux_thread_points *t = arm_linux_find_breakpoints_by_tid (tid, 0);
@@ -1025,7 +1025,7 @@ arm_linux_remove_hw_breakpoint1 (const struct arm_linux_hw_breakpoint *bpt,
       {
 	errno = 0;
 	bpts[i].control = arm_hwbp_control_disable (bpts[i].control);
-	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 2), 
+	if (ptrace (PTRACE_SETHBPREGS, tid, dir * ((i << 1) + 2),
 		    &bpts[i].control) < 0)
 	  perror_with_name (_("Unexpected error clearing breakpoint"));
 	break;
@@ -1036,7 +1036,7 @@ arm_linux_remove_hw_breakpoint1 (const struct arm_linux_hw_breakpoint *bpt,
 
 /* Insert a Hardware breakpoint.  */
 static int
-arm_linux_insert_hw_breakpoint (struct gdbarch *gdbarch, 
+arm_linux_insert_hw_breakpoint (struct gdbarch *gdbarch,
 				struct bp_target_info *bp_tgt)
 {
   struct lwp_info *lp;
@@ -1054,7 +1054,7 @@ arm_linux_insert_hw_breakpoint (struct gdbarch *gdbarch,
 
 /* Remove a hardware breakpoint.  */
 static int
-arm_linux_remove_hw_breakpoint (struct gdbarch *gdbarch, 
+arm_linux_remove_hw_breakpoint (struct gdbarch *gdbarch,
 				struct bp_target_info *bp_tgt)
 {
   struct lwp_info *lp;
@@ -1070,7 +1070,7 @@ arm_linux_remove_hw_breakpoint (struct gdbarch *gdbarch,
   return 0;
 }
 
-/* Are we able to use a hardware watchpoint for the LEN bytes starting at 
+/* Are we able to use a hardware watchpoint for the LEN bytes starting at
    ADDR?  */
 static int
 arm_linux_region_ok_for_hw_watchpoint (CORE_ADDR addr, int len)
@@ -1228,7 +1228,7 @@ arm_linux_thread_exit (struct thread_info *tp, int silent)
       int tid = ptid_get_lwp (tp->ptid);
       struct arm_linux_thread_points *t = NULL, *p;
 
-      for (i = 0; 
+      for (i = 0;
 	   VEC_iterate (arm_linux_thread_points_p, arm_threads, i, p); i++)
 	{
 	  if (p->tid == tid)

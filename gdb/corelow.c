@@ -315,7 +315,7 @@ core_open (char *filename, int from_tty)
   if (scratch_chan < 0)
     perror_with_name (filename);
 
-  temp_bfd = gdb_bfd_fopen (filename, gnutarget, 
+  temp_bfd = gdb_bfd_fopen (filename, gnutarget,
 			    write_files ? FOPEN_RUB : FOPEN_RB,
 			    scratch_chan);
   if (temp_bfd == NULL)
@@ -869,7 +869,7 @@ static const struct target_desc *
 core_read_description (struct target_ops *target)
 {
   if (core_gdbarch && gdbarch_core_read_description_p (core_gdbarch))
-    return gdbarch_core_read_description (core_gdbarch, 
+    return gdbarch_core_read_description (core_gdbarch,
 					  target, core_bfd);
 
   return NULL;
@@ -968,7 +968,7 @@ init_core_ops (void)
   core_ops.to_magic = OPS_MAGIC;
 
   if (core_target)
-    internal_error (__FILE__, __LINE__, 
+    internal_error (__FILE__, __LINE__,
 		    _("init_core_ops: core target already exists (\"%s\")."),
 		    core_target->to_longname);
   core_target = &core_ops;

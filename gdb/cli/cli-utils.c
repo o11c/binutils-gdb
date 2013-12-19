@@ -143,10 +143,10 @@ get_number_or_range (struct get_number_or_range_state *state)
 	     Skip the '-', parse and remember the second number,
 	     and also remember the end of the final token.  */
 
-	  temp = &state->end_ptr; 
+	  temp = &state->end_ptr;
 	  state->end_ptr = skip_spaces (state->string + 1);
 	  state->end_value = get_number (temp);
-	  if (state->end_value < state->last_retval) 
+	  if (state->end_value < state->last_retval)
 	    {
 	      error (_("inverted range"));
 	    }
@@ -154,7 +154,7 @@ get_number_or_range (struct get_number_or_range_state *state)
 	    {
 	      /* Degenerate range (number1 == number2).  Advance the
 		 token pointer so that the range will be treated as a
-		 single number.  */ 
+		 single number.  */
 	      state->string = state->end_ptr;
 	    }
 	  else
@@ -182,12 +182,12 @@ get_number_or_range (struct get_number_or_range_state *state)
   return state->last_retval;
 }
 
-/* Accept a number and a string-form list of numbers such as is 
+/* Accept a number and a string-form list of numbers such as is
    accepted by get_number_or_range.  Return TRUE if the number is
    in the list.
 
-   By definition, an empty list includes all numbers.  This is to 
-   be interpreted as typing a command such as "delete break" with 
+   By definition, an empty list includes all numbers.  This is to
+   be interpreted as typing a command such as "delete break" with
    no arguments.  */
 
 int

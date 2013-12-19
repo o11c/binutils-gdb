@@ -136,7 +136,7 @@ i387_cache_to_fsave (struct regcache *regcache, void *buf)
 
   collect_register_by_name (regcache, "fioff", &fp->fioff);
   collect_register_by_name (regcache, "fooff", &fp->fooff);
-  
+
   /* This one's 11 bits... */
   collect_register_by_name (regcache, "fop", &val2);
   fp->fop = (val2 & 0x7FF) | (fp->fop & 0xF800);
@@ -277,11 +277,11 @@ i387_cache_to_xsave (struct regcache *regcache, void *buf)
 	  memset (((char *) &fp->st_space[0]) + i * 16, 0, 10);
 
       if ((clear_bv & I386_XSTATE_SSE))
-	for (i = 0; i < num_xmm_registers; i++) 
+	for (i = 0; i < num_xmm_registers; i++)
 	  memset (((char *) &fp->xmm_space[0]) + i * 16, 0, 16);
 
       if ((clear_bv & I386_XSTATE_AVX))
-	for (i = 0; i < num_xmm_registers; i++) 
+	for (i = 0; i < num_xmm_registers; i++)
 	  memset (((char *) &fp->ymmh_space[0]) + i * 16, 0, 16);
 
       if ((clear_bv & I386_XSTATE_BNDREGS))
@@ -315,7 +315,7 @@ i387_cache_to_xsave (struct regcache *regcache, void *buf)
     {
       int xmm0_regnum = find_regno (regcache->tdesc, "xmm0");
 
-      for (i = 0; i < num_xmm_registers; i++) 
+      for (i = 0; i < num_xmm_registers; i++)
 	{
 	  collect_register (regcache, i + xmm0_regnum, raw);
 	  p = ((char *) &fp->xmm_space[0]) + i * 16;
@@ -332,7 +332,7 @@ i387_cache_to_xsave (struct regcache *regcache, void *buf)
     {
       int ymm0h_regnum = find_regno (regcache->tdesc, "ymm0h");
 
-      for (i = 0; i < num_xmm_registers; i++) 
+      for (i = 0; i < num_xmm_registers; i++)
 	{
 	  collect_register (regcache, i + ymm0h_regnum, raw);
 	  p = ((char *) &fp->ymmh_space[0]) + i * 16;

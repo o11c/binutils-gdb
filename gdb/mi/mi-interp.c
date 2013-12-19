@@ -324,7 +324,7 @@ mi_new_thread (struct thread_info *t)
 
   gdb_assert (inf);
 
-  fprintf_unfiltered (mi->event_channel, 
+  fprintf_unfiltered (mi->event_channel,
 		      "thread-created,id=\"%d\",group-id=\"i%d\"",
 		      t->num, inf->num);
   gdb_flush (mi->event_channel);
@@ -343,7 +343,7 @@ mi_thread_exit (struct thread_info *t, int silent)
 
   mi = top_level_interpreter_data ();
   target_terminal_ours ();
-  fprintf_unfiltered (mi->event_channel, 
+  fprintf_unfiltered (mi->event_channel,
 		      "thread-exited,id=\"%d\",group-id=\"i%d\"",
 		      t->num, inf->num);
   gdb_flush (mi->event_channel);
@@ -400,7 +400,7 @@ mi_inferior_exit (struct inferior *inf)
     fprintf_unfiltered (mi->event_channel,
 			"thread-group-exited,id=\"i%d\"", inf->num);
 
-  gdb_flush (mi->event_channel);  
+  gdb_flush (mi->event_channel);
 }
 
 static void
@@ -451,7 +451,7 @@ mi_on_normal_stop (struct bpstats *bs, int print_frame)
 			pid_to_thread_id (inferior_ptid));
       if (non_stop)
 	{
-	  struct cleanup *back_to = make_cleanup_ui_out_list_begin_end 
+	  struct cleanup *back_to = make_cleanup_ui_out_list_begin_end
 	    (mi_uiout, "stopped-threads");
 
 	  ui_out_field_int (mi_uiout, NULL,
@@ -465,7 +465,7 @@ mi_on_normal_stop (struct bpstats *bs, int print_frame)
       if (core != -1)
 	ui_out_field_int (mi_uiout, "core", core);
     }
-  
+
   fputs_unfiltered ("*stopped", raw_stdout);
   mi_out_put (mi_uiout, raw_stdout);
   mi_out_rewind (mi_uiout);
@@ -936,7 +936,7 @@ mi_set_logging (struct interp *interp, int start_log,
       raw_stdout = saved_raw_stdout;
       saved_raw_stdout = NULL;
     }
-  
+
   mi_console_set_raw (mi->out, raw_stdout);
   mi_console_set_raw (mi->err, raw_stdout);
   mi_console_set_raw (mi->log, raw_stdout);

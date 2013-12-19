@@ -747,7 +747,7 @@ monitor_open (char *args, struct monitor_ops *mon_ops, int from_tty)
   if (mon_ops->setreg.resp_delim)
     compile_pattern (mon_ops->setreg.resp_delim, &setreg_resp_delim_pattern,
                      setreg_resp_delim_fastmap);
-  
+
   unpush_target (targ_ops);
 
   if (dev_name)
@@ -899,7 +899,7 @@ monitor_supply_register (struct regcache *regcache, int regno, char *valstr)
     {
       if (*p == '\r' || *p == '\n')
         {
-          while (*p != '\0') 
+          while (*p != '\0')
               p++;
           break;
         }
@@ -1354,12 +1354,12 @@ monitor_store_register (struct regcache *regcache, int regno)
   int reg_size = register_size (get_regcache_arch (regcache), regno);
   const char *name;
   ULONGEST val;
-  
+
   if (current_monitor->regname != NULL)
     name = current_monitor->regname (regno);
   else
     name = current_monitor->regnames[regno];
-  
+
   if (!name || (*name == '\0'))
     {
       monitor_debug ("MON Cannot store unknown register\n");
@@ -1517,7 +1517,7 @@ monitor_write_memory (CORE_ADDR memaddr, const gdb_byte *myaddr, int len)
       if (current_monitor->setmem.resp_delim)
         {
           monitor_debug ("EXP setmem.resp_delim");
-          monitor_expect_regexp (&setmem_resp_delim_pattern, NULL, 0); 
+          monitor_expect_regexp (&setmem_resp_delim_pattern, NULL, 0);
 	  monitor_printf ("%x\r", val);
        }
       if (current_monitor->setmem.term)
@@ -1770,7 +1770,7 @@ monitor_read_memory_single (CORE_ADDR memaddr, gdb_byte *myaddr, int len)
       if ((c == '0') && ((c = readchar (timeout)) == 'x'))
 	;
       else
-	monitor_error ("monitor_read_memory_single", 
+	monitor_error ("monitor_read_memory_single",
 		       "bad response from monitor",
 		       memaddr, 0, NULL, 0);
     }
@@ -1789,7 +1789,7 @@ monitor_read_memory_single (CORE_ADDR memaddr, gdb_byte *myaddr, int len)
 	      break;
 	    if (c == ' ')
 	      continue;
-	    
+
 	    monitor_error ("monitor_read_memory_single",
 			   "bad response from monitor",
 			   memaddr, i, membuf, 0);

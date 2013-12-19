@@ -57,7 +57,7 @@ enum gdb_regnum {
   /* Other useful registers.  */
   ARM_FP_REGNUM = 11,		/* Frame register in ARM code, if used.  */
   THUMB_FP_REGNUM = 7,		/* Frame register in Thumb code, if used.  */
-  ARM_NUM_ARG_REGS = 4, 
+  ARM_NUM_ARG_REGS = 4,
   ARM_LAST_ARG_REGNUM = ARM_A4_REGNUM,
   ARM_NUM_FP_ARG_REGS = 4,
   ARM_LAST_FP_ARG_REGNUM = ARM_F3_REGNUM
@@ -75,7 +75,7 @@ enum gdb_regnum {
    purposes and code readability.  These are fixed at 64 bits.  */
 #define VFP_REGISTER_SIZE	8
 
-/* Number of machine registers.  The only define actually required 
+/* Number of machine registers.  The only define actually required
    is gdbarch_num_regs.  The other definitions are used for documentation
    purposes and code readability.  */
 /* For 26 bit ARM code, a fake copy of the PC is placed in register 25 (PS)
@@ -117,11 +117,11 @@ enum gdb_regnum {
 /* Type of floating-point code in use by inferior.  There are really 3 models
    that are traditionally supported (plus the endianness issue), but gcc can
    only generate 2 of those.  The third is APCS_FLOAT, where arguments to
-   functions are passed in floating-point registers.  
+   functions are passed in floating-point registers.
 
-   In addition to the traditional models, VFP adds two more. 
+   In addition to the traditional models, VFP adds two more.
 
-   If you update this enum, don't forget to update fp_model_strings in 
+   If you update this enum, don't forget to update fp_model_strings in
    arm-tdep.c.  */
 
 enum arm_float_model
@@ -170,7 +170,7 @@ struct gdbarch_tdep
   int have_neon;		/* Do we have a NEON unit?  */
 
   int is_m;			/* Does the target follow the "M" profile.  */
-  CORE_ADDR lowest_pc;		/* Lowest address at which instructions 
+  CORE_ADDR lowest_pc;		/* Lowest address at which instructions
 				   will appear.  */
 
   const gdb_byte *arm_breakpoint;	/* Breakpoint pattern for an ARM insn.  */
@@ -337,7 +337,7 @@ extern int arm_psr_thumb_bit (struct gdbarch *);
    instruction?  */
 extern int arm_pc_is_thumb (struct gdbarch *, CORE_ADDR);
 
-extern int arm_process_record (struct gdbarch *gdbarch, 
+extern int arm_process_record (struct gdbarch *gdbarch,
                                struct regcache *regcache, CORE_ADDR addr);
 /* Functions exported from armbsd-tdep.h.  */
 

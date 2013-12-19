@@ -117,7 +117,7 @@ windows_get_tlb_type (struct gdbarch *gdbarch)
   /* Do not rebuild type if same gdbarch as last time.  */
   if (last_tlb_type && last_gdbarch == gdbarch)
     return last_tlb_type;
-  
+
   dword_ptr_type = arch_integer_type (gdbarch, gdbarch_ptr_bit (gdbarch),
 				 1, "DWORD_PTR");
   dword32_type = arch_integer_type (gdbarch, 32,
@@ -319,7 +319,7 @@ display_one_tib (ptid_t ptid)
       tib_size = FULL_TIB_SIZE;
       max = tib_size / size;
     }
-  
+
   tib = alloca (tib_size);
 
   if (target_get_tib_address (ptid, &thread_local_base) == 0)
@@ -334,7 +334,7 @@ display_one_tib (ptid_t ptid)
     {
       printf_filtered (_("Unable to read thread information "
 			 "block for %s at address %s\n"),
-	target_pid_to_str (ptid), 
+	target_pid_to_str (ptid),
 	paddress (target_gdbarch (), thread_local_base));
       return -1;
     }
@@ -345,7 +345,7 @@ display_one_tib (ptid_t ptid)
 
   index = (gdb_byte *) tib;
 
-  /* All fields have the size of a pointer, this allows to iterate 
+  /* All fields have the size of a pointer, this allows to iterate
      using the same for loop for both layouts.  */
   for (i = 0; i < max; i++)
     {
@@ -356,8 +356,8 @@ display_one_tib (ptid_t ptid)
 	printf_filtered (_("TIB[0x%s] is 0x%s\n"), phex (i * size, 2),
 			 phex (val, size));
       index += size;
-    } 
-  return 1;  
+    }
+  return 1;
 }
 
 /* Display thread information block of a thread specified by ARGS.

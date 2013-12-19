@@ -65,9 +65,9 @@ get_field (const bfd_byte *data, enum floatformat_byteorders order,
 	 byte needed to get to bit 0.  */
       int excess = FLOATFORMAT_CHAR_BIT - (total_len % FLOATFORMAT_CHAR_BIT);
 
-      cur_byte = (total_len / FLOATFORMAT_CHAR_BIT) 
+      cur_byte = (total_len / FLOATFORMAT_CHAR_BIT)
                  - ((start + len + excess) / FLOATFORMAT_CHAR_BIT);
-      cur_bitshift = ((start + len + excess) % FLOATFORMAT_CHAR_BIT) 
+      cur_bitshift = ((start + len + excess) % FLOATFORMAT_CHAR_BIT)
                      - FLOATFORMAT_CHAR_BIT;
     }
   else
@@ -118,7 +118,7 @@ floatformat_normalize_byteorder (const struct floatformat *fmt,
   const unsigned char *swapin;
   unsigned char *swapout;
   int words;
-  
+
   if (fmt->byteorder == floatformat_little
       || fmt->byteorder == floatformat_big)
     return fmt->byteorder;
@@ -158,7 +158,7 @@ floatformat_normalize_byteorder (const struct floatformat *fmt,
       return floatformat_big;
     }
 }
-  
+
 /* Convert from FMT to a DOUBLEST.
    FROM is the address of the extended float.
    Store the DOUBLEST in *TO.  */
@@ -178,7 +178,7 @@ convert_floatformat_to_doublest (const struct floatformat *fmt,
   enum floatformat_byteorders order;
   unsigned char newfrom[FLOATFORMAT_LARGEST_BYTES];
   enum float_kind kind;
-  
+
   gdb_assert (fmt->totalsize
 	      <= FLOATFORMAT_LARGEST_BYTES * FLOATFORMAT_CHAR_BIT);
 
@@ -291,9 +291,9 @@ put_field (unsigned char *data, enum floatformat_byteorders order,
     {
       int excess = FLOATFORMAT_CHAR_BIT - (total_len % FLOATFORMAT_CHAR_BIT);
 
-      cur_byte = (total_len / FLOATFORMAT_CHAR_BIT) 
+      cur_byte = (total_len / FLOATFORMAT_CHAR_BIT)
                  - ((start + len + excess) / FLOATFORMAT_CHAR_BIT);
-      cur_bitshift = ((start + len + excess) % FLOATFORMAT_CHAR_BIT) 
+      cur_bitshift = ((start + len + excess) % FLOATFORMAT_CHAR_BIT)
                      - FLOATFORMAT_CHAR_BIT;
     }
   else
@@ -361,7 +361,7 @@ convert_doublest_to_floatformat (CONST struct floatformat *fmt,
     uto = newto;
 
   memcpy (&dfrom, from, sizeof (dfrom));
-  memset (uto, 0, (fmt->totalsize + FLOATFORMAT_CHAR_BIT - 1) 
+  memset (uto, 0, (fmt->totalsize + FLOATFORMAT_CHAR_BIT - 1)
                     / FLOATFORMAT_CHAR_BIT);
 
   if (fmt->split_half)
@@ -474,8 +474,8 @@ convert_doublest_to_floatformat (CONST struct floatformat *fmt,
           /* If we are processing the top 32 mantissa bits of a doublest
              so as to convert to a float value with implied integer bit,
              we will only be putting 31 of those 32 bits into the
-             final value due to the discarding of the top bit.  In the 
-             case of a small float value where the number of mantissa 
+             final value due to the discarding of the top bit.  In the
+             case of a small float value where the number of mantissa
              bits is less than 32, discarding the top bit does not alter
              the number of bits we will be adding to the result.  */
           if (mant_bits == 32)
@@ -510,7 +510,7 @@ floatformat_is_negative (const struct floatformat *fmt,
 {
   enum floatformat_byteorders order;
   unsigned char newfrom[FLOATFORMAT_LARGEST_BYTES];
-  
+
   gdb_assert (fmt != NULL);
   gdb_assert (fmt->totalsize
 	      <= FLOATFORMAT_LARGEST_BYTES * FLOATFORMAT_CHAR_BIT);
@@ -541,7 +541,7 @@ floatformat_classify (const struct floatformat *fmt,
   enum floatformat_byteorders order;
   unsigned char newfrom[FLOATFORMAT_LARGEST_BYTES];
   int mant_zero;
-  
+
   gdb_assert (fmt != NULL);
   gdb_assert (fmt->totalsize
 	      <= FLOATFORMAT_LARGEST_BYTES * FLOATFORMAT_CHAR_BIT);
@@ -630,7 +630,7 @@ floatformat_mantissa (const struct floatformat *fmt,
   int len;
   enum floatformat_byteorders order;
   unsigned char newfrom[FLOATFORMAT_LARGEST_BYTES];
-  
+
   gdb_assert (fmt != NULL);
   gdb_assert (fmt->totalsize
 	      <= FLOATFORMAT_LARGEST_BYTES * FLOATFORMAT_CHAR_BIT);
@@ -786,7 +786,7 @@ floatformat_from_length (struct gdbarch *gdbarch, int len)
   /* On i386 the 'long double' type takes 96 bits,
      while the real number of used bits is only 80,
      both in processor and in memory.
-     The code below accepts the real bit size.  */ 
+     The code below accepts the real bit size.  */
   else if ((gdbarch_long_double_format (gdbarch) != NULL)
 	   && (len * TARGET_CHAR_BIT
                == gdbarch_long_double_format (gdbarch)[0]->totalsize))

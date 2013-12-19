@@ -644,7 +644,7 @@ mangled_name_to_comp (const char *mangled_name, int options,
   demangled_name = gdb_demangle (mangled_name, options);
   if (demangled_name == NULL)
    return NULL;
-  
+
   /* If we could demangle the name, parse it to build the component
      tree.  */
   info = cp_demangled_name_to_comp (demangled_name, NULL);
@@ -1509,8 +1509,8 @@ maint_cplus_command (char *arg, int from_tty)
 static void
 first_component_command (char *arg, int from_tty)
 {
-  int len;  
-  char *prefix; 
+  int len;
+  char *prefix;
 
   if (!arg)
     return;

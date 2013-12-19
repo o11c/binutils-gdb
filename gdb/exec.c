@@ -1,4 +1,4 @@
-/* Work with executable files, for GDB. 
+/* Work with executable files, for GDB.
 
    Copyright (C) 1988-2013 Free Software Foundation, Inc.
 
@@ -272,7 +272,7 @@ exec_file_attach (char *filename, int from_tty)
    Note that we have to explicitly ignore additional args, since we can
    be called from file_command(), which also calls symbol_file_command()
    which can take multiple args.
-   
+
    If ARGS is NULL, we just want to close the exec file.  */
 
 static void
@@ -693,8 +693,8 @@ print_section_info (struct target_section_table *t, bfd *abfd)
 	warning (_("Cannot find section for the entry point of %s."),
 		 bfd_get_filename (abfd));
 
-      entry_point = gdbarch_addr_bits_remove (gdbarch, 
-					      bfd_get_start_address (abfd) 
+      entry_point = gdbarch_addr_bits_remove (gdbarch,
+					      bfd_get_start_address (abfd)
 						+ displacement);
       printf_filtered (_("\tEntry point: %s\n"),
 		       paddress (gdbarch, entry_point));

@@ -284,7 +284,7 @@ call_target_sbrk (int sbrk_arg)
     return (bfd_vma) 0;
 
   gdbarch = get_objfile_arch (sbrk_objf);
-  target_sbrk_arg = value_from_longest (builtin_type (gdbarch)->builtin_int, 
+  target_sbrk_arg = value_from_longest (builtin_type (gdbarch)->builtin_int,
 					sbrk_arg);
   gdb_assert (target_sbrk_arg);
   ret = call_function_by_hand (sbrk_fn, 1, &target_sbrk_arg);
@@ -495,7 +495,7 @@ objfile_find_memory_regions (find_memory_region_ftype func, void *obfd)
 	  int size = bfd_section_size (ibfd, isec);
 	  int ret;
 
-	  ret = (*func) (obj_section_addr (objsec), size, 
+	  ret = (*func) (obj_section_addr (objsec), size,
 			 1, /* All sections will be readable.  */
 			 (flags & SEC_READONLY) == 0, /* Writable.  */
 			 (flags & SEC_CODE) != 0, /* Executable.  */

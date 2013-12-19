@@ -824,7 +824,7 @@
         * gdb.texinfo (SVR4 Process Information): Mention core files.
 
 2012-12-12 Mircea Gherzan <mircea.gherzan@intel.com>
-    
+
 	* gdb.texinfo (GDB/MI Catchpoint Commands): New section.
 
 2012-12-11  Pedro Alves  <palves@redhat.com>
@@ -1529,7 +1529,7 @@
 	Mention condition-evaluation mode being shown in "info break".
 	(Break Conditions): Add description for target-side
 	conditional breakpoints.
-	(Remote Configuration): Mention conditional-breakpoints-packet. 
+	(Remote Configuration): Mention conditional-breakpoints-packet.
 	(Packets): Add cond-expr parameter to Z0/Z1 packets and explain
 	cond-expr.
 	(General Query Packets): Mention new ConditionalBreakpoint feature.
@@ -1764,17 +1764,17 @@
 
 2011-10-27  Kevin Pouget  <kevin.pouget@st.com>
 
-	* gdb.texinfo ((Frames In Python): Document 
+	* gdb.texinfo ((Frames In Python): Document
 	gdb.FRAME_UNWIND_FIRST_ERROR contant.
 
 2011-10-26  Paul Koning  <paul_koning@dell.com>
 
 	* gdb.texinfo (gdb.types): Document new deepitems function.
-	
+
 2011-10-25  Paul Koning  <paul_koning@dell.com>
 
 	PR python/13327
-	
+
 	* gdb.texinfo (Values From Inferior): Add is_lazy attribute,
 	fetch_lazy method.
 
@@ -1792,7 +1792,7 @@
 2011-10-13  Kevin Pouget  <kevin.pouget@st.com>
 
 	PR python/13285 Document named constants for frame unwind stop reasons
-	* gdb.texinfo (Frames In Python): Document gdb.FRAME_UNWIND_* 
+	* gdb.texinfo (Frames In Python): Document gdb.FRAME_UNWIND_*
 	constants.
 
 2011-10-12  Jan Kratochvil  <jan.kratochvil@redhat.com>
@@ -1903,7 +1903,7 @@
 	the syntax of Python.  Also put class and module names explicitly
 	on function, member, and variable names, matching Python
 	documentation conventions.
-	
+
 2011-09-15  Kevin Pouget  <kevin.pouget@st.com>
 
 	PR Python/12692 Add gdb.selected_inferior() to Python interface.
@@ -2183,7 +2183,7 @@
 
 2011-02-27  Michael Snyder  <msnyder@vmware.com>
 
-	* gdb.texinfo (Inferiors and Programs): Update commands to show 
+	* gdb.texinfo (Inferiors and Programs): Update commands to show
 	that they can accept multiple arguments.
 
 2011-02-24  Joel Brobecker  <brobecker@adacore.com>

@@ -62,7 +62,7 @@ extern struct target_desc *tdesc_i386_mpx_linux;
   0 (the XFEATURE_ENABLED_MASK register), XCR0.  We can use this mask
   together with the mask saved in the xstate_hdr_bytes to determine what
   states the processor/OS supports and what state, used or initialized,
-  the process/thread is in.  */ 
+  the process/thread is in.  */
 #define I386_LINUX_XSAVE_XCR0_OFFSET 464
 
 extern int i386_linux_gregset_reg_offset[];

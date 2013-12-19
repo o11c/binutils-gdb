@@ -2083,11 +2083,11 @@
 2011-10-26  Paul Koning  <paul_koning@dell.com>
 
 	* python/lib/gdb/types.py (deepitems): New function.
-	
+
 2011-10-25  Paul Koning  <paul_koning@dell.com>
 
 	PR python/13327
-	
+
 	* python/py-value.c (value_to_value_object): Remove fetching of
 	the value if it was lazy.
 	(valpy_get_is_lazy): New function.
@@ -2942,7 +2942,7 @@
 	* python/py-newobjfileevent.c: New file.
 	* python-internal.h (gdbpy_initialize_new_objfile_event): New
 	prototype.
-	* python/python.c (_initialize_python): Add 
+	* python/python.c (_initialize_python): Add
 	gdbpy_initialize_new_objfile_event call.
 	* NEWS: Add item for new Python event "gdb.newobjfile"
 
@@ -3800,7 +3800,7 @@
 
 	PR mi/11912
 	* varobj.c (cplus_describe_child): Add the keyword
-	'class' to the output of the method when dealing 
+	'class' to the output of the method when dealing
 	with a cast to a base class.
 
 2011-08-26  Jan Kratochvil  <jan.kratochvil@redhat.com>
@@ -4871,7 +4871,7 @@
 	* tui/tui-interp.c (tui_command_loop): Use get_prompt with a
 	level.
 	* python/python.c (before_prompt_hook): Use set_prompt.
-	
+
 2011-07-22  Kwok Cheung Yeung  <kcy@codesourcery.com>
 
 	* defs.h: Add guard against inclusion in gdbserver.

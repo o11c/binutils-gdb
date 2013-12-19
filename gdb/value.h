@@ -230,11 +230,11 @@ extern struct value *allocate_computed_value (struct type *type,
 /* Helper function to check the validity of some bits of a value.
 
    If TYPE represents some aggregate type (e.g., a structure), return 1.
-   
+
    Otherwise, any of the bytes starting at OFFSET and extending for
    TYPE_LENGTH(TYPE) bytes are invalid, print a message to STREAM and
    return 0.  The checking is done using FUNCS.
-   
+
    Otherwise, return 1.  */
 
 extern int valprint_check_validity (struct ui_file *stream, struct type *type,

@@ -177,7 +177,7 @@ get_sim_inferior_data (struct inferior *inf, int sim_instance_needed)
      a potential allocation of a sim_inferior_data struct in order to
      avoid needlessly allocating that struct in the event that the sim
      instance allocation fails.  */
-  if (sim_instance_needed == SIM_INSTANCE_NEEDED 
+  if (sim_instance_needed == SIM_INSTANCE_NEEDED
       && (sim_data == NULL || sim_data->gdbsim_desc == NULL))
     {
       struct inferior *idup;
@@ -200,7 +200,7 @@ get_sim_inferior_data (struct inferior *inf, int sim_instance_needed)
 	  error (
  _("Inferior %d and inferior %d would have identical simulator state.\n"
    "(This simulator does not support the running of more than one inferior.)"),
-		 inf->num, idup->num); 
+		 inf->num, idup->num);
         }
     }
 
@@ -242,7 +242,7 @@ get_sim_inferior_data_by_ptid (ptid_t ptid, int sim_instance_needed)
 
   if (pid <= 0)
     return NULL;
-  
+
   inf = find_inferior_pid (pid);
 
   if (inf)
@@ -452,7 +452,7 @@ gdbsim_fetch_register (struct target_ops *ops,
 	regcache_raw_supply (regcache, regno, buf);
 	break;
       }
-      
+
     default:
       {
 	static int warn_user = 1;

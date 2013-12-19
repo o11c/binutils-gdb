@@ -637,7 +637,7 @@ build_address_symbolic (struct gdbarch *gdbarch,
   CORE_ADDR name_location = 0;
   struct obj_section *section = NULL;
   const char *name_temp = "";
-  
+
   /* Let's say it is mapped (not unmapped).  */
   *unmapped = 0;
 
@@ -1450,7 +1450,7 @@ x_command (char *exp, int from_tty)
 	val = coerce_ref (val);
       /* In rvalue contexts, such as this, functions are coerced into
          pointers to functions.  This makes "x/i main" work.  */
-      if (/* last_format == 'i'  && */ 
+      if (/* last_format == 'i'  && */
 	  TYPE_CODE (value_type (val)) == TYPE_CODE_FUNC
 	   && VALUE_LVAL (val) == lval_memory)
 	next_address = value_address (val);
@@ -1672,7 +1672,7 @@ undisplay_command (char *args, int from_tty)
   dont_repeat ();
 }
 
-/* Display a single auto-display.  
+/* Display a single auto-display.
    Do nothing if the display cannot be printed in the current context,
    or if the display is disabled.  */
 
@@ -2273,7 +2273,7 @@ ui_printf (const char *arg, struct ui_file *stream)
 
   if (*s++ != '"')
     error (_("Bad format string, non-terminated '\"'."));
-  
+
   s = skip_spaces_const (s);
 
   if (*s != ',' && *s != 0)

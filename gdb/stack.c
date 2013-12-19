@@ -269,7 +269,7 @@ print_frame_arg (const struct frame_arg *arg)
 		 just want to print their addresses.  Print ??? for args whose
 		 address we do not know.  We pass 2 as "recurse" to val_print
 		 because our standard indentation here is 4 spaces, and
-		 val_print indents 2 for each recurse.  */ 
+		 val_print indents 2 for each recurse.  */
 
 	      annotate_arg_value (value_type (arg->val));
 
@@ -773,7 +773,7 @@ do_gdb_disassembly (struct gdbarch *gdbarch,
 /* Print information about frame FRAME.  The output is format according
    to PRINT_LEVEL and PRINT_WHAT and PRINT_ARGS.  The meaning of
    PRINT_WHAT is:
-   
+
    SRC_LINE: Print only source line.
    LOCATION: Print only location.
    LOC_AND_SRC: Print location and source line.
@@ -847,7 +847,7 @@ print_frame_info (struct frame_info *frame, int print_level,
      to get the line containing FRAME->pc.  */
   find_frame_sal (frame, &sal);
 
-  location_print = (print_what == LOCATION 
+  location_print = (print_what == LOCATION
 		    || print_what == LOC_AND_ADDRESS
 		    || print_what == SRC_AND_LOC);
 
@@ -876,8 +876,8 @@ print_frame_info (struct frame_info *frame, int print_level,
       if (!done)
 	{
 	  if (deprecated_print_frame_info_listing_hook)
-	    deprecated_print_frame_info_listing_hook (sal.symtab, 
-						      sal.line, 
+	    deprecated_print_frame_info_listing_hook (sal.symtab,
+						      sal.line,
 						      sal.line + 1, 0);
 	  else
 	    {
@@ -1180,7 +1180,7 @@ print_frame (struct frame_info *frame, int print_level,
   ui_out_field_stream (uiout, "func", stb);
   ui_out_wrap_hint (uiout, "   ");
   annotate_frame_args ();
-      
+
   ui_out_text (uiout, " (");
   if (print_args)
     {
@@ -1196,7 +1196,7 @@ print_frame (struct frame_info *frame, int print_level,
 	}
       else
 	numargs = -1;
-    
+
       args_list_chain = make_cleanup_ui_out_list_begin_end (uiout, "args");
       TRY_CATCH (e, RETURN_MASK_ERROR)
 	{
@@ -1212,7 +1212,7 @@ print_frame (struct frame_info *frame, int print_level,
   if (sal.symtab)
     {
       const char *filename_display;
-      
+
       filename_display = symtab_to_filename_for_display (sal.symtab);
       annotate_frame_source_begin ();
       ui_out_wrap_hint (uiout, "   ");
@@ -1290,7 +1290,7 @@ parse_frame_specification_1 (const char *frame_exp, const char *message,
 	  addr_string = savestring (frame_exp, p - frame_exp);
 	  frame_exp = p;
 	  cleanup = make_cleanup (xfree, addr_string);
-	  
+
 	  /* NOTE: Parse and evaluate expression, but do not use
 	     functions such as parse_and_eval_long or
 	     parse_and_eval_address to also extract the value.

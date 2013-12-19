@@ -33,7 +33,7 @@ struct ui_out *cli_uiout;
 
 /* Longjmp-safe wrapper for "execute_command".  */
 static struct gdb_exception safe_execute_command (struct ui_out *uiout,
-						  char *command, 
+						  char *command,
 						  int from_tty);
 /* These implement the cli out interpreter: */
 

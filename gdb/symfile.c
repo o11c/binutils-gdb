@@ -3616,7 +3616,7 @@ simple_overlay_update (struct obj_section *osect)
 	  error (_("Error reading inferior's overlay table: couldn't "
 		   "find `_ovly_table' array\n"
 		   "in inferior.  Use `overlay manual' mode."));
-	
+
 	if (cache_ovly_table_base == SYMBOL_VALUE_ADDRESS (minsym))
 	  /* Then go ahead and try to look up this single section in
 	     the cache.  */

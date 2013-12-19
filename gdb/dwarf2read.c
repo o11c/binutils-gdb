@@ -2868,7 +2868,7 @@ create_addrmap_from_index (struct objfile *objfile, struct mapped_index *index)
    implementation.  This is necessary because the hash function is tied to the
    format of the mapped index file.  The hash values do not have to match with
    SYMBOL_HASH_NEXT.
-   
+
    Use INT_MAX for INDEX_VERSION if you generate the current index format.  */
 
 static hashval_t
@@ -3178,7 +3178,7 @@ dw2_get_file_names_reader (const struct die_reader_specs *reader,
 			   void *data)
 {
   struct dwarf2_cu *cu = reader->cu;
-  struct dwarf2_per_cu_data *this_cu = cu->per_cu;  
+  struct dwarf2_per_cu_data *this_cu = cu->per_cu;
   struct objfile *objfile = dwarf2_per_objfile->objfile;
   struct dwarf2_per_cu_data *lh_cu;
   struct line_header *lh;
@@ -7825,7 +7825,7 @@ process_full_comp_unit (struct dwarf2_per_cu_data *per_cu,
   if (cu->language == language_go)
     fixup_go_packaging (cu);
 
-  /* Now that we have processed all the DIEs in the CU, all the types 
+  /* Now that we have processed all the DIEs in the CU, all the types
      should be complete, and it should now be safe to compute all of the
      physnames.  */
   compute_delayed_physnames (cu);
@@ -7870,7 +7870,7 @@ process_full_comp_unit (struct dwarf2_per_cu_data *per_cu,
 
 	 Still one can confuse GDB by using non-standard GCC compilation
 	 options - this waits on GCC PR other/32998 (-frecord-gcc-switches).
-	 */ 
+	 */
       if (cu->has_loclist && gcc_4_minor >= 5)
 	symtab->locations_valid = 1;
 
@@ -7927,7 +7927,7 @@ process_full_type_unit (struct dwarf2_per_cu_data *per_cu,
   if (cu->language == language_go)
     fixup_go_packaging (cu);
 
-  /* Now that we have processed all the DIEs in the CU, all the types 
+  /* Now that we have processed all the DIEs in the CU, all the types
      should be complete, and it should now be safe to compute all of the
      physnames.  */
   compute_delayed_physnames (cu);
@@ -18869,7 +18869,7 @@ dump_die_shallow (struct ui_file *f, int indent, struct die_info *die)
 	case DW_FORM_indirect:
 	  /* The reader will have reduced the indirect form to
 	     the "base form" so this form should not occur.  */
-	  fprintf_unfiltered (f, 
+	  fprintf_unfiltered (f,
 			      "unexpected attribute form: DW_FORM_indirect");
 	  break;
 	default:
@@ -21717,7 +21717,7 @@ cleanup_mapped_symtab (void *p)
 
 /* Find a slot in SYMTAB for the symbol NAME.  Returns a pointer to
    the slot.
-   
+
    Function is used only during write_hash_table so no index format backward
    compatibility is needed.  */
 
@@ -22421,7 +22421,7 @@ write_psymtabs_to_index (struct objfile *objfile, const char *dir)
 }
 
 /* Implementation of the `save gdb-index' command.
-   
+
    Note that the file format used by this command is documented in the
    GDB manual.  Any changes here must be documented there.  */
 

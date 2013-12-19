@@ -157,7 +157,7 @@ int startup_with_shell = 1;
 /* Set the io terminal for the current inferior.  Ownership of
    TERMINAL_NAME is not transferred.  */
 
-void 
+void
 set_inferior_io_terminal (const char *terminal_name)
 {
   xfree (current_inferior ()->terminal);
@@ -409,7 +409,7 @@ post_create_inferior (struct target_ops *target, int from_tty)
 {
   volatile struct gdb_exception ex;
 
-  /* Be sure we own the terminal in case write operations are performed.  */ 
+  /* Be sure we own the terminal in case write operations are performed.  */
   target_terminal_ours ();
 
   /* If the target hasn't taken care of this already, do it now.
@@ -642,7 +642,7 @@ start_command (char *args, int from_tty)
 
   /* Run the program until reaching the main procedure...  */
   run_command_1 (args, from_tty, 1);
-} 
+}
 
 static int
 proceed_thread_callback (struct thread_info *thread, void *arg)
@@ -1920,7 +1920,7 @@ set_environment_command (char *arg, int from_tty)
   if (p != 0 && val != 0)
     {
       /* We have both a space and an equals.  If the space is before the
-         equals, walk forward over the spaces til we see a nonspace 
+         equals, walk forward over the spaces til we see a nonspace
          (possibly the equals).  */
       if (p > val)
 	while (*val == ' ')
@@ -2744,7 +2744,7 @@ disconnect_command (char *args, int from_tty)
     deprecated_detach_hook ();
 }
 
-void 
+void
 interrupt_target_1 (int all_threads)
 {
   ptid_t ptid;

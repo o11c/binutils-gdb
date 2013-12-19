@@ -142,14 +142,14 @@ extern const struct symbol_block_ops dwarf2_block_frame_base_locexpr_funcs;
 extern const struct symbol_block_ops dwarf2_block_frame_base_loclist_funcs;
 
 /* Compile a DWARF location expression to an agent expression.
-   
+
    EXPR is the agent expression we are building.
    LOC is the agent value we modify.
    ARCH is the architecture.
    ADDR_SIZE is the size of addresses, in bytes.
    OP_PTR is the start of the location expression.
    OP_END is one past the last byte of the location expression.
-   
+
    This will throw an exception for various kinds of errors -- for
    example, if the expression cannot be compiled, or if the expression
    is invalid.  */

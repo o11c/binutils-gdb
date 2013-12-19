@@ -475,9 +475,9 @@ tilegx_analyze_prologue (struct gdbarch* gdbarch,
 		     See trad-frame.h.  */
 		  cache->saved_regs[saved_register].realreg = saved_register;
 		  cache->saved_regs[saved_register].addr = saved_address;
-		} 
+		}
 	      else if (cache
-		       && (operands[0] == TILEGX_SP_REGNUM) 
+		       && (operands[0] == TILEGX_SP_REGNUM)
 		       && (operands[1] == TILEGX_LR_REGNUM))
 		lr_saved_on_stack_p = 1;
 	      break;

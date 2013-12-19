@@ -228,7 +228,7 @@ tui_selected_frame_level_changed_hook (int level)
 static void
 tui_print_frame_info_listing_hook (struct symtab *s,
 				   int line,
-                                   int stopline, 
+                                   int stopline,
 				   int noerror)
 {
   select_source_symtab (s);

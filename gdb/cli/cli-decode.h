@@ -95,8 +95,8 @@ struct cmd_list_element
        specified stream.  */
     show_value_ftype *show_value_func;
 
-    /* flags : a bitfield 
-       
+    /* flags : a bitfield
+
        bit 0: (LSB) CMD_DEPRECATED, when 1 indicated that this command
        is deprecated.  It may be removed from gdb's command set in the
        future.
@@ -104,7 +104,7 @@ struct cmd_list_element
        bit 1: DEPRECATED_WARN_USER, the user needs to be warned that
        this is a deprecated command.  The user should only be warned
        the first time a command is used.
-        
+
        bit 2: MALLOCED_REPLACEMENT, when functions are deprecated at
        compile time (this is the way it should, in general, be done)
        the memory containing the replacement string is statically

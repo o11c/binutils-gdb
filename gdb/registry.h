@@ -39,10 +39,10 @@
    module-specific data with a specific container object.
 
    The exported API is best used via the wrapper macros:
-   
+
    - register_TAG_data(TAG)
    Get a new key for the container type TAG.
-   
+
    - register_TAG_data_with_cleanup(TAG, SAVE, FREE)
    Get a new key for the container type TAG.
    SAVE and FREE are defined as void (*) (struct TAG *object, void *data)
@@ -51,14 +51,14 @@
    Then all FREE functions are called.
    Either or both may be NULL.  DATA is the data associated with the
    container object OBJECT.
-   
+
    - clear_TAG_data(TAG, OBJECT)
    Clear all the data associated with OBJECT.  Should be called by the
    container implementation when a container object is destroyed.
-   
+
    - set_TAG_data(TAG, OBJECT, KEY, DATA)
    Set the data on an object.
-   
+
    - TAG_data(TAG, OBJECT, KEY)
    Fetch the data for an object; returns NULL if it has not been set.
 */

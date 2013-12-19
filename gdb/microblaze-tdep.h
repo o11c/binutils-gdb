@@ -49,7 +49,7 @@ struct microblaze_frame_cache
 };
 
 /* Register numbers.  */
-enum microblaze_regnum 
+enum microblaze_regnum
 {
   MICROBLAZE_R0_REGNUM,
   MICROBLAZE_R1_REGNUM, MICROBLAZE_SP_REGNUM = MICROBLAZE_R1_REGNUM,

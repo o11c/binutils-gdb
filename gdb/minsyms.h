@@ -71,13 +71,13 @@ struct cleanup *make_cleanup_discard_minimal_symbols (void);
 
 /* Record a new minimal symbol.  This is the "full" entry point;
    simpler convenience entry points are also provided below.
-   
+
    This returns a new minimal symbol.  It is ok to modify the returned
    minimal symbol (though generally not necessary).  It is not ok,
    though, to stash the pointer anywhere; as minimal symbols may be
    moved after creation.  The memory for the returned minimal symbol
    is still owned by the minsyms.c code, and should not be freed.
-   
+
    Arguments are:
 
    NAME - the symbol's name
@@ -104,7 +104,7 @@ struct minimal_symbol *prim_record_minimal_symbol_full
    - uses strlen to compute NAME_LEN,
    - passes COPY_NAME = 0,
    - and passes a default SECTION, depending on the type
-   
+
    This variant does not return the new symbol.  */
 
 void prim_record_minimal_symbol (const char *, CORE_ADDR,
@@ -227,9 +227,9 @@ struct bound_minimal_symbol lookup_minimal_symbol_by_pc_section
     (CORE_ADDR,
      struct obj_section *);
 
-/* Backward compatibility: search through the minimal symbol table 
+/* Backward compatibility: search through the minimal symbol table
    for a matching PC (no section given).
-   
+
    This is a wrapper that calls lookup_minimal_symbol_by_pc_section
    with a NULL section argument.  */
 

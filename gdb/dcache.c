@@ -390,7 +390,7 @@ dcache_alloc (DCACHE *dcache, CORE_ADDR addr)
 }
 
 /* Using the data cache DCACHE, store in *PTR the contents of the byte at
-   address ADDR in the remote machine.  
+   address ADDR in the remote machine.
 
    Returns 1 for success, 0 for error.  */
 
@@ -469,7 +469,7 @@ dcache_init (void)
 
 /* Read or write LEN bytes from inferior memory at MEMADDR, transferring
    to or from debugger address MYADDR.  Write to inferior if SHOULD_WRITE is
-   nonzero. 
+   nonzero.
 
    Return the number of bytes actually transfered, or -1 if the
    transfer is not supported or otherwise fails.  Return of a non-negative
@@ -509,7 +509,7 @@ dcache_xfer_memory (struct target_ops *ops, DCACHE *dcache,
       /* Update LEN to what was actually written.  */
       len = res;
     }
-      
+
   for (i = 0; i < len; i++)
     {
       if (!xfunc (dcache, memaddr + i, myaddr + i))
@@ -524,7 +524,7 @@ dcache_xfer_memory (struct target_ops *ops, DCACHE *dcache,
 	    return i;
 	}
     }
-    
+
   return len;
 }
 
@@ -579,7 +579,7 @@ dcache_print_line (DCACHE *dcache, int index)
       printf_filtered (_("No such cache line exists.\n"));
       return;
     }
-    
+
   db = (struct dcache_block *) n->value;
 
   printf_filtered (_("Line %d: address %s [%d hits]\n"),

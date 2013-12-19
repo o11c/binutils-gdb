@@ -134,7 +134,7 @@ cp_add_using_directive (const char *dest,
 {
   struct using_direct *current;
   struct using_direct *new;
-  
+
   /* Has it already been added?  */
 
   for (current = using_directives; current != NULL; current = current->next)
@@ -320,7 +320,7 @@ cp_lookup_symbol_imports (const char *scope,
   if (!declaration_only)
     sym = cp_lookup_symbol_in_namespace (scope, name,
 					 block, domain, 1);
-  
+
   if (sym != NULL)
     return sym;
 
@@ -454,7 +454,7 @@ cp_lookup_symbol_imports_or_template (const char *scope,
       /* Search the function's template parameters.  */
       if (SYMBOL_IS_CPLUS_TEMPLATE_FUNCTION (function))
 	{
-	  struct template_symbol *templ 
+	  struct template_symbol *templ
 	    = (struct template_symbol *) function;
 	  struct symbol *result;
 
@@ -525,7 +525,7 @@ cp_lookup_symbol_namespace (const char *scope,
                             const domain_enum domain)
 {
   struct symbol *sym;
-  
+
   /* First, try to find the symbol in the given namespace.  */
   sym = cp_lookup_symbol_in_namespace (scope, name,
 				       block, domain, 1);
@@ -627,7 +627,7 @@ lookup_symbol_file (const char *name,
 	 So we only search the current file's global block.  */
 
       const struct block *global_block = block_global_block (block);
-      
+
       if (global_block != NULL)
 	sym = lookup_symbol_aux_block (name, global_block, domain);
     }

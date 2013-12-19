@@ -113,7 +113,7 @@ osabi_from_tdesc_string (const char *name)
 
 /* Handler for a given architecture/OS ABI pair.  There should be only
    one handler for a given OS ABI each architecture family.  */
-struct gdb_osabi_handler  
+struct gdb_osabi_handler
 {
   struct gdb_osabi_handler *next;
   const struct bfd_arch_info *arch_info;
@@ -232,7 +232,7 @@ gdbarch_lookup_osabi (bfd *abfd)
   /* If we don't have a binary, just return unknown.  The caller may
      have other sources the OSABI can be extracted from, e.g., the
      target description.  */
-  if (abfd == NULL) 
+  if (abfd == NULL)
     return GDB_OSABI_UNKNOWN;
 
   match = GDB_OSABI_UNKNOWN;
@@ -491,7 +491,7 @@ generic_elf_osabi_sniff_abi_tag_sections (bfd *abfd, asection *sect, void *obj)
 
       return;
     }
-      
+
   /* .note.netbsd.ident notes, used by NetBSD.  */
   if (strcmp (name, ".note.netbsd.ident") == 0
       && check_note (abfd, sect, note, &sectsize, "NetBSD", 4, NT_NETBSD_IDENT))

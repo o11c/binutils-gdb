@@ -1737,7 +1737,7 @@ struct cleanup *
 set_batch_flag_and_make_cleanup_restore_page_info (void)
 {
   struct cleanup *back_to = make_cleanup_restore_page_info ();
-  
+
   make_cleanup_restore_integer (&batch_flag);
   batch_flag = 1;
   init_page_info ();
@@ -1818,7 +1818,7 @@ prompt_for_continue (void)
     strcat (cont_prompt, "\n\032\032prompt-for-continue\n");
 
   /* We must do this *before* we call gdb_readline, else it will eventually
-     call us -- thinking that we're trying to print beyond the end of the 
+     call us -- thinking that we're trying to print beyond the end of the
      screen.  */
   reinitialize_more_filter ();
 
@@ -1948,11 +1948,11 @@ wrap_here (char *indent)
     }
 }
 
-/* Print input string to gdb_stdout, filtered, with wrap, 
+/* Print input string to gdb_stdout, filtered, with wrap,
    arranging strings in columns of n chars.  String can be
-   right or left justified in the column.  Never prints 
+   right or left justified in the column.  Never prints
    trailing spaces.  String should never be longer than
-   width.  FIXME: this could be useful for the EXAMINE 
+   width.  FIXME: this could be useful for the EXAMINE
    command, which currently doesn't tabulate very well.  */
 
 void
@@ -2626,7 +2626,7 @@ strcmp_iw_ordered (const char *string1, const char *string2)
 
       if (case_pass == case_sensitive_on)
 	return 0;
-      
+
       /* Otherwise the strings were equal in case insensitive way, make
 	 a more fine grained comparison in a case sensitive way.  */
 
@@ -3028,16 +3028,16 @@ hex_string_custom: insufficient space to store result"));
 
 /* Convert VAL to a numeral in the given radix.  For
  * radix 10, IS_SIGNED may be true, indicating a signed quantity;
- * otherwise VAL is interpreted as unsigned.  If WIDTH is supplied, 
+ * otherwise VAL is interpreted as unsigned.  If WIDTH is supplied,
  * it is the minimum width (0-padded if needed).  USE_C_FORMAT means
- * to use C format in all cases.  If it is false, then 'x' 
+ * to use C format in all cases.  If it is false, then 'x'
  * and 'o' formats do not include a prefix (0x or leading 0).  */
 
 char *
-int_string (LONGEST val, int radix, int is_signed, int width, 
+int_string (LONGEST val, int radix, int is_signed, int width,
 	    int use_c_format)
 {
-  switch (radix) 
+  switch (radix)
     {
     case 16:
       {
@@ -3071,7 +3071,7 @@ int_string (LONGEST val, int radix, int is_signed, int width,
       internal_error (__FILE__, __LINE__,
 		      _("failed internal consistency check"));
     }
-}	
+}
 
 /* Convert a CORE_ADDR into a string.  */
 const char *
@@ -3239,7 +3239,7 @@ gdb_realpath_keepfile (const char *filename)
   char *real_path;
   char *result;
 
-  /* Extract the basename of filename, and return immediately 
+  /* Extract the basename of filename, and return immediately
      a copy of filename if it does not contain any directory prefix.  */
   if (base_name == filename)
     return xstrdup (filename);

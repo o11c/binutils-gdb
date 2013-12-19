@@ -327,7 +327,7 @@ do_captured_read_memory_integer (void *data)
    if successful.  */
 
 int
-safe_read_memory_integer (CORE_ADDR memaddr, int len, 
+safe_read_memory_integer (CORE_ADDR memaddr, int len,
 			  enum bfd_endian byte_order,
 			  LONGEST *return_value)
 {
@@ -425,7 +425,7 @@ read_memory_typed_address (CORE_ADDR addr, struct type *type)
 /* Same as target_write_memory, but report an error if can't
    write.  */
 void
-write_memory (CORE_ADDR memaddr, 
+write_memory (CORE_ADDR memaddr,
 	      const bfd_byte *myaddr, ssize_t len)
 {
   int status;
@@ -448,7 +448,7 @@ write_memory_with_notification (CORE_ADDR memaddr, const bfd_byte *myaddr,
 /* Store VALUE at ADDR in the inferior as a LEN-byte unsigned
    integer.  */
 void
-write_memory_unsigned_integer (CORE_ADDR addr, int len, 
+write_memory_unsigned_integer (CORE_ADDR addr, int len,
 			       enum bfd_endian byte_order,
 			       ULONGEST value)
 {
@@ -461,7 +461,7 @@ write_memory_unsigned_integer (CORE_ADDR addr, int len,
 /* Store VALUE at ADDR in the inferior as a LEN-byte signed
    integer.  */
 void
-write_memory_signed_integer (CORE_ADDR addr, int len, 
+write_memory_signed_integer (CORE_ADDR addr, int len,
 			     enum bfd_endian byte_order,
 			     LONGEST value)
 {
@@ -549,7 +549,7 @@ No arg means have no core file.  This command has been superseded by the\n\
 `target core' and `detach' commands."), &cmdlist);
   set_cmd_completer (c, filename_completer);
 
-  
+
   c = add_setshow_string_noescape_cmd ("gnutarget", class_files,
 				       &gnutarget_string, _("\
 Set the current BFD target."), _("\

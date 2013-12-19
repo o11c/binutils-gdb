@@ -98,7 +98,7 @@ static int mips_store_word (CORE_ADDR addr, unsigned int value,
 			    int *old_contents);
 
 static int mips_xfer_memory (CORE_ADDR memaddr, gdb_byte *myaddr, int len,
-			     int write, 
+			     int write,
 			     struct mem_attrib *attrib,
 			     struct target_ops *target);
 
@@ -318,7 +318,7 @@ static enum mips_monitor_type mips_monitor = MON_LAST;
    default prompt will be set according the target:
    target               prompt
    -----                -----
-   pmon         PMON> 
+   pmon         PMON>
    ddb          NEC010>
    lsi          PMON>
  */
@@ -762,7 +762,7 @@ mips_receive_header (unsigned char *hdr, int *pgarbage, int ch, int timeout)
 		    }
 		  gdb_flush (gdb_stdtarg);
   		}
-	      
+
 	      /* Only count unprintable characters.  */
 	      if (! (isprint (ch) || isspace (ch)))
 		(*pgarbage) += 1;
@@ -2674,7 +2674,7 @@ mips_common_breakpoint: Attempt to clear bogus breakpoint at %s"),
       /* On non-LSI targets, the breakpoint command has this form:
          0x0 <CMD> <ADDR> <MASK> <FLAGS>
          <MASK> is a don't care mask for addresses.
-         <FLAGS> is any combination of `r', `w', or `f' for 
+         <FLAGS> is any combination of `r', `w', or `f' for
 	 read/write/fetch.  */
 
       unsigned long mask;
@@ -2832,7 +2832,7 @@ mips_load_srec (char *args)
 
 	      bfd_get_section_contents (abfd, s, buffer, i, numbytes);
 
-	      reclen = mips_make_srec (srec, '3', s->vma + i, 
+	      reclen = mips_make_srec (srec, '3', s->vma + i,
 				       buffer, numbytes);
 	      send_srec (srec, reclen, s->vma + i);
 
@@ -2894,7 +2894,7 @@ mips_load_srec (char *args)
  *        7) four byte address termination record
  *        8) three byte address termination record
  *        9) two byte address termination record
- *       
+ *
  *      - address
  *        is the start address of the data following, or in the case of
  *        a termination record, the start address of the image
@@ -3049,7 +3049,7 @@ pmon_zeroset (int recsize, char **buff,
 
    Return the total size of the record after adding the checksum escape,
    the checksum itself, and the trailing newline.
-   
+
    The checksum specified by *VALUE is zeroed out prior to returning.
    Additionally, *BUF is updated to refer to the location just beyond
    the record elements added by this call.  */
@@ -3091,7 +3091,7 @@ pmon_checkset (int recsize, char **buff, unsigned int *value)
    is updated to point at the end of the data, i.e. the next position
    in the buffer that may be written.  No attempt is made to NUL-
    terminate this portion of the record written to the buffer.
-   
+
    INBUF contains the binary input data from which the FastLoad
    formatted record will be built.  *INPTR is an index into this
    buffer.  *INPTR is updated as the input is consumed.  Thus, on
@@ -3105,7 +3105,7 @@ pmon_checkset (int recsize, char **buff, unsigned int *value)
 
    *CSUM is the output buffer checksum.  It is updated as data is
    written to the output buffer.
-   
+
    *ZEROFILL is the current number of 3-byte zero sequences that have
    been encountered.  It is both an input and an output to this
    function.  */
@@ -3277,7 +3277,7 @@ pmon_check_total (int bintotal)
    Also, when `tftp_in_use' is set, issue the load command to the
    board causing the file to be transferred.  (This is done prior
    to looking for the above mentioned termination messages.)  */
-   
+
 static void
 pmon_end_download (int final, int bintotal)
 {
@@ -3457,7 +3457,7 @@ pmon_load_fast (char *file)
 		   the line: */
 		for (; ((binamount - binptr) > 0);)
 		  {
-		    pmon_make_fastrec (&bp, binbuf, &binptr, binamount, 
+		    pmon_make_fastrec (&bp, binbuf, &binptr, binamount,
 				       &reclen, &csum, &zerofill);
 		    if (reclen >= (MAXRECSIZE - CHECKSIZE))
 		      {
@@ -3556,7 +3556,7 @@ mips_load (char *file, int from_tty)
 }
 
 /* Check to see if a thread is still alive.  */
- 
+
 static int
 mips_thread_alive (struct target_ops *ops, ptid_t ptid)
 {

@@ -119,7 +119,7 @@ enum bptype
        dynamic libraries.  */
     bp_shlib_event,
 
-    /* Some multi-threaded systems can arrange for a location in the 
+    /* Some multi-threaded systems can arrange for a location in the
        inferior to be executed when certain thread-related events occur
        (such as thread creation or thread death).
 
@@ -132,10 +132,10 @@ enum bptype
     /* On the same principal, an overlay manager can arrange to call a
        magic location in the inferior whenever there is an interesting
        change in overlay status.  GDB can update its overlay tables
-       and fiddle with breakpoints in overlays when this breakpoint 
+       and fiddle with breakpoints in overlays when this breakpoint
        is hit.  */
 
-    bp_overlay_event, 
+    bp_overlay_event,
 
     /* Master copies of longjmp breakpoints.  These are always installed
        as soon as an objfile containing longjmp is loaded, but they are
@@ -210,7 +210,7 @@ enum enable_state
 enum bpdisp
   {
     disp_del,			/* Delete it */
-    disp_del_at_next_stop,	/* Delete at next stop, 
+    disp_del_at_next_stop,	/* Delete at next stop,
 				   whether hit or not */
     disp_disable,		/* Disable it */
     disp_donttouch		/* Leave it alone */
@@ -368,11 +368,11 @@ struct bp_location
   /* This location's address is in an unloaded solib, and so this
      location should not be inserted.  It will be automatically
      enabled when that solib is loaded.  */
-  char shlib_disabled; 
+  char shlib_disabled;
 
   /* Is this particular location enabled.  */
   char enabled;
-  
+
   /* Nonzero if this breakpoint is now inserted.  */
   char inserted;
 
@@ -612,7 +612,7 @@ enum watchpoint_triggered
   watch_triggered_unknown,
 
   /* This hardware watchpoint definitely did trigger.  */
-  watch_triggered_yes  
+  watch_triggered_yes
 };
 
 typedef struct bp_location *bp_location_p;
@@ -714,11 +714,11 @@ struct breakpoint
        FIXME).  */
     struct breakpoint *related_breakpoint;
 
-    /* Thread number for thread-specific breakpoint, 
+    /* Thread number for thread-specific breakpoint,
        or -1 if don't care.  */
     int thread;
 
-    /* Ada task number for task-specific breakpoint, 
+    /* Ada task number for task-specific breakpoint,
        or 0 if don't care.  */
     int task;
 
@@ -1108,17 +1108,17 @@ enum breakpoint_here
 
 /* Prototypes for breakpoint-related functions.  */
 
-extern enum breakpoint_here breakpoint_here_p (struct address_space *, 
+extern enum breakpoint_here breakpoint_here_p (struct address_space *,
 					       CORE_ADDR);
 
 extern int moribund_breakpoint_here_p (struct address_space *, CORE_ADDR);
 
 extern int breakpoint_inserted_here_p (struct address_space *, CORE_ADDR);
 
-extern int regular_breakpoint_inserted_here_p (struct address_space *, 
+extern int regular_breakpoint_inserted_here_p (struct address_space *,
 					       CORE_ADDR);
 
-extern int software_breakpoint_inserted_here_p (struct address_space *, 
+extern int software_breakpoint_inserted_here_p (struct address_space *,
 						CORE_ADDR);
 
 /* Returns true if there's a hardware watchpoint or access watchpoint
@@ -1127,7 +1127,7 @@ extern int hardware_watchpoint_inserted_in_range (struct address_space *,
 						  CORE_ADDR addr,
 						  ULONGEST len);
 
-extern int breakpoint_thread_match (struct address_space *, 
+extern int breakpoint_thread_match (struct address_space *,
 				    CORE_ADDR, ptid_t);
 
 extern void until_break_command (char *, int, int);
@@ -1382,7 +1382,7 @@ extern void disable_breakpoint (struct breakpoint *);
 
 extern void enable_breakpoint (struct breakpoint *);
 
-extern void breakpoint_set_commands (struct breakpoint *b, 
+extern void breakpoint_set_commands (struct breakpoint *b,
 				     struct command_line *commands);
 
 extern void breakpoint_set_silent (struct breakpoint *b, int silent);
@@ -1428,7 +1428,7 @@ extern void delete_command (char *arg, int from_tty);
 /* Manage a software single step breakpoint (or two).  Insert may be
    called twice before remove is called.  */
 extern void insert_single_step_breakpoint (struct gdbarch *,
-					   struct address_space *, 
+					   struct address_space *,
 					   CORE_ADDR);
 extern int single_step_breakpoints_inserted (void);
 extern void remove_single_step_breakpoints (void);
@@ -1438,7 +1438,7 @@ extern void cancel_single_step_breakpoints (void);
    breakpoints.  These functions are used in murky target-specific
    ways.  Please do not add more uses!  */
 extern void *deprecated_insert_raw_breakpoint (struct gdbarch *,
-					       struct address_space *, 
+					       struct address_space *,
 					       CORE_ADDR);
 extern int deprecated_remove_raw_breakpoint (struct gdbarch *, void *);
 
@@ -1485,7 +1485,7 @@ extern struct tracepoint *get_tracepoint_by_number_on_target (int num);
 
 /* Find a tracepoint by parsing a number in the supplied string.  */
 extern struct tracepoint *
-     get_tracepoint_by_number (char **arg, 
+     get_tracepoint_by_number (char **arg,
 			       struct get_number_or_range_state *state,
 			       int optional_p);
 

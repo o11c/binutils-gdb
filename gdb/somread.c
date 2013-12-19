@@ -322,7 +322,7 @@ som_symtab_read (bfd *abfd, struct objfile *objfile,
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to som_symfile_init, which 
+   We have been initialized by a call to som_symfile_init, which
    currently does nothing.
 
    SECTION_OFFSETS is a set of offsets to apply to relocate the symbols
@@ -499,7 +499,7 @@ som_symfile_offsets (struct objfile *objfile,
 
   objfile->num_sections = bfd_count_sections (objfile->obfd);
   objfile->section_offsets = (struct section_offsets *)
-    obstack_alloc (&objfile->objfile_obstack, 
+    obstack_alloc (&objfile->objfile_obstack,
 		   SIZEOF_N_SECTION_OFFSETS (objfile->num_sections));
 
   set_section_index (objfile, 0, SEC_ALLOC | SEC_CODE,

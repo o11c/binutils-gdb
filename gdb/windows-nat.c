@@ -2908,7 +2908,7 @@ bad_GetConsoleFontSize (HANDLE w, DWORD nFont)
   size.Y = 12;
   return size;
 }
- 
+
 /* -Wmissing-prototypes */
 extern initialize_file_ftype _initialize_loadable;
 
@@ -2929,9 +2929,9 @@ _initialize_loadable (void)
 	GetProcAddress (hm, "DebugBreakProcess");
       DebugSetProcessKillOnExit = (void *)
 	GetProcAddress (hm, "DebugSetProcessKillOnExit");
-      GetConsoleFontSize = (void *) 
+      GetConsoleFontSize = (void *)
 	GetProcAddress (hm, "GetConsoleFontSize");
-      GetCurrentConsoleFont = (void *) 
+      GetCurrentConsoleFont = (void *)
 	GetProcAddress (hm, "GetCurrentConsoleFont");
     }
 

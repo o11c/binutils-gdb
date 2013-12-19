@@ -1147,7 +1147,7 @@ linux_get_siginfo_data (struct gdbarch *gdbarch, LONGEST *size)
 
   if (!gdbarch_get_siginfo_type_p (gdbarch))
     return NULL;
-  
+
   siginfo_type = gdbarch_get_siginfo_type (gdbarch);
 
   buf = xmalloc (TYPE_LENGTH (siginfo_type));

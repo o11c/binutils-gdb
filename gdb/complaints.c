@@ -164,12 +164,12 @@ static int stop_whining = 0;
    later handling.  */
 
 static void ATTRIBUTE_PRINTF (4, 0)
-vcomplaint (struct complaints **c, const char *file, 
+vcomplaint (struct complaints **c, const char *file,
 	    int line, const char *fmt,
 	    va_list args)
 {
   struct complaints *complaints = get_complaints (c);
-  struct complain *complaint = find_complaint (complaints, file, 
+  struct complain *complaint = find_complaint (complaints, file,
 					       line, fmt);
   enum complaint_series series;
 
@@ -185,7 +185,7 @@ vcomplaint (struct complaints **c, const char *file,
     series = complaints->series;
 
   if (complaint->file != NULL)
-    internal_vwarning (complaint->file, complaint->line, 
+    internal_vwarning (complaint->file, complaint->line,
 		       complaint->fmt, args);
   else if (deprecated_warning_hook)
     (*deprecated_warning_hook) (complaint->fmt, args);
@@ -324,7 +324,7 @@ complaints_show_value (struct ui_file *file, int from_tty,
 void
 _initialize_complaints (void)
 {
-  add_setshow_zinteger_cmd ("complaints", class_support, 
+  add_setshow_zinteger_cmd ("complaints", class_support,
 			    &stop_whining, _("\
 Set max number of complaints about incorrect symbols."), _("\
 Show max number of complaints about incorrect symbols."), NULL,

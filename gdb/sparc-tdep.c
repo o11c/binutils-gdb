@@ -117,7 +117,7 @@ static int
 sparc_is_unimp_insn (CORE_ADDR pc)
 {
   const unsigned long insn = sparc_fetch_instruction (pc);
-  
+
   return ((insn & 0xc1c00000) == 0);
 }
 
@@ -617,7 +617,7 @@ sparc32_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
    encode a breakpoint instruction, store the length of the string in
    *LEN and optionally adjust *PC to point to the correct memory
    location for inserting the breakpoint.  */
-   
+
 static const gdb_byte *
 sparc_breakpoint_from_pc (struct gdbarch *gdbarch, CORE_ADDR *pc, int *len)
 {
@@ -655,7 +655,7 @@ sparc_alloc_frame_cache (void)
    of each function prologue when compiling with -fstack-check.  If one of
    such sequences starts at START_PC, then return the address of the
    instruction immediately past this sequence.  Otherwise, return START_PC.  */
-   
+
 static CORE_ADDR
 sparc_skip_stack_check (const CORE_ADDR start_pc)
 {
@@ -766,7 +766,7 @@ sparc_skip_stack_check (const CORE_ADDR start_pc)
       /* We found a valid stack-check sequence, return the new PC.  */
       return pc;
     }
-  
+
   /* Third sequence: A probing loop.
          [first three instructions above]
          sub  %g1, %g4, %g4

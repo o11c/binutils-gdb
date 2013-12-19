@@ -176,7 +176,7 @@ generic_observer_notify (struct observer_list *subject, const void *args)
 
 /* If we define these variables and functions as `static', the
    compiler will optimize them out.  */
- 
+
 int observer_test_first_observer = 0;
 int observer_test_second_observer = 0;
 int observer_test_third_observer = 0;

@@ -85,7 +85,7 @@
 /* The O_BINARY flag is defined in fcntl.h on some non-Posix platforms.
    It is used as an access modifier in calls to open(), where it acts
    similarly to the "b" character in fopen()'s MODE argument.  On Posix
-   platforms it should be a no-op, so it is defined as 0 here.  This 
+   platforms it should be a no-op, so it is defined as 0 here.  This
    ensures that the symbol may be used freely elsewhere in gdb.  */
 
 #ifndef O_BINARY
@@ -159,7 +159,7 @@ extern char *debug_file_directory;
    handler.  Otherwise, SIGINT simply sets a flag; code that might
    take a long time, and which ought to be interruptible, checks this
    flag using the QUIT macro.
-   
+
    If GDB is built with Python support, it uses Python's low-level
    interface to implement the flag.  This approach makes it possible
    for Python and GDB SIGINT handling to coexist seamlessly.
@@ -330,11 +330,11 @@ extern int print_address_symbolic (struct gdbarch *, CORE_ADDR,
 
 extern int build_address_symbolic (struct gdbarch *,
 				   CORE_ADDR addr,
-				   int do_demangle, 
-				   char **name, 
-				   int *offset, 
-				   char **filename, 
-				   int *line, 	
+				   int do_demangle,
+				   char **name,
+				   int *offset,
+				   char **filename,
+				   int *line,
 				   int *unmapped);
 
 extern void print_address (struct gdbarch *, CORE_ADDR, struct ui_file *);
@@ -705,9 +705,9 @@ extern void (*selected_frame_level_changed_hook) (int);
 extern int (*deprecated_ui_loop_hook) (int signo);
 extern void (*deprecated_init_ui_hook) (char *argv0);
 extern void (*deprecated_show_load_progress) (const char *section,
-					      unsigned long section_sent, 
-					      unsigned long section_size, 
-					      unsigned long total_sent, 
+					      unsigned long section_sent,
+					      unsigned long section_size,
+					      unsigned long total_sent,
 					      unsigned long total_size);
 extern void (*deprecated_print_frame_info_listing_hook) (struct symtab * s,
 							 int line,

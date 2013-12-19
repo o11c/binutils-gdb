@@ -93,13 +93,13 @@ When waiting for an event in all threads, waitpid is not quite good.  Prior to
 version 2.4, Linux can either wait for event in main thread, or in secondary
 threads.  (2.4 has the __WALL flag).  So, if we use blocking waitpid, we might
 miss an event.  The solution is to use non-blocking waitpid, together with
-sigsuspend.  First, we use non-blocking waitpid to get an event in the main 
+sigsuspend.  First, we use non-blocking waitpid to get an event in the main
 process, if any.  Second, we use non-blocking waitpid with the __WCLONED
 flag to check for events in cloned processes.  If nothing is found, we use
 sigsuspend to wait for SIGCHLD.  When SIGCHLD arrives, it means something
 happened to a child process -- and SIGCHLD will be delivered both for events
 in main debugged process and in cloned processes.  As soon as we know there's
-an event, we get back to calling nonblocking waitpid with and without 
+an event, we get back to calling nonblocking waitpid with and without
 __WCLONED.
 
 Note that SIGCHLD should be blocked between waitpid and sigsuspend calls,
@@ -160,7 +160,7 @@ not when it is delivered.  SIGCONT resumes the entire thread group and SIGKILL
 kills the entire thread group.
 
 A delivered SIGSTOP would stop the entire thread group, not just the thread we
-tkill'd.  But we never let the SIGSTOP be delivered; we always intercept and 
+tkill'd.  But we never let the SIGSTOP be delivered; we always intercept and
 cancel it (by PTRACE_CONT without passing SIGSTOP).
 
 We could use a real-time signal instead.  This would solve those problems; we
@@ -1278,7 +1278,7 @@ lin_lwp_attach_lwp (ptid_t ptid)
 }
 
 static void
-linux_nat_create_inferior (struct target_ops *ops, 
+linux_nat_create_inferior (struct target_ops *ops,
 			   char *exec_file, char *allargs, char **env,
 			   int from_tty)
 {

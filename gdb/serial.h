@@ -111,7 +111,7 @@ extern int serial_write (struct serial *scb, const void *buf, size_t count);
 
 /* Write a printf style string onto the serial port.  */
 
-extern void serial_printf (struct serial *desc, 
+extern void serial_printf (struct serial *desc,
 			   const char *,...) ATTRIBUTE_PRINTF (2, 3);
 
 /* Allow pending output to drain.  */
@@ -227,7 +227,7 @@ struct serial
        immediately forwarded to gdb_stderr.  This may be -1.
        If != -1, this descriptor should be non-blocking or
        ops->avail should be non-NULL.  */
-    int error_fd;               
+    int error_fd;
     const struct serial_ops *ops; /* Function vector */
     void *state;       		/* Local context info for open FD */
     serial_ttystate ttystate;	/* Not used (yet) */

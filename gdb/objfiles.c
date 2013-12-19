@@ -434,7 +434,7 @@ put_objfile_before (struct objfile *objfile, struct objfile *before_this)
   struct objfile **objp;
 
   unlink_objfile (objfile);
-  
+
   for (objp = &object_files; *objp != NULL; objp = &((*objp)->next))
     {
       if (*objp == before_this)
@@ -444,7 +444,7 @@ put_objfile_before (struct objfile *objfile, struct objfile *before_this)
 	  return;
 	}
     }
-  
+
   internal_error (__FILE__, __LINE__,
 		  _("put_objfile_before: before objfile not in list"));
 }
@@ -561,7 +561,7 @@ free_objfile (struct objfile *objfile)
             }
         }
     }
-  
+
   /* Remove any references to this objfile in the global value
      lists.  */
   preserve_values (objfile);
@@ -700,12 +700,12 @@ relocate_one_symbol (struct symbol *sym, struct objfile *objfile,
    Return non-zero iff any change happened.  */
 
 static int
-objfile_relocate1 (struct objfile *objfile, 
+objfile_relocate1 (struct objfile *objfile,
 		   const struct section_offsets *new_offsets)
 {
   struct obj_section *s;
   struct section_offsets *delta =
-    ((struct section_offsets *) 
+    ((struct section_offsets *)
      alloca (SIZEOF_N_SECTION_OFFSETS (objfile->num_sections)));
 
   int i;
@@ -874,7 +874,7 @@ objfile_relocate (struct objfile *objfile,
 
       gdb_assert (debug_objfile->num_sections
 		  == gdb_bfd_count_sections (debug_objfile->obfd));
-      new_debug_offsets = 
+      new_debug_offsets =
 	xmalloc (SIZEOF_N_SECTION_OFFSETS (debug_objfile->num_sections));
       make_cleanup (xfree, new_debug_offsets);
       relative_addr_info_to_section_offsets (new_debug_offsets,

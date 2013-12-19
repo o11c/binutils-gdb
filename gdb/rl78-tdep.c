@@ -696,7 +696,7 @@ rl78_analyze_prologue (CORE_ADDR start_pc,
                && opc.op[0].reg == RL78_Reg_SP
 	       && opc.op[1].type == RL78_Operand_Register)
 	{
-	  int rsrc = (bank * RL78_REGS_PER_BANK) 
+	  int rsrc = (bank * RL78_REGS_PER_BANK)
 	           + 2 * (opc.op[1].reg - RL78_Reg_AX);
 
 	  reg[RL78_SP_REGNUM] = pv_add_constant (reg[RL78_SP_REGNUM], -1);

@@ -66,7 +66,7 @@ static void (*super_store_registers) (struct target_ops *,
 static void (*super_close) (void);
 
 /* Map gdb internal register number to ptrace ``address''.
-   These ``addresses'' are normally defined in <asm/ptrace.h>. 
+   These ``addresses'' are normally defined in <asm/ptrace.h>.
 
    ptrace does not provide a way to read (or set) MIPS_PS_REGNUM,
    and there's no point in reading or setting MIPS_ZERO_REGNUM.
@@ -536,7 +536,7 @@ mips_linux_can_use_hw_breakpoint (int type, int cnt, int ot)
     default:
       return 0;
     }
- 
+
   for (i = 0;
        i < mips_linux_watch_get_num_valid (&watch_readback) && cnt;
        i++)

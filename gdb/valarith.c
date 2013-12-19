@@ -44,7 +44,7 @@ void _initialize_valarith (void);
 /* Given a pointer, return the size of its target.
    If the pointer type is void *, then return 1.
    If the target type is incomplete, then error out.
-   This isn't a general purpose function, but just a 
+   This isn't a general purpose function, but just a
    helper for value_ptradd.  */
 
 static LONGEST
@@ -64,7 +64,7 @@ find_size_for_pointer_math (struct type *ptr_type)
       else
 	{
 	  const char *name;
-	  
+
 	  name = TYPE_NAME (ptr_target);
 	  if (name == NULL)
 	    name = TYPE_TAG_NAME (ptr_target);
@@ -124,7 +124,7 @@ value_ptrdiff (struct value *arg1, struct value *arg2)
 	     "an integer nor a pointer of the same type."));
 
   sz = TYPE_LENGTH (check_typedef (TYPE_TARGET_TYPE (type1)));
-  if (sz == 0) 
+  if (sz == 0)
     {
       warning (_("Type size unknown, assuming 1. "
                "Try casting to a known type, or void *."));
@@ -259,7 +259,7 @@ binop_user_defined_p (enum exp_opcode op,
 }
 
 /* Check to see if argument is a structure.  This is called so
-   we know whether to go ahead with the normal unop or look for a 
+   we know whether to go ahead with the normal unop or look for a
    user defined function instead.
 
    For now, we do not overload the `&' operator.  */
@@ -332,7 +332,7 @@ value_user_defined_op (struct value **argp, struct value **args, char *name,
 }
 
 /* We know either arg1 or arg2 is a structure, so try to find the right
-   user defined function.  Create an argument vector that calls 
+   user defined function.  Create an argument vector that calls
    arg1.operator @ (arg1,arg2) and return that value (where '@' is any
    binary operator which is legal for GNU C++).
 
@@ -639,7 +639,7 @@ value_concat (struct value *arg1, struct value *arg2)
   /* First figure out if we are dealing with two values to be concatenated
      or a repeat count and a value to be repeated.  INVAL1 is set to the
      first of two concatenated values, or the repeat count.  INVAL2 is set
-     to the second of the two concatenated values or the value to be 
+     to the second of the two concatenated values or the value to be
      repeated.  */
 
   if (TYPE_CODE (type2) == TYPE_CODE_INT)
@@ -775,15 +775,15 @@ integer_pow (LONGEST v1, LONGEST v2)
       else
 	return 0;
     }
-  else 
+  else
     {
       /* The Russian Peasant's Algorithm.  */
       LONGEST v;
-      
+
       v = 1;
       for (;;)
 	{
-	  if (v2 & 1L) 
+	  if (v2 & 1L)
 	    v *= v1;
 	  v2 >>= 1;
 	  if (v2 == 0)
@@ -806,15 +806,15 @@ uinteger_pow (ULONGEST v1, LONGEST v2)
       else
 	return 0;
     }
-  else 
+  else
     {
       /* The Russian Peasant's Algorithm.  */
       ULONGEST v;
-      
+
       v = 1;
       for (;;)
 	{
-	  if (v2 & 1L) 
+	  if (v2 & 1L)
 	    v *= v1;
 	  v2 >>= 1;
 	  if (v2 == 0)
@@ -996,7 +996,7 @@ scalar_binop (struct value *arg1, struct value *arg2, enum exp_opcode op)
 	case BINOP_MIN:
 	  v = v1 < v2 ? v1 : v2;
 	  break;
-	      
+
 	case BINOP_MAX:
 	  v = v1 > v2 ? v1 : v2;
 	  break;
@@ -1040,11 +1040,11 @@ scalar_binop (struct value *arg1, struct value *arg2, enum exp_opcode op)
 	case BINOP_BITWISE_XOR:
 	  v = v1 ^ v2;
           break;
-              
+
         case BINOP_EQUAL:
           v = v1 == v2;
           break;
-          
+
         case BINOP_NOTEQUAL:
           v = v1 != v2;
 	  break;
@@ -1461,7 +1461,7 @@ value_binop (struct value *arg1, struct value *arg2, enum exp_opcode op)
       /* Widen the scalar operand to a vector.  */
       struct value **v = t1_is_vec ? &arg2 : &arg1;
       struct type *t = t1_is_vec ? type2 : type1;
-      
+
       if (TYPE_CODE (t) != TYPE_CODE_FLT
 	  && TYPE_CODE (t) != TYPE_CODE_DECFLOAT
 	  && !is_integral_type (t))

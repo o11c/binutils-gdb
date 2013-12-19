@@ -245,7 +245,7 @@ get_init_files (const char **system_gdbinit,
 			 sizeof (struct stat)))
 	    localinit = gdbinit;
 	}
-      
+
       initialized = 1;
     }
 
@@ -293,7 +293,7 @@ typedef struct cmdarg {
 
     /* Option type -ix.  */
     CMDARG_INIT_FILE,
-    
+
     /* Option type -iex.  */
     CMDARG_INIT_COMMAND
   } type;
@@ -412,7 +412,7 @@ captured_main (void *data)
 			_("%s: warning: error finding "
 			  "working directory: %s\n"),
                         argv[0], safe_strerror (errno));
-    
+
   current_directory = gdb_dirbuf;
 
   /* Set the sysroot path.  */
@@ -443,7 +443,7 @@ captured_main (void *data)
 
   /* There will always be an interpreter.  Either the one passed into
      this captured main, or one specified by the user at start up, or
-     the console.  Initialize the interpreter to the one requested by 
+     the console.  Initialize the interpreter to the one requested by
      the application.  */
   interpreter_p = xstrdup (context->interpreter_p);
 

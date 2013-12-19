@@ -71,7 +71,7 @@ key_is_command_char (int ch)
 	  || (ch == KEY_LEFT) || (ch == KEY_RIGHT)
 	  || (ch == KEY_UP) || (ch == KEY_DOWN)
 	  || (ch == KEY_SF) || (ch == KEY_SR)
-	  || (ch == (int)'\f') 
+	  || (ch == (int)'\f')
 	  || key_is_start_sequence (ch));
 }
 
@@ -223,7 +223,7 @@ tui_redisplay_readline (void)
     prompt = "";
   else
     prompt = tui_rl_saved_prompt;
-  
+
   c_pos = -1;
   c_line = -1;
   w = TUI_CMD_WIN->generic.handle;
@@ -242,7 +242,7 @@ tui_redisplay_readline (void)
   for (in = 0; in < rl_end; in++)
     {
       unsigned char c;
-      
+
       c = (unsigned char) rl_line_buffer[in];
       if (in == rl_point)
 	{
@@ -403,10 +403,10 @@ static void
 tui_rl_display_match_list (char **matches, int len, int max)
 {
   typedef int QSFUNC (const void *, const void *);
-  extern int _rl_qsort_string_compare (const void *, 
+  extern int _rl_qsort_string_compare (const void *,
 				       const void *);
   extern int _rl_print_completions_horizontally;
-  
+
   int count, limit, printed_len;
   int i, j, k, l;
   const char *temp;
@@ -686,17 +686,17 @@ tui_getc (FILE *fp)
           waddch (w, ch);
         }
     }
-  
+
   if (key_is_command_char (ch))
     {				/* Handle prev/next/up/down here.  */
       ch = tui_dispatch_ctrl_char (ch);
     }
-  
+
   if (ch == '\n' || ch == '\r' || ch == '\f')
     TUI_CMD_WIN->detail.command_info.curch = 0;
   if (ch == KEY_BACKSPACE)
     return '\b';
-  
+
   return ch;
 }
 

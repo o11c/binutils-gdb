@@ -66,7 +66,7 @@ struct bcache
 
   /* How many hash buckets we're using.  */
   unsigned int num_buckets;
-  
+
   /* Hash buckets.  This table is allocated using malloc, so when we
      grow the table we can return the old table to the system.  */
   struct bstring **bucket;
@@ -133,10 +133,10 @@ expand_hash_table (struct bcache *bcache)
 {
   /* A table of good hash table sizes.  Whenever we grow, we pick the
      next larger size from this table.  sizes[i] is close to 1 << (i+10),
-     so we roughly double the table size each time.  After we fall off 
+     so we roughly double the table size each time.  After we fall off
      the end of this table, we just double.  Don't laugh --- there have
      been executables sighted with a gigabyte of debug info.  */
-  static unsigned long sizes[] = { 
+  static unsigned long sizes[] = {
     1021, 2053, 4099, 8191, 16381, 32771,
     65537, 131071, 262144, 524287, 1048573, 2097143,
     4194301, 8388617, 16777213, 33554467, 67108859, 134217757,
@@ -308,8 +308,8 @@ bcache_compare (const void *addr1, const void *addr2, int length)
 
 struct bcache *
 bcache_xmalloc (unsigned long (*hash_function)(const void *, int length),
-                int (*compare_function)(const void *, 
-					const void *, 
+                int (*compare_function)(const void *,
+					const void *,
 					int length))
 {
   /* Allocate the bcache pre-zeroed.  */
@@ -387,7 +387,7 @@ print_bcache_statistics (struct bcache *c, char *type)
 	if (s)
 	  {
 	    occupied_buckets++;
-	    
+
 	    while (s)
 	      {
 		gdb_assert (b < c->num_buckets);
@@ -450,7 +450,7 @@ print_bcache_statistics (struct bcache *c, char *type)
     printf_filtered ("%ld\n", c->unique_size / c->unique_count);
   else
     /* i18n: "Average entry size: (not applicable)".  */
-    printf_filtered (_("(not applicable)\n"));    
+    printf_filtered (_("(not applicable)\n"));
   printf_filtered (_("    Median entry size:  %d\n"), median_entry_size);
   printf_filtered ("\n");
 
@@ -463,7 +463,7 @@ Total memory used by bcache, including overhead: %ld\n"),
   print_percentage (c->total_size - c->structure_size, c->total_size);
   printf_filtered ("\n");
 
-  printf_filtered (_("    Hash table size:           %3d\n"), 
+  printf_filtered (_("    Hash table size:           %3d\n"),
 		   c->num_buckets);
   printf_filtered (_("    Hash table expands:        %lu\n"),
 		   c->expand_count);
@@ -481,7 +481,7 @@ Total memory used by bcache, including overhead: %ld\n"),
   else
     /* i18n: "Average hash chain length: (not applicable)".  */
     printf_filtered (_("(not applicable)\n"));
-  printf_filtered (_("    Maximum hash chain length: %3d\n"), 
+  printf_filtered (_("    Maximum hash chain length: %3d\n"),
 		   max_chain_length);
   printf_filtered ("\n");
 }

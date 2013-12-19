@@ -503,7 +503,7 @@ add_file_handler (int fd, handler_func * proc, gdb_client_data client_data)
 #endif
     }
   else
-    create_file_handler (fd, GDB_READABLE | GDB_EXCEPTION, 
+    create_file_handler (fd, GDB_READABLE | GDB_EXCEPTION,
 			 proc, client_data);
 }
 
@@ -522,7 +522,7 @@ add_file_handler (int fd, handler_func * proc, gdb_client_data client_data)
    occurs for FD.  CLIENT_DATA is the argument to pass to PROC.  */
 
 static void
-create_file_handler (int fd, int mask, handler_func * proc, 
+create_file_handler (int fd, int mask, handler_func * proc,
 		     gdb_client_data client_data)
 {
   file_handler *file_ptr;
@@ -593,7 +593,7 @@ create_file_handler (int fd, int mask, handler_func * proc,
   file_ptr->mask = mask;
 }
 
-/* Remove the file descriptor FD from the list of monitored fd's: 
+/* Remove the file descriptor FD from the list of monitored fd's:
    i.e. we don't care anymore about events on the FD.  */
 void
 delete_file_handler (int fd)
@@ -623,7 +623,7 @@ delete_file_handler (int fd)
       /* Create a new poll_fds array by copying every fd's information
          but the one we want to get rid of.  */
 
-      new_poll_fds = (struct pollfd *) 
+      new_poll_fds = (struct pollfd *)
 	xmalloc ((gdb_notifier.num_fds - 1) * sizeof (struct pollfd));
 
       for (i = 0, j = 0; i < gdb_notifier.num_fds; i++)
@@ -670,7 +670,7 @@ delete_file_handler (int fd)
 	}
     }
 
-  /* Deactivate the file descriptor, by clearing its mask, 
+  /* Deactivate the file descriptor, by clearing its mask,
      so that it will not fire again.  */
 
   file_ptr->mask = 0;
@@ -924,9 +924,9 @@ gdb_wait_for_event (int block)
 
 /* Create an asynchronous handler, allocating memory for it.
    Return a pointer to the newly created handler.
-   This pointer will be used to invoke the handler by 
+   This pointer will be used to invoke the handler by
    invoke_async_signal_handler.
-   PROC is the function to call with CLIENT_DATA argument 
+   PROC is the function to call with CLIENT_DATA argument
    whenever the handler is invoked.  */
 async_signal_handler *
 create_async_signal_handler (sig_handler_func * proc,
@@ -1137,7 +1137,7 @@ delete_async_event_handler (async_event_handler **async_handler_ptr)
    aded to the timers queue.  This queue is kept sorted in order of
    increasing timers.  Return a handle to the timer struct.  */
 int
-create_timer (int milliseconds, timer_handler_func * proc, 
+create_timer (int milliseconds, timer_handler_func * proc,
 	      gdb_client_data client_data)
 {
   struct gdb_timer *timer_ptr, *timer_index, *prev_timer;

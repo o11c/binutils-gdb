@@ -582,7 +582,7 @@ static const struct language_defn go_language_defn =
   default_read_var_value,	/* la_read_var_value */
   NULL,				/* Language specific skip_trampoline.  */
   NULL,				/* name_of_this */
-  basic_lookup_symbol_nonlocal, 
+  basic_lookup_symbol_nonlocal,
   basic_lookup_transparent_type,
   go_demangle,			/* Language specific symbol demangler.  */
   NULL,				/* Language specific

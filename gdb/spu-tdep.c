@@ -114,7 +114,7 @@ static struct cmd_list_element *infospucmdlist = NULL;
 static const char *
 spu_register_name (struct gdbarch *gdbarch, int reg_nr)
 {
-  static char *register_names[] = 
+  static char *register_names[] =
     {
       "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7",
       "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15",
@@ -1050,7 +1050,7 @@ spu_frame_unwind_cache (struct frame_info *this_frame,
   else
     trad_frame_set_value (info->saved_regs, SPU_PC_REGNUM,
 			  extract_unsigned_integer (buf, 4, byte_order));
- 
+
   return info;
 }
 
@@ -1410,7 +1410,7 @@ spu_push_dummy_call (struct gdbarch *gdbarch, struct value *function,
 	  struct type *type = check_typedef (value_type (arg));
 	  int len = TYPE_LENGTH (type);
 	  int preferred_slot;
-	  
+
 	  if (spu_scalar_value_p (type))
 	    preferred_slot = len < 4 ? 4 - len : 0;
 	  else
@@ -1555,7 +1555,7 @@ spu_memory_remove_breakpoint (struct gdbarch *gdbarch,
      remain inserted, because those SPU contexts are not runnable anyway --
      the Linux kernel allows only the original process to invoke spu_run.  */
 
-  if (ptid_get_pid (inferior_ptid) != current_inferior ()->pid) 
+  if (ptid_get_pid (inferior_ptid) != current_inferior ()->pid)
     return 0;
 
   return default_memory_remove_breakpoint (gdbarch, bp_tgt);
@@ -2049,7 +2049,7 @@ info_spu_event_command (char *args, int from_tty)
     error (_("Could not read event_status."));
   buf[len] = '\0';
   event_status = strtoulst ((char *) buf, NULL, 16);
- 
+
   xsnprintf (annex, sizeof annex, "%d/event_mask", id);
   len = target_read (&current_target, TARGET_OBJECT_SPU, annex,
 		     buf, 0, (sizeof (buf) - 1));
@@ -2057,7 +2057,7 @@ info_spu_event_command (char *args, int from_tty)
     error (_("Could not read event_mask."));
   buf[len] = '\0';
   event_mask = strtoulst ((char *) buf, NULL, 16);
- 
+
   chain = make_cleanup_ui_out_tuple_begin_end (current_uiout, "SPUInfoEvent");
 
   if (ui_out_is_mi_like_p (current_uiout))
@@ -2108,7 +2108,7 @@ info_spu_signal_command (char *args, int from_tty)
       signal1 = extract_unsigned_integer (buf, 4, byte_order);
       signal1_pending = 1;
     }
-    
+
   xsnprintf (annex, sizeof annex, "%d/signal1_type", id);
   len = target_read (&current_target, TARGET_OBJECT_SPU, annex,
 		     buf, 0, (sizeof (buf) - 1));
@@ -2126,7 +2126,7 @@ info_spu_signal_command (char *args, int from_tty)
       signal2 = extract_unsigned_integer (buf, 4, byte_order);
       signal2_pending = 1;
     }
-    
+
   xsnprintf (annex, sizeof annex, "%d/signal2_type", id);
   len = target_read (&current_target, TARGET_OBJECT_SPU, annex,
 		     buf, 0, (sizeof (buf) - 1));
@@ -2478,7 +2478,7 @@ info_spu_dma_command (char *args, int from_tty)
     = extract_unsigned_integer (buf + 24, 8, byte_order);
   dma_info_atomic_command_status
     = extract_unsigned_integer (buf + 32, 8, byte_order);
-  
+
   chain = make_cleanup_ui_out_tuple_begin_end (current_uiout, "SPUInfoDMA");
 
   if (ui_out_is_mi_like_p (current_uiout))
@@ -2550,7 +2550,7 @@ info_spu_proxydma_command (char *args, int from_tty)
   dma_info_type = extract_unsigned_integer (buf, 8, byte_order);
   dma_info_mask = extract_unsigned_integer (buf + 8, 8, byte_order);
   dma_info_status = extract_unsigned_integer (buf + 16, 8, byte_order);
-  
+
   chain = make_cleanup_ui_out_tuple_begin_end (current_uiout,
 					       "SPUInfoProxyDMA");
 

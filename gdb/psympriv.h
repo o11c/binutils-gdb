@@ -28,7 +28,7 @@ struct psymbol_allocation_list;
    symbols whose types we have not parsed yet.  For functions, it also
    contains their memory address, so we can find them from a PC value.
    Each partial_symbol sits in a partial_symtab, all of which are chained
-   on a  partial symtab list and which points to the corresponding 
+   on a  partial symtab list and which points to the corresponding
    normal symtab once the partial_symtab has been referenced.  */
 
 /* This structure is space critical.  See space comments at the top of
@@ -132,7 +132,7 @@ struct partial_symtab
      In DWARF terms, a shared psymtab is a DW_TAG_partial_unit; but
      of course using a name based on that would be too confusing, so
      "shared" was chosen instead.
-     
+
      Only a single user is needed because, when expanding a shared
      psymtab, we only need to expand its "canonical" non-shared user.
      The choice of which one should be canonical is left to the

@@ -180,14 +180,14 @@ static struct type *type_system_address (void);
   }
 
 %type <lval> positional_list component_groups component_associations
-%type <lval> aggregate_component_list 
+%type <lval> aggregate_component_list
 %type <tval> var_or_type
 
 %token <typed_val> INT NULL_PTR CHARLIT
 %token <typed_val_float> FLOAT
 %token TRUEKEYWORD FALSEKEYWORD
 %token COLONCOLON
-%token <sval> STRING NAME DOT_ID 
+%token <sval> STRING NAME DOT_ID
 %type <bval> block
 %type <lval> arglist tick_arglist
 
@@ -208,7 +208,7 @@ static struct type *type_system_address (void);
 %left '*' '/' MOD REM
 %right STARSTAR ABS NOT
 
-/* Artificial token to give NAME => ... and NAME | priority over reducing 
+/* Artificial token to give NAME => ... and NAME | priority over reducing
    NAME to <primary> and to give <primary>' priority over reducing <primary>
    to <simple_exp>. */
 %nonassoc VAR
@@ -273,7 +273,7 @@ primary :	primary '(' arglist ')'
 			}
 	;
 
-primary :	var_or_type '\'' save_qualifier { type_qualifier = $1; } 
+primary :	var_or_type '\'' save_qualifier { type_qualifier = $1; }
 		   '(' exp ')'
 			{
 			  if ($1 == NULL)
@@ -292,7 +292,7 @@ primary :
 		primary '(' simple_exp DOTDOT simple_exp ')'
 			{ write_exp_elt_opcode (TERNOP_SLICE); }
 	|	var_or_type '(' simple_exp DOTDOT simple_exp ')'
-			{ if ($1 == NULL) 
+			{ if ($1 == NULL)
                             write_exp_elt_opcode (TERNOP_SLICE);
 			  else
 			    error (_("Cannot slice a type"));
@@ -304,7 +304,7 @@ primary :	'(' exp1 ')'	{ }
 
 /* The following rule causes a conflict with the type conversion
        var_or_type (exp)
-   To get around it, we give '(' higher priority and add bridge rules for 
+   To get around it, we give '(' higher priority and add bridge rules for
        var_or_type (exp, exp, ...)
        var_or_type (exp .. exp)
    We also have the action for  var_or_type(exp) generate a function call
@@ -325,7 +325,7 @@ primary :	SPECIAL_VARIABLE /* Various GDB extensions */
 	;
 
 primary :     	aggregate
-        ;        
+        ;
 
 simple_exp : 	primary
 	;
@@ -361,7 +361,7 @@ arglist	:	exp
 
 primary :	'{' var_or_type '}' primary  %prec '.'
 		/* GDB extension */
-			{ 
+			{
 			  if ($2 == NULL)
 			    error (_("Type required within braces in coercion"));
 			  write_exp_elt_opcode (UNOP_MEMVAL);
@@ -431,7 +431,7 @@ relation :	simple_exp IN simple_exp DOTDOT simple_exp
 			  write_exp_elt_opcode (BINOP_IN_BOUNDS);
 			}
  	|	simple_exp IN var_or_type	%prec TICK_ACCESS
-			{ 
+			{
 			  if ($3 == NULL)
 			    error (_("Right operand of 'in' must be type"));
 			  write_exp_elt_opcode (UNOP_IN_RANGE);
@@ -449,7 +449,7 @@ relation :	simple_exp IN simple_exp DOTDOT simple_exp
 		          write_exp_elt_opcode (UNOP_LOGICAL_NOT);
 			}
  	|	simple_exp NOT IN var_or_type	%prec TICK_ACCESS
-			{ 
+			{
 			  if ($4 == NULL)
 			    error (_("Right operand of 'in' must be type"));
 			  write_exp_elt_opcode (UNOP_IN_RANGE);
@@ -480,7 +480,7 @@ exp	:	relation
 	;
 
 and_exp :
-		relation _AND_ relation 
+		relation _AND_ relation
 			{ write_exp_elt_opcode (BINOP_BITWISE_AND); }
 	|	and_exp _AND_ relation
 			{ write_exp_elt_opcode (BINOP_BITWISE_AND); }
@@ -494,7 +494,7 @@ and_then_exp :
         ;
 
 or_exp :
-		relation OR relation 
+		relation OR relation
 			{ write_exp_elt_opcode (BINOP_BITWISE_IOR); }
 	|	or_exp OR relation
 			{ write_exp_elt_opcode (BINOP_BITWISE_IOR); }
@@ -513,13 +513,13 @@ xor_exp :       relation XOR relation
 			{ write_exp_elt_opcode (BINOP_BITWISE_XOR); }
         ;
 
-/* Primaries can denote types (OP_TYPE).  In cases such as 
+/* Primaries can denote types (OP_TYPE).  In cases such as
    primary TICK_ADDRESS, where a type would be invalid, it will be
    caught when evaluate_subexp in ada-lang.c tries to evaluate the
    primary, expecting a value.  Precedence rules resolve the ambiguity
    in NAME TICK_ACCESS in favor of shifting to form a var_or_type.  A
    construct such as aType'access'access will again cause an error when
-   aType'access evaluates to a type that evaluate_subexp attempts to 
+   aType'access evaluates to a type that evaluate_subexp attempts to
    evaluate. */
 primary :	primary TICK_ACCESS
 			{ write_exp_elt_opcode (UNOP_ADDR); }
@@ -562,7 +562,7 @@ tick_arglist :			%prec '('
 
 type_prefix :
                 var_or_type
-			{ 
+			{
 			  if ($1 == NULL)
 			    error (_("Prefix must be type"));
 			  write_exp_elt_opcode (OP_TYPE);
@@ -585,7 +585,7 @@ primary	:	INT
 
 primary	:	CHARLIT
                   { write_int (convert_char_literal (type_qualifier, $1.val),
-			       (type_qualifier == NULL) 
+			       (type_qualifier == NULL)
 			       ? $1.type : type_qualifier);
 		  }
 	;
@@ -603,7 +603,7 @@ primary	:	NULL_PTR
 	;
 
 primary	:	STRING
-			{ 
+			{
 			  write_exp_op_with_string (OP_STRING, $1);
 			}
 	;
@@ -619,11 +619,11 @@ primary	: 	NEW NAME
 	;
 
 var_or_type:	NAME   	    %prec VAR
-				{ $$ = write_var_or_type (NULL, $1); } 
+				{ $$ = write_var_or_type (NULL, $1); }
 	|	block NAME  %prec VAR
                                 { $$ = write_var_or_type ($1, $2); }
-	|       NAME TICK_ACCESS 
-			{ 
+	|       NAME TICK_ACCESS
+			{
 			  $$ = write_var_or_type (NULL, $1);
 			  if ($$ == NULL)
 			    write_exp_elt_opcode (UNOP_ADDR);
@@ -631,7 +631,7 @@ var_or_type:	NAME   	    %prec VAR
 			    $$ = lookup_pointer_type ($$);
 			}
 	|	block NAME TICK_ACCESS
-			{ 
+			{
 			  $$ = write_var_or_type ($1, $2);
 			  if ($$ == NULL)
 			    write_exp_elt_opcode (UNOP_ADDR);
@@ -648,7 +648,7 @@ block   :       NAME COLONCOLON
 	;
 
 aggregate :
-		'(' aggregate_component_list ')'  
+		'(' aggregate_component_list ')'
 			{
 			  write_exp_elt_opcode (OP_AGGREGATE);
 			  write_exp_elt_longcst ($2);
@@ -674,12 +674,12 @@ positional_list :
 			  write_exp_elt_longcst (0);
 			  write_exp_elt_opcode (OP_POSITIONAL);
 			  $$ = 1;
-			} 
+			}
 	|	positional_list exp ','
 			{ write_exp_elt_opcode (OP_POSITIONAL);
 			  write_exp_elt_longcst ($1);
 			  write_exp_elt_opcode (OP_POSITIONAL);
-			  $$ = $1 + 1; 
+			  $$ = $1 + 1;
 			}
 	;
 
@@ -705,24 +705,24 @@ component_group :
 
 /* We use this somewhat obscure definition in order to handle NAME => and
    NAME | differently from exp => and exp |.  ARROW and '|' have a precedence
-   above that of the reduction of NAME to var_or_type.  By delaying 
-   decisions until after the => or '|', we convert the ambiguity to a 
+   above that of the reduction of NAME to var_or_type.  By delaying
+   decisions until after the => or '|', we convert the ambiguity to a
    resolved shift/reduce conflict. */
 component_associations :
-		NAME ARROW 
+		NAME ARROW
 			{ write_name_assoc ($1); }
 		    exp	{ $$ = 1; }
 	|	simple_exp ARROW exp
 			{ $$ = 1; }
-	|	simple_exp DOTDOT simple_exp ARROW 
+	|	simple_exp DOTDOT simple_exp ARROW
 			{ write_exp_elt_opcode (OP_DISCRETE_RANGE);
 			  write_exp_op_with_string (OP_NAME, empty_stoken);
 			}
 		    exp { $$ = 1; }
-	|	NAME '|' 
+	|	NAME '|'
 		        { write_name_assoc ($1); }
 		    component_associations  { $$ = $4 + 1; }
-	|	simple_exp '|'  
+	|	simple_exp '|'
 	            component_associations  { $$ = $3 + 1; }
 	|	simple_exp DOTDOT simple_exp '|'
 			{ write_exp_elt_opcode (OP_DISCRETE_RANGE); }
@@ -823,13 +823,13 @@ write_exp_op_with_string (enum exp_opcode opcode, struct stoken token)
   write_exp_string (token);
   write_exp_elt_opcode (opcode);
 }
-  
-/* Emit expression corresponding to the renamed object named 
+
+/* Emit expression corresponding to the renamed object named
  * designated by RENAMED_ENTITY[0 .. RENAMED_ENTITY_LEN-1] in the
  * context of ORIG_LEFT_CONTEXT, to which is applied the operations
  * encoded by RENAMING_EXPR.  MAX_DEPTH is the maximum number of
  * cascaded renamings to allow.  If ORIG_LEFT_CONTEXT is null, it
- * defaults to the currently selected block. ORIG_SYMBOL is the 
+ * defaults to the currently selected block. ORIG_SYMBOL is the
  * symbol that originally encoded the renaming.  It is needed only
  * because its prefix also qualifies any index variables used to index
  * or slice an array.  It should not be necessary once we go to the
@@ -1028,7 +1028,7 @@ select_possible_type_sym (struct ada_symbol_info *syms, int nsyms)
   int i;
   int preferred_index;
   struct type *preferred_type;
-	  
+
   preferred_index = -1; preferred_type = NULL;
   for (i = 0; i < nsyms; i += 1)
     switch (SYMBOL_CLASS (syms[i].sym))
@@ -1070,7 +1070,7 @@ find_primitive_type (char *name)
       /* Check to see if we have a regular definition of this
 	 type that just didn't happen to have been read yet.  */
       struct symbol *sym;
-      char *expanded_name = 
+      char *expanded_name =
 	(char *) alloca (strlen (name) + sizeof ("standard__"));
       strcpy (expanded_name, "standard__");
       strcat (expanded_name, name);
@@ -1119,7 +1119,7 @@ write_selectors (char *sels)
       struct stoken field_name;
       char *p = chop_separator (sels);
       sels = p;
-      while (*sels != '\0' && *sels != '.' 
+      while (*sels != '\0' && *sels != '.'
 	     && (sels[0] != '_' || sels[1] != '_'))
 	sels += 1;
       field_name.length = sels - p;
@@ -1195,7 +1195,7 @@ get_symbol_field_type (struct symbol *sym, char *encoded_field_name)
         return TYPE_FIELD_TYPE (type, fieldno);
 
       subfield_name = field_name;
-      while (*subfield_name != '\0' && *subfield_name != '.' 
+      while (*subfield_name != '\0' && *subfield_name != '.'
 	     && (subfield_name[0] != '_' || subfield_name[1] != '_'))
 	subfield_name += 1;
 
@@ -1214,14 +1214,14 @@ get_symbol_field_type (struct symbol *sym, char *encoded_field_name)
   return NULL;
 }
 
-/* Look up NAME0 (an unencoded identifier or dotted name) in BLOCK (or 
+/* Look up NAME0 (an unencoded identifier or dotted name) in BLOCK (or
    expression_block_context if NULL).  If it denotes a type, return
    that type.  Otherwise, write expression code to evaluate it as an
    object and return NULL. In this second case, NAME0 will, in general,
    have the form <name>(.<selector_name>)*, where <name> is an object
    or renaming encoded in the debugging data.  Calls error if no
    prefix <name> matches a name in the debugging data (i.e., matches
-   either a complete name or, as a wild-card match, the final 
+   either a complete name or, as a wild-card match, the final
    identifier).  */
 
 static struct type*
@@ -1240,7 +1240,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
   for (depth = 0; depth < MAX_RENAMING_CHAIN_LENGTH; depth += 1)
     {
       int tail_index;
-      
+
       tail_index = name_len;
       while (tail_index > 0)
 	{
@@ -1277,7 +1277,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
 	    renaming_sym = type_sym;
 	  else if (nsyms == 1)
 	    renaming_sym = syms[0].sym;
-	  else 
+	  else
 	    renaming_sym = NULL;
 
 	  switch (ada_parse_renaming (renaming_sym, &renaming,
@@ -1297,9 +1297,9 @@ write_var_or_type (const struct block *block, struct stoken name0)
 		encoded_name = new_name;
 		name_len = renaming_len + name_len - tail_index;
 		goto TryAfterRenaming;
-	      }	
+	      }
 	    case ADA_OBJECT_RENAMING:
-	      write_object_renaming (block, renaming, renaming_len, 
+	      write_object_renaming (block, renaming, renaming_len,
 				     renaming_expr, MAX_RENAMING_CHAIN_LENGTH);
 	      write_selectors (encoded_name + tail_index);
 	      return NULL;
@@ -1311,7 +1311,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
 	  if (type_sym != NULL)
 	    {
               struct type *field_type;
-              
+
               if (tail_index == name_len)
                 return SYMBOL_TYPE (type_sym);
 
@@ -1322,7 +1322,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
                 = get_symbol_field_type (type_sym, encoded_name + tail_index);
               if (field_type != NULL)
                 return field_type;
-	      else 
+	      else
 		error (_("Invalid attempt to select from type: \"%s\"."),
                        name0.ptr);
 	    }
@@ -1340,7 +1340,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
 	      write_selectors (encoded_name + tail_index);
 	      return NULL;
 	    }
-	  else if (nsyms == 0) 
+	  else if (nsyms == 0)
 	    {
 	      struct bound_minimal_symbol msym
 		= ada_lookup_simple_minsym (encoded_name);
@@ -1353,12 +1353,12 @@ write_var_or_type (const struct block *block, struct stoken name0)
 		}
 
 	      if (tail_index == name_len
-		  && strncmp (encoded_name, "standard__", 
+		  && strncmp (encoded_name, "standard__",
 			      sizeof ("standard__") - 1) == 0)
 		error (_("No definition of \"%s\" found."), name0.ptr);
 
 	      tail_index = chop_selector (encoded_name, tail_index);
-	    } 
+	    }
 	  else
 	    {
 	      write_ambiguous_var (block, encoded_name, tail_index);
@@ -1373,7 +1373,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
 	error (_("No definition of \"%s\" in current context."), name0.ptr);
       else
 	error (_("No definition of \"%s\" in specified context."), name0.ptr);
-      
+
     TryAfterRenaming: ;
     }
 
@@ -1395,7 +1395,7 @@ write_var_or_type (const struct block *block, struct stoken name0)
    As a result, in the (one hopes) rare case that one writes an
    aggregate such as (R => 42) where R renames an object or is an
    ambiguous name, one must write instead ((R) => 42). */
-   
+
 static void
 write_name_assoc (struct stoken name)
 {
@@ -1491,7 +1491,7 @@ type_boolean (void)
 static struct type *
 type_system_address (void)
 {
-  struct type *type 
+  struct type *type
     = language_lookup_primitive_type_by_name (parse_language,
 					      parse_gdbarch,
 					      "system__address");

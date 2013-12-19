@@ -497,7 +497,7 @@ command_line_handler (char *rl)
   if (source_file_name != NULL)
     ++source_line_number;
 
-  /* If we are in this case, then command_handler will call quit 
+  /* If we are in this case, then command_handler will call quit
      and exit from gdb.  */
   if (!rl || rl == (char *) EOF)
     {
@@ -969,7 +969,7 @@ gdb_setup_readline (void)
 	 could be overwritten by a command in .gdbinit like 'set
 	 editing on' or 'off'.  */
       async_command_editing_p = 1;
-	  
+
       /* When a character is detected on instream by select or poll,
 	 readline will be invoked via this callback function.  */
       call_readline = rl_callback_read_char_wrapper;
@@ -979,12 +979,12 @@ gdb_setup_readline (void)
       async_command_editing_p = 0;
       call_readline = gdb_readline2;
     }
-  
+
   /* When readline has read an end-of-line character, it passes the
      complete line to gdb for processing; command_line_handler is the
      function that does this.  */
   input_handler = command_line_handler;
-      
+
   /* Tell readline to use the same input stream that gdb uses.  */
   rl_instream = instream;
 

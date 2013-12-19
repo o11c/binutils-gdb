@@ -86,7 +86,7 @@
 void (*deprecated_trace_find_hook) (char *arg, int from_tty);
 void (*deprecated_trace_start_stop_hook) (int start, int from_tty);
 
-/* 
+/*
    Tracepoint.c:
 
    This module defines the following debugger commands:
@@ -579,8 +579,8 @@ save_trace_state_variables (struct ui_file *fp)
 /* ACTIONS functions: */
 
 /* The three functions:
-   collect_pseudocommand, 
-   while_stepping_pseudocommand, and 
+   collect_pseudocommand,
+   while_stepping_pseudocommand, and
    end_actions_pseudocommand
    are placeholders for "commands" that are actually ONLY to be used
    within a tracepoint action list.  If the actual function is ever called,
@@ -935,7 +935,7 @@ add_register (struct collection_list *collection, unsigned int regno)
 
 /* Add a memrange to a collection list.  */
 static void
-add_memrange (struct collection_list *memranges, 
+add_memrange (struct collection_list *memranges,
 	      int type, bfd_signed_vma base,
 	      unsigned long len)
 {
@@ -966,7 +966,7 @@ add_memrange (struct collection_list *memranges,
 
 /* Add a symbol to a collection list.  */
 static void
-collect_symbol (struct collection_list *collect, 
+collect_symbol (struct collection_list *collect,
 		struct symbol *sym,
 		struct gdbarch *gdbarch,
 		long frame_regno, long frame_offset,
@@ -1011,7 +1011,7 @@ collect_symbol (struct collection_list *collect,
     case LOC_REGISTER:
       reg = SYMBOL_REGISTER_OPS (sym)->register_number (sym, gdbarch);
       if (info_verbose)
-	printf_filtered ("LOC_REG[parm] %s: ", 
+	printf_filtered ("LOC_REG[parm] %s: ",
 			 SYMBOL_PRINT_NAME (sym));
       add_register (collect, reg);
       /* Check for doubles stored in two registers.  */
@@ -1315,9 +1315,9 @@ stringify_collection_list (struct collection_list *list)
       sprintf_vma (tmp2, list->list[i].start);
       if (info_verbose)
 	{
-	  printf_filtered ("(%d, %s, %ld)\n", 
-			   list->list[i].type, 
-			   tmp2, 
+	  printf_filtered ("(%d, %s, %ld)\n",
+			   list->list[i].type,
+			   tmp2,
 			   (long) (list->list[i].end - list->list[i].start));
 	}
       if (count + 27 > MAX_AGENT_EXPR_LEN)
@@ -1359,7 +1359,7 @@ stringify_collection_list (struct collection_list *list)
       end += 10;		/* 'X' + 8 hex digits + ',' */
       count += 10;
 
-      end = mem2hex (list->aexpr_list[i]->buf, 
+      end = mem2hex (list->aexpr_list[i]->buf,
 		     end, list->aexpr_list[i]->len);
       count += 2 * list->aexpr_list[i]->len;
     }
@@ -1493,7 +1493,7 @@ encode_actions_1 (struct command_line *action,
 			      for (ndx2 = 0; ndx2 < 8; ndx2++)
 				if (aexpr->reg_mask[ndx1] & (1 << ndx2))
 				  /* it's used -- record it */
-				  add_register (collect, 
+				  add_register (collect,
 						ndx1 * 8 + ndx2);
 			    }
 			}
@@ -1591,7 +1591,7 @@ encode_actions_1 (struct command_line *action,
 				  for (ndx2 = 0; ndx2 < 8; ndx2++)
 				    if (aexpr->reg_mask[ndx1] & (1 << ndx2))
 				      /* It's used -- record it.  */
-				      add_register (collect, 
+				      add_register (collect,
 						    ndx1 * 8 + ndx2);
 				}
 			    }
@@ -1880,7 +1880,7 @@ start_tracing (char *notes)
     {
       target_download_trace_state_variable (tsv);
     }
-  
+
   /* Tell target to treat text-like sections as transparent.  */
   target_trace_set_readonly_regions ();
   /* Set some mode flags.  */
@@ -1990,7 +1990,7 @@ trace_status_command (char *args, int from_tty)
   int status, ix;
   VEC(breakpoint_p) *tp_vec = NULL;
   struct breakpoint *t;
-  
+
   status = target_get_trace_status (ts);
 
   if (status == -1)
@@ -2214,7 +2214,7 @@ trace_status_mi (int on_stop)
 	      stopping_tracepoint = ts->stopping_tracepoint;
 	      break;
 	    }
-	  
+
 	  if (stop_reason)
 	    {
 	      ui_out_field_string (uiout, "stop-reason", stop_reason);
@@ -2334,7 +2334,7 @@ tfind_1 (enum trace_find_type type, int num,
 
   target_frameno = target_trace_find (type, num, addr1, addr2,
 				      &target_tracept);
-  
+
   if (type == tfind_number
       && num == -1
       && target_frameno == -1)
@@ -2346,12 +2346,12 @@ tfind_1 (enum trace_find_type type, int num,
       /* A request for a non-existent trace frame has failed.
 	 Our response will be different, depending on FROM_TTY:
 
-	 If FROM_TTY is true, meaning that this command was 
+	 If FROM_TTY is true, meaning that this command was
 	 typed interactively by the user, then give an error
 	 and DO NOT change the state of traceframe_number etc.
 
 	 However if FROM_TTY is false, meaning that we're either
-	 in a script, a loop, or a user-defined command, then 
+	 in a script, a loop, or a user-defined command, then
 	 DON'T give an error, but DO change the state of
 	 traceframe_number etc. to invalid.
 
@@ -2363,7 +2363,7 @@ tfind_1 (enum trace_find_type type, int num,
 	 failed WITHOUT aborting.  This allows you to write
 	 scripts that search thru the trace buffer until the end,
 	 and then continue on to do something else.  */
-  
+
       if (from_tty)
 	error (_("Target failed to find requested trace frame."));
       else
@@ -2377,7 +2377,7 @@ tfind_1 (enum trace_find_type type, int num,
 #endif
 	}
     }
-  
+
   tp = get_tracepoint_by_number_on_target (target_tracept);
 
   reinit_frame_cache ();
@@ -2446,13 +2446,13 @@ tfind_1 (enum trace_find_type type, int num,
     }
 }
 
-/* trace_find_command takes a trace frame number n, 
-   sends "QTFrame:<n>" to the target, 
+/* trace_find_command takes a trace frame number n,
+   sends "QTFrame:<n>" to the target,
    and accepts a reply that may contain several optional pieces
    of information: a frame number, a tracepoint number, and an
    indication of whether this is a trap frame or a stepping frame.
 
-   The minimal response is just "OK" (which indicates that the 
+   The minimal response is just "OK" (which indicates that the
    target does not give us a frame number or a tracepoint number).
    Instead of that, the target may send us a string containing
    any combination of:
@@ -2469,7 +2469,7 @@ trace_find_command (char *args, int from_tty)
   if (current_trace_status ()->running
       && current_trace_status ()->filename == NULL)
     error (_("May not look at trace frames while trace is running."));
-  
+
   if (args == 0 || *args == 0)
     { /* TFIND with no args means find NEXT trace frame.  */
       if (traceframe_number == -1)
@@ -2483,7 +2483,7 @@ trace_find_command (char *args, int from_tty)
 	error (_("not debugging trace buffer"));
       else if (from_tty && traceframe_number == 0)
 	error (_("already at start of trace buffer"));
-      
+
       frameno = traceframe_number - 1;
       }
   /* A hack to work around eval's need for fp to have been collected.  */
@@ -2566,7 +2566,7 @@ trace_find_tracepoint_command (char *args, int from_tty)
    This command will take a sourceline for argument, just like BREAK
    or TRACE (ie. anything that "decode_line_1" can handle).
 
-   With no argument, this command will find the next trace frame 
+   With no argument, this command will find the next trace frame
    corresponding to a source line OTHER THAN THE CURRENT ONE.  */
 
 static void
@@ -2594,7 +2594,7 @@ trace_find_line_command (char *args, int from_tty)
       sals = decode_line_with_current_source (args, DECODE_LINE_FUNFIRSTLINE);
       sal = sals.sals[0];
     }
-  
+
   old_chain = make_cleanup (xfree, sals.sals);
   if (sal.symtab == 0)
     error (_("No line number information available."));

@@ -90,7 +90,7 @@ scan_filename_with_cleanup (char **cmd, const char *defname)
 
   fullname = tilde_expand (filename);
   make_cleanup (xfree, fullname);
-  
+
   return fullname;
 }
 
@@ -112,7 +112,7 @@ bfd_openr_with_cleanup (const char *filename, const char *target)
 
   ibfd = gdb_bfd_openr (filename, target);
   if (ibfd == NULL)
-    error (_("Failed to open %s: %s."), filename, 
+    error (_("Failed to open %s: %s."), filename,
 	   bfd_errmsg (bfd_get_error ()));
 
   make_cleanup_bfd_unref (ibfd);
@@ -132,7 +132,7 @@ bfd_openw_with_cleanup (const char *filename, const char *target,
     {
       obfd = gdb_bfd_openw (filename, target);
       if (obfd == NULL)
-	error (_("Failed to open %s: %s."), filename, 
+	error (_("Failed to open %s: %s."), filename,
 	       bfd_errmsg (bfd_get_error ()));
       make_cleanup_bfd_unref (obfd);
       if (!bfd_set_format (obfd, bfd_object))
@@ -171,7 +171,7 @@ append_command (char *cmd, int from_tty)
 }
 
 static void
-dump_binary_file (const char *filename, const char *mode, 
+dump_binary_file (const char *filename, const char *mode,
 		  const bfd_byte *buf, ULONGEST len)
 {
   FILE *file;
@@ -184,8 +184,8 @@ dump_binary_file (const char *filename, const char *mode,
 }
 
 static void
-dump_bfd_file (const char *filename, const char *mode, 
-	       const char *target, CORE_ADDR vaddr, 
+dump_bfd_file (const char *filename, const char *mode,
+	       const char *target, CORE_ADDR vaddr,
 	       const bfd_byte *buf, ULONGEST len)
 {
   bfd *obfd;
@@ -201,7 +201,7 @@ dump_bfd_file (const char *filename, const char *mode,
 					  | SEC_LOAD));
   osection->entsize = 0;
   if (!bfd_set_section_contents (obfd, osection, buf, 0, len))
-    warning (_("writing dump file '%s' (%s)"), filename, 
+    warning (_("writing dump file '%s' (%s)"), filename,
 	     bfd_errmsg (bfd_get_error ()));
 }
 
@@ -241,7 +241,7 @@ dump_memory_to_file (char *cmd, char *mode, char *file_format)
   buf = xmalloc (count);
   make_cleanup (xfree, buf);
   read_memory (lo, buf, count);
-  
+
   /* Have everything.  Open/write the data.  */
   if (file_format == NULL || strcmp (file_format, "binary") == 0)
     {
@@ -281,7 +281,7 @@ dump_value_to_file (char *cmd, char *mode, char *file_format)
   /* Have everything.  Open/write the data.  */
   if (file_format == NULL || strcmp (file_format, "binary") == 0)
     {
-      dump_binary_file (filename, mode, value_contents (val), 
+      dump_binary_file (filename, mode, value_contents (val),
 			TYPE_LENGTH (value_type (val)));
     }
   else
@@ -298,8 +298,8 @@ dump_value_to_file (char *cmd, char *mode, char *file_format)
 	  warning (_("value is not an lval: address assumed to be zero"));
 	}
 
-      dump_bfd_file (filename, mode, file_format, vaddr, 
-		     value_contents (val), 
+      dump_bfd_file (filename, mode, file_format, vaddr,
+		     value_contents (val),
 		     TYPE_LENGTH (value_type (val)));
     }
 
@@ -412,10 +412,10 @@ add_dump_command (char *name, void (*func) (char *args, char *mode),
 
   /* Replace "Dump " at start of docstring with "Append " (borrowed
      from [deleted] deprecated_add_show_from_set).  */
-  if (   c->doc[0] == 'W' 
-      && c->doc[1] == 'r' 
+  if (   c->doc[0] == 'W'
+      && c->doc[1] == 'r'
       && c->doc[2] == 'i'
-      && c->doc[3] == 't' 
+      && c->doc[3] == 't'
       && c->doc[4] == 'e'
       && c->doc[5] == ' ')
     c->doc = concat ("Append ", c->doc + 6, (char *)NULL);
@@ -451,11 +451,11 @@ restore_section_callback (bfd *ibfd, asection *isec, void *args)
     return;
 
   /* Does the section overlap with the desired restore range? */
-  if (sec_end <= data->load_start 
+  if (sec_end <= data->load_start
       || (data->load_end > 0 && sec_start >= data->load_end))
     {
       /* No, no useable data in this section.  */
-      printf_filtered (_("skipping section %s...\n"), 
+      printf_filtered (_("skipping section %s...\n"),
 		       bfd_section_name (ibfd, isec));
       return;
     }
@@ -474,19 +474,19 @@ restore_section_callback (bfd *ibfd, asection *isec, void *args)
   buf = xmalloc (size);
   old_chain = make_cleanup (xfree, buf);
   if (!bfd_get_section_contents (ibfd, isec, buf, 0, size))
-    error (_("Failed to read bfd file %s: '%s'."), bfd_get_filename (ibfd), 
+    error (_("Failed to read bfd file %s: '%s'."), bfd_get_filename (ibfd),
 	   bfd_errmsg (bfd_get_error ()));
 
   printf_filtered ("Restoring section %s (0x%lx to 0x%lx)",
-		   bfd_section_name (ibfd, isec), 
-		   (unsigned long) sec_start, 
+		   bfd_section_name (ibfd, isec),
+		   (unsigned long) sec_start,
 		   (unsigned long) sec_end);
 
   if (data->load_offset != 0 || data->load_start != 0 || data->load_end != 0)
     printf_filtered (" into memory (%s to %s)\n",
 		     paddress (target_gdbarch (),
 			       (unsigned long) sec_start
-			       + sec_offset + data->load_offset), 
+			       + sec_offset + data->load_offset),
 		     paddress (target_gdbarch (),
 			       (unsigned long) sec_start + sec_offset
 				+ data->load_offset + sec_load_count));
@@ -494,7 +494,7 @@ restore_section_callback (bfd *ibfd, asection *isec, void *args)
     puts_filtered ("\n");
 
   /* Write the data.  */
-  ret = target_write_memory (sec_start + sec_offset + data->load_offset, 
+  ret = target_write_memory (sec_start + sec_offset + data->load_offset,
 			     buf + sec_offset, sec_load_count);
   if (ret != 0)
     warning (_("restore: memory write failed (%s)."), safe_strerror (ret));
@@ -521,7 +521,7 @@ restore_binary_file (char *filename, struct callback_data *data)
     perror_with_name (filename);
 
   if (len <= data->load_start)
-    error (_("Start address is greater than length of binary file %s."), 
+    error (_("Start address is greater than length of binary file %s."),
 	   filename);
 
   /* Chop off "len" if it exceeds the requested load_end addr.  */
@@ -531,9 +531,9 @@ restore_binary_file (char *filename, struct callback_data *data)
   if (data->load_start > 0)
     len -= data->load_start;
 
-  printf_filtered 
-    ("Restoring binary file %s into memory (0x%lx to 0x%lx)\n", 
-     filename, 
+  printf_filtered
+    ("Restoring binary file %s into memory (0x%lx to 0x%lx)\n",
+     filename,
      (unsigned long) (data->load_start + data->load_offset),
      (unsigned long) (data->load_start + data->load_offset + len));
 
@@ -584,12 +584,12 @@ restore_command (char *args, int from_tty)
 	}
       /* Parse offset (optional).  */
       if (args != NULL && *args != '\0')
-      data.load_offset = 
+      data.load_offset =
 	parse_and_eval_address (scan_expression_with_cleanup (&args, NULL));
       if (args != NULL && *args != '\0')
 	{
 	  /* Parse start address (optional).  */
-	  data.load_start = 
+	  data.load_start =
 	    parse_and_eval_long (scan_expression_with_cleanup (&args, NULL));
 	  if (args != NULL && *args != '\0')
 	    {
@@ -603,8 +603,8 @@ restore_command (char *args, int from_tty)
 
   if (info_verbose)
     printf_filtered ("Restore file %s offset 0x%lx start 0x%lx end 0x%lx\n",
-		     filename, (unsigned long) data.load_offset, 
-		     (unsigned long) data.load_start, 
+		     filename, (unsigned long) data.load_offset,
+		     (unsigned long) data.load_start,
 		     (unsigned long) data.load_end);
 
   if (binary_flag)
@@ -687,32 +687,32 @@ the specified FILE in raw target ordered bytes.");
 
   add_prefix_cmd ("srec", all_commands, srec_dump_command,
 		  _("Write target code/data to an srec file."),
-		  &srec_cmdlist, "dump srec ", 
-		  0 /*allow-unknown*/, 
+		  &srec_cmdlist, "dump srec ",
+		  0 /*allow-unknown*/,
 		  &dump_cmdlist);
 
   add_prefix_cmd ("ihex", all_commands, ihex_dump_command,
 		  _("Write target code/data to an intel hex file."),
-		  &ihex_cmdlist, "dump ihex ", 
-		  0 /*allow-unknown*/, 
+		  &ihex_cmdlist, "dump ihex ",
+		  0 /*allow-unknown*/,
 		  &dump_cmdlist);
 
   add_prefix_cmd ("tekhex", all_commands, tekhex_dump_command,
 		  _("Write target code/data to a tekhex file."),
-		  &tekhex_cmdlist, "dump tekhex ", 
-		  0 /*allow-unknown*/, 
+		  &tekhex_cmdlist, "dump tekhex ",
+		  0 /*allow-unknown*/,
 		  &dump_cmdlist);
 
   add_prefix_cmd ("binary", all_commands, binary_dump_command,
 		  _("Write target code/data to a raw binary file."),
-		  &binary_dump_cmdlist, "dump binary ", 
-		  0 /*allow-unknown*/, 
+		  &binary_dump_cmdlist, "dump binary ",
+		  0 /*allow-unknown*/,
 		  &dump_cmdlist);
 
   add_prefix_cmd ("binary", all_commands, binary_append_command,
 		  _("Append target code/data to a raw binary file."),
-		  &binary_append_cmdlist, "append binary ", 
-		  0 /*allow-unknown*/, 
+		  &binary_append_cmdlist, "append binary ",
+		  0 /*allow-unknown*/,
 		  &append_cmdlist);
 
   add_cmd ("memory", all_commands, dump_srec_memory, _("\

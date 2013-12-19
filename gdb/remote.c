@@ -207,7 +207,7 @@ static int remote_get_trace_status (struct trace_status *ts);
 static int remote_upload_tracepoints (struct uploaded_tp **utpp);
 
 static int remote_upload_trace_state_variables (struct uploaded_tsv **utsvp);
-  
+
 static void remote_query_supported (void);
 
 static void remote_check_symbols (void);
@@ -3731,7 +3731,7 @@ remote_check_symbols (void)
 	  xsnprintf (msg, get_remote_packet_size (), "qSymbol:%s:%s",
 		     phex_nz (sym_addr, addr_size), &reply[8]);
 	}
-  
+
       putpkt (msg);
       getpkt (&rs->buf, &rs->buf_size, 0);
       reply = rs->buf;
@@ -4956,7 +4956,7 @@ remote_resume (struct target_ops *ops,
 	warning (_(" - Can't pass signal %d to target in reverse: ignored."),
 		 siggnal);
 
-      if (step 
+      if (step
 	  && remote_protocol_packets[PACKET_bs].support == PACKET_DISABLE)
 	error (_("Remote reverse-step not supported."));
       if (!step
@@ -6180,8 +6180,8 @@ fetch_register_using_p (struct regcache *regcache, struct packet_reg *reg)
       return 0;
     case PACKET_ERROR:
       error (_("Could not fetch register \"%s\"; remote failure reply '%s'"),
-	     gdbarch_register_name (get_regcache_arch (regcache), 
-				    reg->regnum), 
+	     gdbarch_register_name (get_regcache_arch (regcache),
+				    reg->regnum),
 	     buf);
     }
 
@@ -6438,7 +6438,7 @@ remote_prepare_to_store (struct regcache *regcache)
    packet was not recognized.  */
 
 static int
-store_register_using_P (const struct regcache *regcache, 
+store_register_using_P (const struct regcache *regcache,
 			struct packet_reg *reg)
 {
   struct gdbarch *gdbarch = get_regcache_arch (regcache);
@@ -6512,7 +6512,7 @@ store_registers_using_G (const struct regcache *regcache)
   putpkt (rs->buf);
   getpkt (&rs->buf, &rs->buf_size, 0);
   if (packet_check_result (rs->buf) == PACKET_ERROR)
-    error (_("Could not write registers; remote failure reply '%s'"), 
+    error (_("Could not write registers; remote failure reply '%s'"),
 	   rs->buf);
 }
 
@@ -8126,7 +8126,7 @@ extended_remote_create_inferior_1 (char *exec_file, char *args,
 }
 
 static void
-extended_remote_create_inferior (struct target_ops *ops, 
+extended_remote_create_inferior (struct target_ops *ops,
 				 char *exec_file, char *args,
 				 char **env, int from_tty)
 {
@@ -8688,27 +8688,27 @@ the loaded file\n"));
 
 static LONGEST
 remote_write_qxfer (struct target_ops *ops, const char *object_name,
-                    const char *annex, const gdb_byte *writebuf, 
-                    ULONGEST offset, LONGEST len, 
+                    const char *annex, const gdb_byte *writebuf,
+                    ULONGEST offset, LONGEST len,
                     struct packet_config *packet)
 {
   int i, buf_len;
   ULONGEST n;
   struct remote_state *rs = get_remote_state ();
-  int max_size = get_memory_write_packet_size (); 
+  int max_size = get_memory_write_packet_size ();
 
   if (packet->support == PACKET_DISABLE)
     return -1;
 
   /* Insert header.  */
-  i = snprintf (rs->buf, max_size, 
+  i = snprintf (rs->buf, max_size,
 		"qXfer:%s:write:%s:%s:",
 		object_name, annex ? annex : "",
 		phex_nz (offset, sizeof offset));
   max_size -= (i + 1);
 
   /* Escape as much data as fits into rs->buf.  */
-  buf_len = remote_escape_output 
+  buf_len = remote_escape_output
     (writebuf, len, (gdb_byte *) rs->buf + i, &max_size, max_size);
 
   if (putpkt_binary (rs->buf, i + buf_len) < 0
@@ -9047,7 +9047,7 @@ remote_search_memory (struct target_ops* ops,
   set_general_process ();
 
   /* Insert header.  */
-  i = snprintf (rs->buf, max_size, 
+  i = snprintf (rs->buf, max_size,
 		"qSearch:memory:%s;%s;",
 		phex_nz (start_addr, addr_size),
 		phex_nz (search_space_len, sizeof (search_space_len)));
@@ -9129,7 +9129,7 @@ remote_rcmd (char *command,
       QUIT;			/* Allow user to bail out with ^C.  */
       rs->buf[0] = '\0';
       if (getpkt_sane (&rs->buf, &rs->buf_size, 0) == -1)
-        { 
+        {
           /* Timeout.  Continue to (try to) read responses.
              This is better than stopping with an error, assuming the stub
              is still executing the (long) monitor command.
@@ -11749,7 +11749,7 @@ remote_new_objfile (struct objfile *objfile)
    data structures representing them.  We don't want to create real
    tracepoints yet, we don't want to mess up the user's existing
    collection.  */
-  
+
 static int
 remote_upload_tracepoints (struct uploaded_tp **utpp)
 {

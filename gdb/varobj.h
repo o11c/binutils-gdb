@@ -69,7 +69,7 @@ typedef struct varobj_update_result_t
   /* This variable is used internally by varobj_update to indicate if the
      new value of varobj is already computed and installed, or has to
      be yet installed.  Don't use this outside varobj.c.  */
-  int value_installed;  
+  int value_installed;
 
   /* This will be non-NULL when new children were added to the varobj.
      It lists the new children (which must necessarily come at the end
@@ -106,13 +106,13 @@ struct varobj
   int index;
 
   /* The type of this variable.  This can be NULL
-     for artifial variable objects -- currently, the "accessibility" 
+     for artifial variable objects -- currently, the "accessibility"
      variable objects in C++.  */
   struct type *type;
 
   /* The value of this expression or subexpression.  A NULL value
      indicates there was an error getting this value.
-     Invariant: if varobj_value_is_changeable_p (this) is non-zero, 
+     Invariant: if varobj_value_is_changeable_p (this) is non-zero,
      the value is either NULL, or not lazy.  */
   struct value *value;
 
@@ -139,7 +139,7 @@ struct varobj
   char *print_value;
 
   /* Is this variable frozen.  Frozen variables are never implicitly
-     updated by -var-update * 
+     updated by -var-update *
      or -var-update <direct-or-indirect-parent>.  */
   int frozen;
 
@@ -290,7 +290,7 @@ extern int varobj_set_value (struct varobj *var, char *expression);
 extern void all_root_varobjs (void (*func) (struct varobj *var, void *data),
 			      void *data);
 
-extern VEC(varobj_update_result) *varobj_update (struct varobj **varp, 
+extern VEC(varobj_update_result) *varobj_update (struct varobj **varp,
 						 int explicit);
 
 extern void varobj_invalidate (void);

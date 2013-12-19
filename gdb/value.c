@@ -2783,7 +2783,7 @@ value_static_field (struct type *type, int fieldno)
 void
 set_value_enclosing_type (struct value *val, struct type *new_encl_type)
 {
-  if (TYPE_LENGTH (new_encl_type) > TYPE_LENGTH (value_enclosing_type (val))) 
+  if (TYPE_LENGTH (new_encl_type) > TYPE_LENGTH (value_enclosing_type (val)))
     val->contents =
       (gdb_byte *) xrealloc (val->contents, TYPE_LENGTH (new_encl_type));
 
@@ -3417,7 +3417,7 @@ value_from_history_ref (char *h, char **endp)
     {
       if (len == 2)
 	{
-	  /* For some bizarre reason, "$$" is equivalent to "$$1", 
+	  /* For some bizarre reason, "$$" is equivalent to "$$1",
 	     rather than to "$$0" as it ought to be!  */
 	  index = -1;
 	  *endp += len;

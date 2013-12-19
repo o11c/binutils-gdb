@@ -25,7 +25,7 @@
 
 /* Hardware-assisted breakpoints and watchpoints.  */
 
-/* Add watchpoint methods to the provided target_ops.  
+/* Add watchpoint methods to the provided target_ops.
    Targets using i386 family debug registers for watchpoints should call
    this.  */
 struct target_ops;
@@ -101,7 +101,7 @@ struct i386_debug_reg_state
 
 /* Use this function to set i386_dr_low debug_register_length field
    rather than setting it directly to check that the length is only
-   set once.  It also enables the 'maint set/show show-debug-regs' 
+   set once.  It also enables the 'maint set/show show-debug-regs'
    command.  */
 
 extern void i386_set_debug_register_length (int len);

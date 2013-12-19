@@ -25,7 +25,7 @@
 
 /*  Xtensa register type.  */
 
-typedef enum 
+typedef enum
 {
   xtRegisterTypeArRegfile = 1,	/* Register File ar0..arXX.  */
   xtRegisterTypeSpecialReg,	/* CPU states, such as PS, Booleans, (rsr).  */
@@ -44,7 +44,7 @@ typedef enum
 
 #define XTENSA_MAX_COPROCESSOR	0x10  /* Number of Xtensa coprocessors.  */
 
-typedef enum 
+typedef enum
 {
   xtRegisterGroupUnknown = 0,
   xtRegisterGroupRegFile	= 0x0001,    /* Register files without ARx.  */
@@ -74,7 +74,7 @@ typedef enum
 
 /*  Xtensa target flags.  */
 
-typedef enum 
+typedef enum
 {
   xtTargetFlagsNonVisibleRegs	= 0x0001,
   xtTargetFlagsUseFetchStore	= 0x0002,
@@ -105,14 +105,14 @@ typedef struct
 
 /*  Mask.  */
 
-typedef struct 
+typedef struct
 {
   int reg_num;
   int bit_start;
   int bit_size;
 } xtensa_reg_mask_t;
 
-typedef struct 
+typedef struct
 {
   int count;
   xtensa_reg_mask_t *mask;
@@ -121,7 +121,7 @@ typedef struct
 
 /*  Xtensa register representation.  */
 
-typedef struct 
+typedef struct
 {
   char* name;             	/* Register name.  */
   int offset;             	/* Offset.  */
@@ -155,7 +155,7 @@ typedef struct
 
 /*  Call-ABI for stack frame.  */
 
-typedef enum 
+typedef enum
 {
   CallAbiDefault = 0,		/* Any 'callX' instructions; default stack.  */
   CallAbiCall0Only,		/* Only 'call0' instructions; flat stack.  */
@@ -297,8 +297,8 @@ struct gdbarch_tdep
 #endif
 #define WB_SHIFT	  2
 
-/* We assign fixed numbers to the registers of the "current" window 
-   (i.e., relative to WB).  The registers get remapped via the reg_map 
-   data structure to their corresponding register in the AR register 
+/* We assign fixed numbers to the registers of the "current" window
+   (i.e., relative to WB).  The registers get remapped via the reg_map
+   data structure to their corresponding register in the AR register
    file (see xtensa-tdep.c).  */
 

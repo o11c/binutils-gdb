@@ -467,7 +467,7 @@ have_live_inferiors (void)
     if (inf->pid != 0)
       {
 	struct thread_info *tp;
-	
+
 	tp = any_thread_of_process (inf->pid);
 	if (tp && target_has_execution_1 (tp->ptid))
 	  break;
@@ -780,7 +780,7 @@ remove_inferior_command (char *args, int from_tty)
 	  warning (_("Can not remove current symbol inferior %d."), num);
 	  continue;
 	}
-    
+
       if (inf->pid != 0)
 	{
 	  warning (_("Can not remove active inferior %d."), num);
@@ -999,7 +999,7 @@ initialize_inferiors (void)
   /* The architecture will be initialized shortly, by
      initialize_current_architecture.  */
 
-  add_info ("inferiors", info_inferiors_command, 
+  add_info ("inferiors", info_inferiors_command,
 	    _("IDs of specified inferiors (all inferiors if no argument)."));
 
   c = add_com ("add-inferior", no_class, add_inferior_command, _("\

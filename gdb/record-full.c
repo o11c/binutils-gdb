@@ -94,7 +94,7 @@ struct record_full_reg_entry
 {
   unsigned short num;
   unsigned short len;
-  union 
+  union
   {
     gdb_byte *ptr;
     gdb_byte buf[2 * sizeof (gdb_byte *)];
@@ -132,8 +132,8 @@ enum record_full_type
 
    Each instruction that is added to the execution log is represented
    by a variable number of list elements ('entries').  The instruction
-   will have one "reg" entry for each register that is changed by 
-   executing the instruction (including the PC in every case).  It 
+   will have one "reg" entry for each register that is changed by
+   executing the instruction (including the PC in every case).  It
    will also have one "mem" entry for each memory change.  Finally,
    each instruction will have an "end" entry that separates it from
    the changes associated with the next instruction.  */
@@ -726,7 +726,7 @@ record_full_exec_insn (struct regcache *regcache,
                               entry->u.reg.num);
 
         regcache_cooked_read (regcache, entry->u.reg.num, reg);
-        regcache_cooked_write (regcache, entry->u.reg.num, 
+        regcache_cooked_write (regcache, entry->u.reg.num,
 			       record_full_get_loc (entry));
         memcpy (record_full_get_loc (entry), reg, entry->u.reg.len);
       }
@@ -752,7 +752,7 @@ record_full_exec_insn (struct regcache *regcache,
 	      entry->u.mem.mem_entry_not_accessible = 1;
             else
               {
-                if (target_write_memory (entry->u.mem.addr, 
+                if (target_write_memory (entry->u.mem.addr,
 					 record_full_get_loc (entry),
 					 entry->u.mem.len))
                   {
@@ -1162,8 +1162,8 @@ record_full_wait_cleanups (void *ignore)
    to know about, so the to_wait method just records them and keeps
    singlestepping.
 
-   In replay mode, this function emulates the recorded execution log, 
-   one instruction at a time (forward or backward), and determines 
+   In replay mode, this function emulates the recorded execution log,
+   one instruction at a time (forward or backward), and determines
    where to stop.  */
 
 static ptid_t
@@ -2381,7 +2381,7 @@ netorder64 (uint64_t input)
 {
   uint64_t ret;
 
-  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret), 
+  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret),
 			  BFD_ENDIAN_BIG, input);
   return ret;
 }
@@ -2391,7 +2391,7 @@ netorder32 (uint32_t input)
 {
   uint32_t ret;
 
-  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret), 
+  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret),
 			  BFD_ENDIAN_BIG, input);
   return ret;
 }
@@ -2401,7 +2401,7 @@ netorder16 (uint16_t input)
 {
   uint16_t ret;
 
-  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret), 
+  store_unsigned_integer ((gdb_byte *) &ret, sizeof (ret),
 			  BFD_ENDIAN_BIG, input);
   return ret;
 }
@@ -2425,7 +2425,7 @@ record_full_restore (void)
 
   /* "record_full_restore" can only be called when record list is empty.  */
   gdb_assert (record_full_first.next == NULL);
- 
+
   if (record_debug)
     fprintf_unfiltered (gdb_stdlog, "Restoring recording from core file.\n");
 
@@ -2495,7 +2495,7 @@ record_full_restore (void)
 
         case record_full_mem: /* mem */
           /* Get len.  */
-          bfdcore_read (core_bfd, osec, &len, 
+          bfdcore_read (core_bfd, osec, &len,
 			sizeof (len), &bfd_offset);
 	  len = netorder32 (len);
 
@@ -2526,13 +2526,13 @@ record_full_restore (void)
           record_full_insn_num ++;
 
 	  /* Get signal value.  */
-	  bfdcore_read (core_bfd, osec, &signal, 
+	  bfdcore_read (core_bfd, osec, &signal,
 			sizeof (signal), &bfd_offset);
 	  signal = netorder32 (signal);
 	  rec->u.end.sigval = signal;
 
 	  /* Get insn count.  */
-	  bfdcore_read (core_bfd, osec, &count, 
+	  bfdcore_read (core_bfd, osec, &count,
 			sizeof (count), &bfd_offset);
 	  count = netorder32 (count);
 	  rec->u.end.insn_num = count;
@@ -2762,7 +2762,7 @@ record_full_save (const char *recfilename)
 
 	      /* Write memaddr.  */
 	      addr = netorder64 (record_full_list->u.mem.addr);
-	      bfdcore_write (obfd, osec, &addr, 
+	      bfdcore_write (obfd, osec, &addr,
 			     sizeof (addr), &bfd_offset);
 
 	      /* Write memval.  */
@@ -2775,7 +2775,7 @@ record_full_save (const char *recfilename)
 		if (record_debug)
 		  fprintf_unfiltered (gdb_stdlog,
 				      "  Writing record_full_end (1 + "
-				      "%lu + %lu bytes)\n", 
+				      "%lu + %lu bytes)\n",
 				      (unsigned long) sizeof (signal),
 				      (unsigned long) sizeof (count));
 		/* Write signal value.  */

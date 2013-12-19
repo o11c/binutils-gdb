@@ -40,7 +40,7 @@ extern void f_val_print (struct type *, const gdb_byte *, int, CORE_ADDR,
    its value is by default that of the corresponding bound of the array or
    string.  So we have four sorts of subrange in F90.  This enumeration type
    is to identify this.  */
-   
+
 enum f90_range_type
   {
     BOTH_BOUND_DEFAULT,		/* "(:)"  */

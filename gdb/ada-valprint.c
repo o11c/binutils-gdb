@@ -705,7 +705,7 @@ ada_val_print_1 (struct type *type, const gdb_byte *valaddr,
 					       address + offset_aligned);
 	    const char *name = ada_tag_name (val);
 
-	    if (name != NULL) 
+	    if (name != NULL)
 	      fprintf_filtered (stream, " (%s)", name);
 	  }
 	return;
@@ -868,7 +868,7 @@ ada_val_print_1 (struct type *type, const gdb_byte *valaddr,
          So, for Ada values, we print the actual dereferenced value
          regardless.  */
       elttype = check_typedef (TYPE_TARGET_TYPE (type));
-      
+
       if (TYPE_CODE (elttype) != TYPE_CODE_UNDEF)
         {
           CORE_ADDR deref_val_int;
@@ -953,7 +953,7 @@ ada_value_print (struct value *val0, struct ui_file *stream,
       /* Hack:  don't print (char *) for char strings.  Their
          type is indicated by the quoted string anyway.  */
       if (TYPE_LENGTH (TYPE_TARGET_TYPE (type)) != sizeof (char)
-	  || TYPE_CODE (TYPE_TARGET_TYPE (type)) != TYPE_CODE_INT 
+	  || TYPE_CODE (TYPE_TARGET_TYPE (type)) != TYPE_CODE_INT
 	  || TYPE_UNSIGNED (TYPE_TARGET_TYPE (type)))
 	{
 	  fprintf_filtered (stream, "(");

@@ -34,7 +34,7 @@
 /* Local functions */
 
 void
-java_value_print (struct value *val, struct ui_file *stream, 
+java_value_print (struct value *val, struct ui_file *stream,
 		  const struct value_print_options *options)
 {
   struct gdbarch *gdbarch = get_type_arch (value_type (val));

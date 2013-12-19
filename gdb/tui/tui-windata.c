@@ -49,7 +49,7 @@ tui_first_data_item_displayed (void)
   int element_no = (-1);
   int i;
 
-  for (i = 0; 
+  for (i = 0;
        i < TUI_DATA_WIN->generic.content_size && element_no < 0;
        i++)
     {
@@ -57,7 +57,7 @@ tui_first_data_item_displayed (void)
 
       data_item_win = &((tui_win_content)
 			TUI_DATA_WIN->generic.content)[i]->which_element.data_window;
-      if (data_item_win->handle != (WINDOW *) NULL 
+      if (data_item_win->handle != (WINDOW *) NULL
 	  && data_item_win->is_visible)
 	element_no = i;
     }
@@ -141,7 +141,7 @@ tui_display_all_data (void)
 
       /* Then display the other data.  */
       if (TUI_DATA_WIN->detail.data_display_info.data_content !=
-	  (tui_win_content) NULL 
+	  (tui_win_content) NULL
 	  && TUI_DATA_WIN->detail.data_display_info.data_content_count > 0)
 	{
 	}
@@ -238,8 +238,8 @@ tui_check_data_values (struct frame_info *frame)
     {
       int i;
 
-      for (i = 0; 
-	   TUI_DATA_WIN->detail.data_display_info.data_content_count; 
+      for (i = 0;
+	   TUI_DATA_WIN->detail.data_display_info.data_content_count;
 	   i++)
 	{
 #ifdef LATER
@@ -272,7 +272,7 @@ tui_vertical_data_scroll (enum tui_scroll_direction scroll_direction,
   int first_line = (-1);
 
   first_element_no = tui_first_data_item_displayed ();
-  if (first_element_no 
+  if (first_element_no
       < TUI_DATA_WIN->detail.data_display_info.regs_content_count)
     first_line = tui_line_from_reg_element_no (first_element_no);
   else

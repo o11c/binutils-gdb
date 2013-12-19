@@ -78,7 +78,7 @@ dirnames_to_char_ptr_vec_append (VEC (char_ptr) **vecp, const char *dirnames)
 /* Split DIRNAMES by DIRNAME_SEPARATOR delimiter and return a list of all the
    elements in their original order.  For empty string ("") DIRNAMES return
    list of one empty string ("") element.
-   
+
    You may modify the returned strings.
    Read free_char_ptr_vec for its cleanup.  */
 
@@ -86,7 +86,7 @@ VEC (char_ptr) *
 dirnames_to_char_ptr_vec (const char *dirnames)
 {
   VEC (char_ptr) *retval = NULL;
-  
+
   dirnames_to_char_ptr_vec_append (&retval, dirnames);
 
   return retval;

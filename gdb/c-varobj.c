@@ -73,7 +73,7 @@ adjust_value_for_child_access (struct value **value,
     *was_ptr = 0;
 
   *type = check_typedef (*type);
-  
+
   /* The type of value stored in varobj, that is passed
      to us, is already supposed to be
      reference-stripped.  */
@@ -162,7 +162,7 @@ c_number_of_children (struct varobj *var)
 
          We can show char* so we allow it to be dereferenced.  If you decide
          to test for it, please mind that a little magic is necessary to
-         properly identify it: char* has TYPE_CODE == TYPE_CODE_INT and 
+         properly identify it: char* has TYPE_CODE == TYPE_CODE_INT and
          TYPE_NAME == "char".  */
       if (TYPE_CODE (target) == TYPE_CODE_FUNC
 	  || TYPE_CODE (target) == TYPE_CODE_VOID)
@@ -231,7 +231,7 @@ value_struct_element_index (struct value *value, int type_index)
    information cannot be determined, set *CNAME, *CVALUE, or *CTYPE
    to NULL.  */
 
-static void 
+static void
 c_describe_child (struct varobj *parent, int index,
 		  char **cname, struct value **cvalue, struct type **ctype,
 		  char **cfull_expression)
@@ -255,13 +255,13 @@ c_describe_child (struct varobj *parent, int index,
 	= varobj_get_path_expr (varobj_get_path_expr_parent (parent));
     }
   adjust_value_for_child_access (&value, &type, &was_ptr, 0);
-      
+
   switch (TYPE_CODE (type))
     {
     case TYPE_CODE_ARRAY:
       if (cname)
 	*cname
-	  = xstrdup (int_string (index 
+	  = xstrdup (int_string (index
 				 + TYPE_LOW_BOUND (TYPE_INDEX_TYPE (type)),
 				 10, 1, 0, 0));
 
@@ -279,8 +279,8 @@ c_describe_child (struct varobj *parent, int index,
 	*ctype = get_target_type (type);
 
       if (cfull_expression)
-	*cfull_expression = 
-	  xstrprintf ("(%s)[%s]", parent_expression, 
+	*cfull_expression =
+	  xstrprintf ("(%s)[%s]", parent_expression,
 		      int_string (index
 				  + TYPE_LOW_BOUND (TYPE_INDEX_TYPE (type)),
 				  10, 1, 0, 0));
@@ -358,7 +358,7 @@ c_describe_child (struct varobj *parent, int index,
 
       if (cfull_expression)
 	*cfull_expression = xstrprintf ("*(%s)", parent_expression);
-      
+
       break;
 
     default:
@@ -383,7 +383,7 @@ c_name_of_child (struct varobj *parent, int index)
 static char *
 c_path_expr_of_child (struct varobj *child)
 {
-  c_describe_child (child->parent, child->index, NULL, NULL, NULL, 
+  c_describe_child (child->parent, child->index, NULL, NULL, NULL,
 		    &child->path_expr);
   return child->path_expr;
 }
@@ -468,7 +468,7 @@ c_value_of_variable (struct varobj *var, enum varobj_display_formats format)
 
 	    gdb_assert (varobj_value_is_changeable_p (var));
 	    gdb_assert (!value_lazy (var->value));
-	    
+
 	    /* If the specified format is the current one,
 	       we can reuse print_value.  */
 	    if (format == var->format)
@@ -628,7 +628,7 @@ enum accessibility { private_field, protected_field, public_field };
 /* Check if field INDEX of TYPE has the specified accessibility.
    Return 0 if so and 1 otherwise.  */
 
-static int 
+static int
 match_accessibility (struct type *type, int index, enum accessibility acc)
 {
   if (acc == private_field && TYPE_FIELD_PRIVATE (type, index))
@@ -768,7 +768,7 @@ cplus_describe_child (struct varobj *parent, int index,
 	      char *ptr = was_ptr ? "*" : "";
 
 	      /* Cast the parent to the base' type.  Note that in gdb,
-		 expression like 
+		 expression like
 		         (Base1)d
 		 will create an lvalue, for all appearences, so we don't
 		 need to use more fancy:
@@ -780,8 +780,8 @@ cplus_describe_child (struct varobj *parent, int index,
 		 as a constructor, if it exists.  Therefore, we must
 		 indicate that the name is a class name by using the
 		 'class' keyword.  See PR mi/11912  */
-	      *cfull_expression = xstrprintf ("(%s(class %s%s) %s)", 
-					      ptr, 
+	      *cfull_expression = xstrprintf ("(%s(class %s%s) %s)",
+					      ptr,
 					      TYPE_FIELD_NAME (type, index),
 					      ptr,
 					      parent_expression);
@@ -807,7 +807,7 @@ cplus_describe_child (struct varobj *parent, int index,
 	 	access = "public";
 	      else if (children[v_private] > 0)
 	 	access = "private";
-	      else 
+	      else
 	 	access = "protected";
 	      break;
 	    case 1:
@@ -840,7 +840,7 @@ cplus_describe_child (struct varobj *parent, int index,
   else
     {
       c_describe_child (parent, index, cname, cvalue, ctype, cfull_expression);
-    }  
+    }
 }
 
 static char *
@@ -855,7 +855,7 @@ cplus_name_of_child (struct varobj *parent, int index)
 static char *
 cplus_path_expr_of_child (struct varobj *child)
 {
-  cplus_describe_child (child->parent, child->index, NULL, NULL, NULL, 
+  cplus_describe_child (child->parent, child->index, NULL, NULL, NULL,
 			&child->path_expr);
   return child->path_expr;
 }
@@ -879,7 +879,7 @@ cplus_type_of_child (struct varobj *parent, int index)
 }
 
 static char *
-cplus_value_of_variable (struct varobj *var, 
+cplus_value_of_variable (struct varobj *var,
 			 enum varobj_display_formats format)
 {
 

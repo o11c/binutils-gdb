@@ -75,7 +75,7 @@ xrealloc (PTR ptr, size_t size)          /* ARI: PTR */
   return val;
 }
 
-PTR                            /* ARI: PTR */           
+PTR                            /* ARI: PTR */
 xcalloc (size_t number, size_t size)
 {
   void *mem;

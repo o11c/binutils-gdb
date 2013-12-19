@@ -69,7 +69,7 @@
      conversions),
 
      and so on.
-     
+
    To avoid excessive code duplication and maintenance efforts,
    GDB simply requires a capable iconv function.  Users on platforms
    without a suitable iconv can use the GNU iconv library.  */
@@ -238,9 +238,9 @@ show_target_charset_name (struct ui_file *file, int from_tty,
 
 static const char *target_wide_charset_name = "auto";
 static void
-show_target_wide_charset_name (struct ui_file *file, 
+show_target_wide_charset_name (struct ui_file *file,
 			       int from_tty,
-			       struct cmd_list_element *c, 
+			       struct cmd_list_element *c,
 			       const char *value)
 {
   if (!strcmp (value, "auto"))
@@ -340,7 +340,7 @@ validate (struct gdbarch *gdbarch)
 
 /* This is the sfunc for the 'set charset' command.  */
 static void
-set_charset_sfunc (char *charset, int from_tty, 
+set_charset_sfunc (char *charset, int from_tty,
 		   struct cmd_list_element *c)
 {
   /* CAREFUL: set the target charset here as well.  */
@@ -375,13 +375,13 @@ set_target_wide_charset_sfunc (char *charset, int from_tty,
 
 /* sfunc for the 'show charset' command.  */
 static void
-show_charset (struct ui_file *file, int from_tty, 
+show_charset (struct ui_file *file, int from_tty,
 	      struct cmd_list_element *c,
 	      const char *name)
 {
   show_host_charset_name (file, from_tty, c, host_charset_name);
   show_target_charset_name (file, from_tty, c, target_charset_name);
-  show_target_wide_charset_name (file, from_tty, c, 
+  show_target_wide_charset_name (file, from_tty, c,
 				 target_wide_charset_name);
 }
 
@@ -585,7 +585,7 @@ struct wchar_iterator
 
 /* Create a new iterator.  */
 struct wchar_iterator *
-make_wchar_iterator (const gdb_byte *input, size_t bytes, 
+make_wchar_iterator (const gdb_byte *input, size_t bytes,
 		     const char *charset, size_t width)
 {
   struct wchar_iterator *result;
@@ -659,7 +659,7 @@ wchar_iterate (struct wchar_iterator *iter,
 		 converted a character; if so, return it.  */
 	      if (out_avail < out_request * sizeof (gdb_wchar_t))
 		break;
-	      
+
 	      /* Otherwise skip the first invalid character, and let
 		 the caller know about it.  */
 	      *out_result = wchar_iterate_invalid;

@@ -189,7 +189,7 @@ tui_show_registers (struct reggroup *group)
 
 static enum tui_status
 tui_show_register_group (struct reggroup *group,
-                         struct frame_info *frame, 
+                         struct frame_info *frame,
 			 int refresh_values_only)
 {
   struct gdbarch *gdbarch = get_frame_arch (frame);
@@ -309,7 +309,7 @@ tui_display_registers_from (int start_element_no)
 {
   struct tui_data_info *display_info = &TUI_DATA_WIN->detail.data_display_info;
 
-  if (display_info->regs_content != (tui_win_content) NULL 
+  if (display_info->regs_content != (tui_win_content) NULL
       && display_info->regs_content_count > 0)
     {
       int i = start_element_no;
@@ -354,7 +354,7 @@ tui_display_registers_from (int start_element_no)
       /* Now create each data "sub" window, and write the display into
 	 it.  */
       cur_y = 1;
-      while (i < display_info->regs_content_count 
+      while (i < display_info->regs_content_count
 	     && cur_y <= TUI_DATA_WIN->generic.viewport_height)
 	{
 	  for (j = 0;
@@ -379,7 +379,7 @@ tui_display_registers_from (int start_element_no)
                   tui_delete_win (data_item_win->handle);
                   data_item_win->handle = 0;
                 }
-                  
+
 	      if (data_item_win->handle == (WINDOW *) NULL)
 		{
 		  data_item_win->height = 1;
@@ -445,7 +445,7 @@ tui_display_reg_element_at_line (int start_element_no,
    data window.  Answers the line number that the display actually
    started from.  If nothing is displayed (-1) is returned.  */
 int
-tui_display_registers_from_line (int line_no, 
+tui_display_registers_from_line (int line_no,
 				 int force_display)
 {
   if (TUI_DATA_WIN->detail.data_display_info.regs_content_count > 0)
@@ -496,7 +496,7 @@ tui_check_register_values (struct frame_info *frame)
       struct tui_data_info *display_info
         = &TUI_DATA_WIN->detail.data_display_info;
 
-      if (display_info->regs_content_count <= 0 
+      if (display_info->regs_content_count <= 0
 	  && display_info->display_regs)
 	tui_show_registers (display_info->current_group);
       else
@@ -544,7 +544,7 @@ tui_display_register (struct tui_data_element *data,
 	   to code that causes the compiler to generate an unused-value
 	   warning.  */
 	(void) wstandout (win_info->handle);
-      
+
       wmove (win_info->handle, 0, 0);
       for (i = 1; i < win_info->width; i++)
         waddch (win_info->handle, ' ');
@@ -705,7 +705,7 @@ tui_register_format (struct frame_info *frame, int regnum)
    changed with respect to the previous call.  */
 static enum tui_status
 tui_get_register (struct frame_info *frame,
-                  struct tui_data_element *data, 
+                  struct tui_data_element *data,
 		  int regnum, int *changedp)
 {
   enum tui_status ret = TUI_FAILURE;

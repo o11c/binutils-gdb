@@ -1137,7 +1137,7 @@ darwin_wait (ptid_t ptid, struct target_waitstatus *status)
 }
 
 static ptid_t
-darwin_wait_to (struct target_ops *ops, 
+darwin_wait_to (struct target_ops *ops,
                 ptid_t ptid, struct target_waitstatus *status, int options)
 {
   return darwin_wait (ptid, status);
@@ -1325,7 +1325,7 @@ darwin_kill_inferior (struct target_ops *ops)
   if (res == 0)
     {
       darwin_resume_inferior (inf);
-	  
+
       ptid = darwin_wait (inferior_ptid, &wstatus);
     }
   else if (errno != ESRCH)

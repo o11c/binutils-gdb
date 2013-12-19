@@ -78,7 +78,7 @@ hppa32_hpux_in_solib_call_trampoline (struct gdbarch *gdbarch, CORE_ADDR pc)
   struct unwind_table_entry *u;
 
   /* First see if PC is in one of the two C-library trampolines.  */
-  if (pc == hppa_symbol_address("$$dyncall") 
+  if (pc == hppa_symbol_address("$$dyncall")
       || pc == hppa_symbol_address("_sr4export"))
     return 1;
 
@@ -193,12 +193,12 @@ hppa64_hpux_in_solib_call_trampoline (struct gdbarch *gdbarch, CORE_ADDR pc)
   insn = read_memory_integer (addr, 4, byte_order);
   if ((insn & 0xffffc00e) != 0x53610000)
     return 0;
-	
+
   /* Now verify each insn in the range looks like a stub instruction.  */
   insn = read_memory_integer (addr + 4, 4, byte_order);
   if ((insn & 0xffffffff) != 0xe820d000)
     return 0;
-    
+
   /* Now verify each insn in the range looks like a stub instruction.  */
   insn = read_memory_integer (addr + 8, 4, byte_order);
   if ((insn & 0xffffc00e) != 0x537b0000)
@@ -327,13 +327,13 @@ hppa_hpux_skip_trampoline_code (struct frame_info *frame, CORE_ADDR pc)
     return 0;
 
   /* If this isn't a linker stub, then return now.  */
-  /* elz: attention here! (FIXME) because of a compiler/linker 
-     error, some stubs which should have a non zero stub_unwind.stub_type 
+  /* elz: attention here! (FIXME) because of a compiler/linker
+     error, some stubs which should have a non zero stub_unwind.stub_type
      have unfortunately a value of zero.  So this function would return here
      as if we were not in a trampoline.  To fix this, we go look at the partial
      symbol information, which reports this guy as a stub.
-     (FIXME): Unfortunately, we are not that lucky: it turns out that the 
-     partial symbol information is also wrong sometimes.  This is because 
+     (FIXME): Unfortunately, we are not that lucky: it turns out that the
+     partial symbol information is also wrong sometimes.  This is because
      when it is entered (somread.c::som_symtab_read()) it can happen that
      if the type of the symbol (from the som) is Entry, and the symbol is
      in a shared library, then it can also be a trampoline.  This would be OK,
@@ -362,7 +362,7 @@ hppa_hpux_skip_trampoline_code (struct frame_info *frame, CORE_ADDR pc)
 	  struct minimal_symbol *msymbol;
 	  int function_found = 0;
 
-	  /* Go look if there is another minimal symbol with the same name as 
+	  /* Go look if there is another minimal symbol with the same name as
 	     this one, but with type mst_text.  This would happen if the msym
 	     is an actual trampoline, in which case there would be another
 	     symbol with the same name corresponding to the real function.  */
@@ -423,7 +423,7 @@ hppa_hpux_skip_trampoline_code (struct frame_info *frame, CORE_ADDR pc)
 	  /* Yup.  See if the previous instruction loaded
 	     a value into %r1.  If so compute and return the jump address.  */
 	  if ((prev_inst & 0xffe00000) == 0x20200000)
-	    return (hppa_extract_21 (prev_inst) 
+	    return (hppa_extract_21 (prev_inst)
 		    + hppa_extract_17 (curr_inst)) & ~0x3;
 	  else
 	    {
@@ -433,8 +433,8 @@ hppa_hpux_skip_trampoline_code (struct frame_info *frame, CORE_ADDR pc)
 	    }
 	}
 
-      /* Does it look like a be 0(sr0,%r21)? OR 
-         Does it look like a be, n 0(sr0,%r21)? OR 
+      /* Does it look like a be 0(sr0,%r21)? OR
+         Does it look like a be, n 0(sr0,%r21)? OR
          Does it look like a bve (r21)? (this is on PA2.0)
          Does it look like a bve, n(r21)? (this is also on PA2.0)
          That's the branch from an
@@ -641,7 +641,7 @@ hppa_hpux_sigtramp_frame_unwind_cache (struct frame_info *this_frame,
 
   /* See /usr/include/machine/save_state.h for the structure of the
      save_state_t structure.  */
-  
+
   flag = read_memory_unsigned_integer (scptr + HPPA_HPUX_SS_FLAGS_OFFSET,
 				       4, byte_order);
 
@@ -753,7 +753,7 @@ hppa32_hpux_find_global_pointer (struct gdbarch *gdbarch,
 {
   enum bfd_endian byte_order = gdbarch_byte_order (gdbarch);
   CORE_ADDR faddr;
-  
+
   faddr = value_as_address (function);
 
   /* Is this a plabel? If so, dereference it to get the gp value.  */
@@ -873,7 +873,7 @@ hppa32_hpux_search_dummy_call_sequence (struct gdbarch *gdbarch, CORE_ADDR pc,
     {
       addr = hppa_hpux_search_pattern (gdbarch,
 				       u->region_start, u->region_end,
-				       ldsid_pattern, 
+				       ldsid_pattern,
 				       ARRAY_SIZE (ldsid_pattern));
       if (addr)
 	goto found_pattern;
@@ -892,7 +892,7 @@ hppa32_hpux_search_dummy_call_sequence (struct gdbarch *gdbarch, CORE_ADDR pc,
 	    {
 	      addr = hppa_hpux_search_pattern (gdbarch,
 					       u->region_start, u->region_end,
-					       ldsid_pattern, 
+					       ldsid_pattern,
 					       ARRAY_SIZE (ldsid_pattern));
 	      if (addr)
 	        {
@@ -902,7 +902,7 @@ hppa32_hpux_search_dummy_call_sequence (struct gdbarch *gdbarch, CORE_ADDR pc,
 	}
     }
 
-  /* Finally, if this is the main executable, try to locate a sequence 
+  /* Finally, if this is the main executable, try to locate a sequence
      from noshlibs */
   addr = hppa_symbol_address ("noshlibs");
   sec = find_pc_section (addr);
@@ -963,7 +963,7 @@ hppa64_hpux_search_dummy_call_sequence (struct gdbarch *gdbarch, CORE_ADDR pc,
 
   /* FIXME: Without stub unwind information, locating a suitable sequence is
      fairly difficult.  For now, we implement a very naive and inefficient
-     scheme; try to read in blocks of code, and look for a "bve,n (rp)" 
+     scheme; try to read in blocks of code, and look for a "bve,n (rp)"
      instruction.  These are likely to occur at the end of functions, so
      we only look at the last two instructions of each function.  */
   ALL_OBJFILE_MSYMBOLS (obj, msym)
@@ -1001,7 +1001,7 @@ hppa64_hpux_search_dummy_call_sequence (struct gdbarch *gdbarch, CORE_ADDR pc,
 
 found_pattern:
   priv->dummy_call_sequence_addr = addr;
-  /* Right now we only look for a "bve,l (rp)" sequence, so the register is 
+  /* Right now we only look for a "bve,l (rp)" sequence, so the register is
      always HPPA_RP_REGNUM.  */
   priv->dummy_call_sequence_reg = HPPA_RP_REGNUM;
 
@@ -1030,7 +1030,7 @@ hppa_hpux_find_import_stub_for_addr (CORE_ADDR funcaddr)
 	  struct unwind_table_entry *u;
 
 	  u = find_unwind_entry (SYMBOL_VALUE (stubsym));
-	  if (u == NULL 
+	  if (u == NULL
 	      || (u->stub_unwind.stub_type != IMPORT
 		  && u->stub_unwind.stub_type != IMPORT_SHLIB))
 	    continue;
@@ -1060,14 +1060,14 @@ hppa_hpux_sr_for_addr (struct gdbarch *gdbarch, CORE_ADDR addr)
 static CORE_ADDR
 hppa_hpux_find_dummy_bpaddr (CORE_ADDR addr)
 {
-  /* In order for us to restore the space register to its starting state, 
-     we need the dummy trampoline to return to an instruction address in 
-     the same space as where we started the call.  We used to place the 
-     breakpoint near the current pc, however, this breaks nested dummy calls 
-     as the nested call will hit the breakpoint address and terminate 
-     prematurely.  Instead, we try to look for an address in the same space to 
-     put the breakpoint.  
-     
+  /* In order for us to restore the space register to its starting state,
+     we need the dummy trampoline to return to an instruction address in
+     the same space as where we started the call.  We used to place the
+     breakpoint near the current pc, however, this breaks nested dummy calls
+     as the nested call will hit the breakpoint address and terminate
+     prematurely.  Instead, we try to look for an address in the same space to
+     put the breakpoint.
+
      This is similar in spirit to putting the breakpoint at the "entry point"
      of an executable.  */
 
@@ -1090,14 +1090,14 @@ hppa_hpux_find_dummy_bpaddr (CORE_ADDR addr)
 	 we find should not be the same as the function that was passed in.  */
 
       /* FIXME: this is broken, because we can find a function that will be
-         called by the dummy call target function, which will still not 
+         called by the dummy call target function, which will still not
 	 work.  */
 
       find_pc_partial_function (addr, NULL, &func, NULL);
       ALL_OBJFILE_MSYMBOLS (sec->objfile, msym)
 	{
 	  u = find_unwind_entry (SYMBOL_VALUE_ADDRESS (msym));
-	  if (func != SYMBOL_VALUE_ADDRESS (msym) 
+	  if (func != SYMBOL_VALUE_ADDRESS (msym)
 	      && (!u || u->stub_unwind.stub_type == 0))
 	    return SYMBOL_VALUE_ADDRESS (msym);
 	}
@@ -1143,7 +1143,7 @@ hppa_hpux_push_dummy_code (struct gdbarch *gdbarch, CORE_ADDR sp,
      an application is compiled with HP compilers then this stub is not
      available.  We used to fallback to "__d_plt_call", however that stub
      is not entirely useful for us because it doesn't do an interspace
-     return back to the caller.  Also, on hppa64-hpux, there is no 
+     return back to the caller.  Also, on hppa64-hpux, there is no
      __gcc_plt_call available.  In order to keep the code uniform, we
      instead don't use either of these stubs, but instead write our own
      onto the stack.
@@ -1156,7 +1156,7 @@ hppa_hpux_push_dummy_code (struct gdbarch *gdbarch, CORE_ADDR sp,
 
      All we really need to do the branch to the stub is a short instruction
      sequence like this:
-      
+
      PA1.1:
       		ldsid (rX),r1
 		mtsp r1,sr0
@@ -1184,7 +1184,7 @@ hppa_hpux_push_dummy_code (struct gdbarch *gdbarch, CORE_ADDR sp,
      - write a stack trampoline
      - look for a suitable instruction sequence in the current space
      - point the sequence at the trampoline
-     - set the return address of the trampoline to the current space 
+     - set the return address of the trampoline to the current space
        (see hppa_hpux_find_dummy_call_bpaddr)
      - set the continuing address of the "dummy code" as the sequence.  */
 
@@ -1451,7 +1451,7 @@ hppa_hpux_unwind_adjust_stub (struct frame_info *this_frame, CORE_ADDR base,
   CORE_ADDR stubpc;
   struct unwind_table_entry *u;
 
-  pcoq_head_val = trad_frame_get_prev_register (this_frame, saved_regs, 
+  pcoq_head_val = trad_frame_get_prev_register (this_frame, saved_regs,
 				                HPPA_PCOQ_HEAD_REGNUM);
   pcoq_head =
     extract_unsigned_integer (value_contents_all (pcoq_head_val),
@@ -1464,7 +1464,7 @@ hppa_hpux_unwind_adjust_stub (struct frame_info *this_frame, CORE_ADDR base,
       stubpc = read_memory_integer (base - 24, word_size, byte_order);
       trad_frame_set_value (saved_regs, HPPA_PCOQ_HEAD_REGNUM, stubpc);
     }
-  else if (hppa_symbol_address ("__gcc_plt_call") 
+  else if (hppa_symbol_address ("__gcc_plt_call")
            == get_pc_function_start (pcoq_head))
     {
       stubpc = read_memory_integer (base - 8, word_size, byte_order);
@@ -1536,7 +1536,7 @@ hppa_hpux_core_osabi_sniffer (bfd *abfd)
   else if (strcmp (bfd_get_target (abfd), "elf64-hppa") == 0)
     {
       asection *section;
-      
+
       section = bfd_get_section_by_name (abfd, ".kernel");
       if (section)
         {
@@ -1545,7 +1545,7 @@ hppa_hpux_core_osabi_sniffer (bfd *abfd)
 
 	  size = bfd_section_size (abfd, section);
 	  contents = alloca (size);
- 	  if (bfd_get_section_contents (abfd, section, contents, 
+ 	  if (bfd_get_section_contents (abfd, section, contents,
 	  				(file_ptr) 0, size)
 	      && strcmp (contents, "HP-UX") == 0)
 	    return GDB_OSABI_HPUX_ELF;

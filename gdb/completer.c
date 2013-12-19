@@ -43,7 +43,7 @@
 
 /* Prototypes for local functions.  */
 static
-char *line_completion_function (const char *text, int matches, 
+char *line_completion_function (const char *text, int matches,
 				char *line_buffer,
 				int point);
 
@@ -56,7 +56,7 @@ char *line_completion_function (const char *text, int matches,
    will quote it.  That's why we switch between
    current_language->la_word_break_characters() and
    gdb_completer_command_word_break_characters.  I'm not sure when
-   we need this behavior (perhaps for funky characters in C++ 
+   we need this behavior (perhaps for funky characters in C++
    symbols?).  */
 
 /* Variables which are necessary for fancy command line editing.  */
@@ -99,14 +99,14 @@ get_gdb_completer_quote_characters (void)
 char *
 readline_line_completion_function (const char *text, int matches)
 {
-  return line_completion_function (text, matches, 
+  return line_completion_function (text, matches,
 				   rl_line_buffer, rl_point);
 }
 
 /* This can be used for functions which don't want to complete on
    symbols but don't want to complete on anything else either.  */
 VEC (char_ptr) *
-noop_completer (struct cmd_list_element *ignore, 
+noop_completer (struct cmd_list_element *ignore,
 		const char *text, const char *prefix)
 {
   return NULL;
@@ -114,7 +114,7 @@ noop_completer (struct cmd_list_element *ignore,
 
 /* Complete on filenames.  */
 VEC (char_ptr) *
-filename_completer (struct cmd_list_element *ignore, 
+filename_completer (struct cmd_list_element *ignore,
 		    const char *text, const char *word)
 {
   int subsequent_name;
@@ -183,7 +183,7 @@ filename_completer (struct cmd_list_element *ignore,
    etc.  */
 
 VEC (char_ptr) *
-location_completer (struct cmd_list_element *ignore, 
+location_completer (struct cmd_list_element *ignore,
 		    const char *text, const char *word)
 {
   int n_syms, n_files, ix;
@@ -268,7 +268,7 @@ location_completer (struct cmd_list_element *ignore,
       list = make_symbol_completion_list (symbol_start, word);
       /* If text includes characters which cannot appear in a file
 	 name, they cannot be asking for completion on files.  */
-      if (strcspn (text, 
+      if (strcspn (text,
 		   gdb_completer_file_name_break_characters) == text_len)
 	fn_list = make_source_files_completion_list (text, text);
     }
@@ -352,7 +352,7 @@ add_struct_fields (struct type *type, VEC (char_ptr) **output,
 	{
 	  if (TYPE_FIELD_NAME (type, i)[0] != '\0')
 	    {
-	      if (! strncmp (TYPE_FIELD_NAME (type, i), 
+	      if (! strncmp (TYPE_FIELD_NAME (type, i),
 			     fieldname, namelen))
 		VEC_safe_push (char_ptr, *output,
 			       xstrdup (TYPE_FIELD_NAME (type, i)));
@@ -388,7 +388,7 @@ add_struct_fields (struct type *type, VEC (char_ptr) **output,
    names, but some language parsers also have support for completing
    field names.  */
 VEC (char_ptr) *
-expression_completer (struct cmd_list_element *ignore, 
+expression_completer (struct cmd_list_element *ignore,
 		      const char *text, const char *word)
 {
   struct type *type = NULL;
@@ -510,7 +510,7 @@ complete_line_internal_reason;
  */
 
 static VEC (char_ptr) *
-complete_line_internal (const char *text, 
+complete_line_internal (const char *text,
 			const char *line_buffer, int point,
 			complete_line_internal_reason reason)
 {
@@ -736,7 +736,7 @@ complete_line_internal (const char *text,
 		     of file-name completion.  */
 		  for (p = word;
 		       p > tmp_command
-			 && strchr (gdb_completer_file_name_break_characters, 
+			 && strchr (gdb_completer_file_name_break_characters,
 				    p[-1]) == NULL;
 		       p--)
 		    ;
@@ -774,16 +774,16 @@ complete_line_internal (const char *text,
 VEC (char_ptr) *
 complete_line (const char *text, char *line_buffer, int point)
 {
-  return complete_line_internal (text, line_buffer, 
+  return complete_line_internal (text, line_buffer,
 				 point, handle_completions);
 }
 
 /* Complete on command names.  Used by "help".  */
 VEC (char_ptr) *
-command_completer (struct cmd_list_element *ignore, 
+command_completer (struct cmd_list_element *ignore,
 		   const char *text, const char *word)
 {
-  return complete_line_internal (word, text, 
+  return complete_line_internal (word, text,
 				 strlen (text), handle_help);
 }
 
@@ -853,7 +853,7 @@ gdb_completion_word_break_characters (void)
    responsibility to free the string.  */
 
 static char *
-line_completion_function (const char *text, int matches, 
+line_completion_function (const char *text, int matches,
 			  char *line_buffer, int point)
 {
   static VEC (char_ptr) *list = NULL;	/* Cache of completions.  */

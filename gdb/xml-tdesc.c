@@ -323,12 +323,12 @@ tdesc_start_field (struct gdb_xml_parser *parser,
   if (field_type_id != NULL)
     {
       if (data->current_type_is_flags)
-	gdb_xml_error (parser, _("Cannot add typed field \"%s\" to flags"), 
+	gdb_xml_error (parser, _("Cannot add typed field \"%s\" to flags"),
 		       field_name);
       if (data->current_type_size != 0)
 	gdb_xml_error (parser,
 		       _("Explicitly sized type can not "
-			 "contain non-bitfield \"%s\""), 
+			 "contain non-bitfield \"%s\""),
 		       field_name);
 
       field_type = tdesc_named_type (data->current_feature, field_type_id);
@@ -350,7 +350,7 @@ tdesc_start_field (struct gdb_xml_parser *parser,
 	  if (data->current_type_size == 0)
 	    gdb_xml_error (parser,
 			   _("Implicitly sized type can "
-			     "not contain bitfield \"%s\""), 
+			     "not contain bitfield \"%s\""),
 			   field_name);
 
 	  if (end >= 64)
@@ -468,7 +468,7 @@ static const struct gdb_xml_element feature_children[] = {
     tdesc_start_union, NULL },
   { "flags", flags_attributes, struct_union_children,
     GDB_XML_EF_OPTIONAL | GDB_XML_EF_REPEATABLE,
-    tdesc_start_flags, NULL },    
+    tdesc_start_flags, NULL },
   { "vector", vector_attributes, NULL,
     GDB_XML_EF_OPTIONAL | GDB_XML_EF_REPEATABLE,
     tdesc_start_vector, NULL },

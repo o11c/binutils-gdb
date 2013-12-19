@@ -220,8 +220,8 @@ struct quick_symbol_functions
   void (*expand_symtabs_with_fullname) (struct objfile *objfile,
 					const char *fullname);
 
-  /* Find global or static symbols in all tables that are in NAMESPACE 
-     and for which MATCH (symbol name, NAME) == 0, passing each to 
+  /* Find global or static symbols in all tables that are in NAMESPACE
+     and for which MATCH (symbol name, NAME) == 0, passing each to
      CALLBACK, reading in partial symbol tables as needed.  Look
      through global symbols if GLOBAL and otherwise static symbols.
      Passes NAME, NAMESPACE, and DATA to CALLBACK with each symbol
@@ -231,7 +231,7 @@ struct quick_symbol_functions
      if non-null, must be an ordering relation compatible with
      strcmp_iw_ordered in the sense that
             strcmp_iw_ordered(x,y) == 0 --> ORDERED_COMPARE(x,y) == 0
-     and 
+     and
             strcmp_iw_ordered(x,y) <= 0 --> ORDERED_COMPARE(x,y) <= 0
      (allowing strcmp_iw_ordered(x,y) < 0 while ORDERED_COMPARE(x, y) == 0).
      CALLBACK returns 0 to indicate that the scan should continue, or

@@ -1,4 +1,4 @@
-/* Remote debugging interface to m32r and mon2000 ROM monitors for GDB, 
+/* Remote debugging interface to m32r and mon2000 ROM monitors for GDB,
    the GNU debugger.
 
    Copyright (C) 1996-2013 Free Software Foundation, Inc.
@@ -69,7 +69,7 @@ static char *download_path;	/* user-settable path for SREC files     */
 #define ACCH_REGNUM     23
 
 
-/* 
+/*
  * Function: m32r_load_1 (helper function)
  */
 
@@ -115,8 +115,8 @@ m32r_load_1 (void *dummy)
   return data_count;
 }
 
-/* 
- * Function: m32r_load (an alternate way to load) 
+/*
+ * Function: m32r_load (an alternate way to load)
  */
 
 static void
@@ -554,7 +554,7 @@ m32r_upload_command (char *args, int from_tty)
       /* Finally, make the PC point at the start address.  */
       regcache_write_pc (get_current_regcache (),
 			 bfd_get_start_address (abfd));
-      printf_filtered ("Start address 0x%lx\n", 
+      printf_filtered ("Start address 0x%lx\n",
 		       (unsigned long) bfd_get_start_address (abfd));
       print_transfer_performance (gdb_stdout, data_count, 0, &start_time,
 				  &end_time);

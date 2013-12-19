@@ -1121,7 +1121,7 @@ regcache_dump (struct regcache *regcache, struct ui_file *file,
 		      regcache->descr->sizeof_raw_registers);
   fprintf_unfiltered (file, "sizeof_raw_register_status %ld\n",
 		      regcache->descr->sizeof_raw_register_status);
-  fprintf_unfiltered (file, "gdbarch_num_regs %d\n", 
+  fprintf_unfiltered (file, "gdbarch_num_regs %d\n",
 		      gdbarch_num_regs (gdbarch));
   fprintf_unfiltered (file, "gdbarch_num_pseudo_regs %d\n",
 		      gdbarch_num_pseudo_regs (gdbarch));
@@ -1316,7 +1316,7 @@ regcache_dump (struct regcache *regcache, struct ui_file *file,
     fprintf_unfiltered (file, "*%d: Inconsistent register offsets.\n",
 			footnote_register_offset);
   if (footnote_register_type_name_null)
-    fprintf_unfiltered (file, 
+    fprintf_unfiltered (file,
 			"*%d: Register type's name NULL.\n",
 			footnote_register_type_name_null);
   do_cleanups (cleanups);

@@ -423,7 +423,7 @@ gen_traced_pop (struct gdbarch *gdbarch,
 	   larger than will fit in a stack, so just mark it for
 	   collection and be done with it.  */
 	ax_reg_mask (ax, value->u.reg);
-       
+
 	/* But if the register points to a string, assume the value
 	   will fit on the stack and push it anyway.  */
 	if (string_trace)
@@ -1527,7 +1527,7 @@ gen_struct_ref (struct expression *exp, struct agent_expr *ax,
 
   /* Search through fields and base classes recursively.  */
   found = gen_struct_ref_recursive (exp, ax, value, field, 0, type);
-  
+
   if (!found)
     error (_("Couldn't find member named `%s' in struct/union/class `%s'"),
 	   field, TYPE_TAG_NAME (type));
@@ -1562,7 +1562,7 @@ gen_static_field (struct gdbarch *gdbarch,
       if (sym)
 	{
 	  gen_var_ref (gdbarch, ax, value, sym);
-  
+
 	  /* Don't error if the value was optimized out, we may be
 	     scanning all static fields and just want to pass over this
 	     and continue with the rest.  */
@@ -1607,7 +1607,7 @@ gen_struct_elt_for_reference (struct expression *exp,
 	  if (TYPE_FIELD_PACKED (t, i))
 	    error (_("pointers to bitfield members not allowed"));
 
-	  /* FIXME we need a way to do "want_address" equivalent */	  
+	  /* FIXME we need a way to do "want_address" equivalent */
 
 	  error (_("Cannot reference non-static field \"%s\""), fieldname);
 	}
@@ -1630,7 +1630,7 @@ gen_namespace_elt (struct expression *exp,
   int found = gen_maybe_namespace_elt (exp, ax, value, curtype, name);
 
   if (!found)
-    error (_("No symbol \"%s\" in namespace \"%s\"."), 
+    error (_("No symbol \"%s\" in namespace \"%s\"."),
 	   name, TYPE_TAG_NAME (curtype));
 
   return found;
@@ -2112,7 +2112,7 @@ gen_expr (struct expression *exp, union exp_element **pc,
       gen_expr (exp, pc, ax, value);
       gen_usual_unary (exp, ax, value);
       break;
-      
+
     case UNOP_NEG:
       (*pc)++;
       /* -FOO is equivalent to 0 - FOO.  */
@@ -2343,7 +2343,7 @@ gen_expr_binop_rest (struct expression *exp,
       gen_binop (ax, value, value1, value2,
 		 aop_bit_or, aop_bit_or, 0, "bitwise or");
       break;
-      
+
     case BINOP_BITWISE_XOR:
       gen_binop (ax, value, value1, value2,
 		 aop_bit_xor, aop_bit_xor, 0, "bitwise exclusive-or");
@@ -2730,7 +2730,7 @@ maint_agent_printf_command (char *exp, int from_tty)
 
   if (*cmdrest++ != '"')
     error (_("Bad format string, non-terminated '\"'."));
-  
+
   cmdrest = skip_spaces_const (cmdrest);
 
   if (*cmdrest != ',' && *cmdrest != 0)

@@ -88,7 +88,7 @@ enum thread_control_capabilities
 /* The structure below stores information about a system call.
    It is basically used in the "catch syscall" command, and in
    every function that gives information about a system call.
-   
+
    It's also good to mention that its fields represent everything
    that we currently know about a syscall in GDB.  */
 struct syscall
@@ -281,7 +281,7 @@ extern void free_memory_read_result_vector (void *);
 extern VEC(memory_read_result_s)* read_memory_robust (struct target_ops *ops,
 						      ULONGEST offset,
 						      LONGEST len);
-  
+
 extern LONGEST target_write (struct target_ops *ops,
 			     enum target_object object,
 			     const char *annex, const gdb_byte *buf,
@@ -442,7 +442,7 @@ struct target_ops
     void (*to_terminal_info) (const char *, int);
     void (*to_kill) (struct target_ops *);
     void (*to_load) (char *, int);
-    void (*to_create_inferior) (struct target_ops *, 
+    void (*to_create_inferior) (struct target_ops *,
 				char *, char *, char **, int);
     void (*to_post_startup_inferior) (ptid_t);
     int (*to_insert_fork_catchpoint) (int);

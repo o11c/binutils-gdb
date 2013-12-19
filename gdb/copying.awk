@@ -25,7 +25,7 @@ NR == 1,/^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/	{
 	    {
 	      printf "  printf_filtered (\"\\n\");\n";
 	    }
-	  else if ($0 !~ /^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/) 
+	  else if ($0 !~ /^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/)
 	    {
 	      printf "  printf_filtered (\"";
 	      for (i = 1; i < NF; i++)
@@ -40,8 +40,8 @@ NR == 1,/^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/	{
 	  print "show_warranty_command (char *ignore, int from_tty)";
 	  print "{";
 	}
-/^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/, /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/{  
-	  if (! ($0 ~ /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/)) 
+/^[ 	]*15\. Disclaimer of Warranty\.[ 	]*$/, /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/{
+	  if (! ($0 ~ /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/))
 	    {
 	      printf "  printf_filtered (\"";
 	      for (i = 1; i < NF; i++)

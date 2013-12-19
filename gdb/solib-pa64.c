@@ -138,14 +138,14 @@ read_dld_descriptor (void)
 
   /* If necessary call read_dynamic_info to extract the contents of the
      .dynamic section from the shared library.  */
-  if (!dld_cache.is_valid) 
+  if (!dld_cache.is_valid)
     {
       if (symfile_objfile == NULL)
 	error (_("No object file symbols."));
 
-      dyninfo_sect = bfd_get_section_by_name (symfile_objfile->obfd, 
+      dyninfo_sect = bfd_get_section_by_name (symfile_objfile->obfd,
 					      ".dynamic");
-      if (!dyninfo_sect) 
+      if (!dyninfo_sect)
 	{
 	  return 0;
 	}
@@ -167,11 +167,11 @@ read_dld_descriptor (void)
     return 0;
 
   /* Read in the dld load module descriptor.  */
-  if (dlgetmodinfo (-1, 
+  if (dlgetmodinfo (-1,
 		    &dld_cache.dld_desc,
-		    sizeof (dld_cache.dld_desc), 
-		    pa64_target_read_memory, 
-		    0, 
+		    sizeof (dld_cache.dld_desc),
+		    pa64_target_read_memory,
+		    0,
 		    dld_cache.load_map)
       == 0)
     {
@@ -186,7 +186,7 @@ read_dld_descriptor (void)
 
 
 /* Read the .dynamic section and extract the information of interest,
-   which is stored in dld_cache.  The routine elf_locate_base in solib.c 
+   which is stored in dld_cache.  The routine elf_locate_base in solib.c
    was used as a model for this.  */
 
 static int
@@ -205,7 +205,7 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
   if (target_read_memory (dyninfo_addr, buf, dyninfo_sect_size))
     return 0;
 
-  /* Scan the .dynamic section and record the items of interest. 
+  /* Scan the .dynamic section and record the items of interest.
      In particular, DT_HP_DLD_FLAGS.  */
   for (bufend = buf + dyninfo_sect_size, entry_addr = dyninfo_addr;
        buf < bufend;
@@ -215,7 +215,7 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
       Elf64_Sxword dyn_tag;
       CORE_ADDR	dyn_ptr;
 
-      dyn_tag = bfd_h_get_64 (symfile_objfile->obfd, 
+      dyn_tag = bfd_h_get_64 (symfile_objfile->obfd,
 			      (bfd_byte*) &x_dynp->d_tag);
 
       /* We can't use a switch here because dyn_tag is 64 bits and HP's
@@ -227,7 +227,7 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
 	  /* Set dld_flags_addr and dld_flags in *dld_cache_p.  */
 	  dld_cache_p->dld_flags_addr = entry_addr + offsetof(Elf64_Dyn, d_un);
 	  if (target_read_memory (dld_cache_p->dld_flags_addr,
-	  			  (char*) &dld_cache_p->dld_flags, 
+	  			  (char*) &dld_cache_p->dld_flags,
 				  sizeof (dld_cache_p->dld_flags))
 	      != 0)
 	    {
@@ -239,7 +239,7 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
 	{
 	  /* Dld will place the address of the load map at load_map_addr
 	     after it starts running.  */
-	  if (target_read_memory (entry_addr + offsetof(Elf64_Dyn, 
+	  if (target_read_memory (entry_addr + offsetof(Elf64_Dyn,
 							d_un.d_ptr),
 				  (char*) &dld_cache_p->load_map_addr,
 				  sizeof (dld_cache_p->load_map_addr))
@@ -249,7 +249,7 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
 		       ".dynamic section of the program."));
 	    }
 	}
-      else 
+      else
 	{
 	  /* Tag is not of interest.  */
 	}
@@ -261,9 +261,9 @@ read_dynamic_info (asection *dyninfo_sect, dld_cache_t *dld_cache_p)
   /* Verify that we read in required info.  These fields are re-set to zero
      in pa64_solib_restart.  */
 
-  if (dld_cache_p->dld_flags_addr != 0 && dld_cache_p->load_map_addr != 0) 
+  if (dld_cache_p->dld_flags_addr != 0 && dld_cache_p->load_map_addr != 0)
     dld_cache_p->is_valid = 1;
-  else 
+  else
     return 0;
 
   return 1;
@@ -386,7 +386,7 @@ manpage for methods to privately map shared library text."));
       sym_addr = gdb_bfd_lookup_symbol_from_symtab (tmp_bfd, cmp_name,
 						    "__dld_break");
       sym_addr = load_addr + sym_addr + 4;
-      
+
       /* Create the shared library breakpoint.  */
       {
 	struct breakpoint *b
@@ -458,7 +458,7 @@ pa64_current_sos (void)
       {
         struct load_module_desc *d = &new->lm_info->desc;
 
-	printf ("\n+ library \"%s\" is described at index %d\n", new->so_name, 
+	printf ("\n+ library \"%s\" is described at index %d\n", new->so_name,
 		dll_index);
 	printf ("    text_base = %s\n", hex_string (d->text_base));
 	printf ("    text_size = %s\n", hex_string (d->text_size));
@@ -601,7 +601,7 @@ pa64_solib_get_text_base (struct objfile *objfile)
   for (so = master_so_list (); so; so = so->next)
     if (so->objfile == objfile)
       return so->lm_info->desc.text_base;
-  
+
   return 0;
 }
 

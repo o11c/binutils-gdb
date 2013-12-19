@@ -456,7 +456,7 @@ c_val_print (struct type *type, const gdb_byte *valaddr,
 }
 
 void
-c_value_print (struct value *val, struct ui_file *stream, 
+c_value_print (struct value *val, struct ui_file *stream,
 	       const struct value_print_options *options)
 {
   struct type *type, *real_type, *val_type;
@@ -552,7 +552,7 @@ c_value_print (struct value *val, struct ui_file *stream,
       if (real_type)
 	{
 	  /* We have RTTI information, so use it.  */
-	  val = value_full_object (val, real_type, 
+	  val = value_full_object (val, real_type,
 				   full, top, using_enc);
 	  fprintf_filtered (stream, "(%s%s) ",
 			    TYPE_NAME (real_type),

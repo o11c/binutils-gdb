@@ -75,7 +75,7 @@ case_mode;
 extern enum array_ordering
   {
     array_row_major, array_column_major
-  } 
+  }
 array_ordering;
 
 
@@ -172,8 +172,8 @@ struct language_defn
 
     /* Given an expression *EXPP created by prefixifying the result of
        la_parser, perform any remaining processing necessary to complete
-       its translation.  *EXPP may change; la_post_parser is responsible 
-       for releasing its previous contents, if necessary.  If 
+       its translation.  *EXPP may change; la_post_parser is responsible
+       for releasing its previous contents, if necessary.  If
        VOID_CONTEXT_P, then no value is expected from the expression.  */
 
     void (*la_post_parser) (struct expression ** expp, int void_context_p);
@@ -202,7 +202,7 @@ struct language_defn
 			      struct ui_file *stream);
 
     /* Print a value using syntax appropriate for this language.
-       
+
        TYPE is the type of the sub-object to be printed.
 
        CONTENTS holds the bits of the value.  This holds the entire
@@ -386,7 +386,7 @@ extern const struct language_defn *current_language;
 
 extern const struct language_defn *expected_language;
 
-/* language_mode == 
+/* language_mode ==
    language_mode_auto:   current_language automatically set upon selection
    of scope (e.g. stack frame)
    language_mode_manual: current_language set only by user.  */
@@ -408,7 +408,7 @@ struct type *language_lookup_primitive_type_by_name (const struct language_defn 
 						     const char *name);
 
 
-/* These macros define the behaviour of the expression 
+/* These macros define the behaviour of the expression
    evaluator.  */
 
 /* Should we range check values against the domain of their type?  */
@@ -507,7 +507,7 @@ extern enum language get_frame_language (void);	/* In stack.c */
 extern CORE_ADDR skip_language_trampoline (struct frame_info *, CORE_ADDR pc);
 
 /* Return demangled language symbol, or NULL.  */
-extern char *language_demangle (const struct language_defn *current_language, 
+extern char *language_demangle (const struct language_defn *current_language,
 				const char *mangled, int options);
 
 /* Return class name from physname, or NULL.  */

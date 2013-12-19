@@ -57,7 +57,7 @@ struct macro_buffer
      some other block, and we shouldn't reallocate it.  */
   int shared;
 
-  /* For detecting token splicing. 
+  /* For detecting token splicing.
 
      This is the index in TEXT of the first character of the token
      that abuts the end of TEXT.  If TEXT contains no tokens, then we
@@ -67,7 +67,7 @@ struct macro_buffer
      know the nature of TEXT.  */
   int last_token;
 
-  /* If this buffer is holding the result from get_token, then this 
+  /* If this buffer is holding the result from get_token, then this
      is non-zero if it is an identifier token, zero otherwise.  */
   int is_identifier;
 };
@@ -140,7 +140,7 @@ resize_buffer (struct macro_buffer *b, int n)
 {
   /* We shouldn't be trying to resize shared strings.  */
   gdb_assert (! b->shared);
-  
+
   if (b->size == 0)
     b->size = n;
   else
@@ -327,7 +327,7 @@ get_pp_number (struct macro_buffer *tok, char *p, char *end)
 static int
 get_character_constant (struct macro_buffer *tok, char *p, char *end)
 {
-  /* ISO/IEC 9899:1999 (E)  Section 6.4.4.4  paragraph 1 
+  /* ISO/IEC 9899:1999 (E)  Section 6.4.4.4  paragraph 1
      But of course, what really matters is that we handle it the same
      way GDB's C/C++ lexer does.  So we call parse_escape in utils.c
      to handle escape sequences.  */
@@ -507,7 +507,7 @@ get_token (struct macro_buffer *tok,
 
   /* From the ISO C standard, ISO/IEC 9899:1999 (E), section 6.4:
 
-     preprocessing-token: 
+     preprocessing-token:
          header-name
          identifier
          pp-number
@@ -545,7 +545,7 @@ get_token (struct macro_buffer *tok,
         src->len -= consumed;
         return 1;
       }
-    else 
+    else
       {
         /* We have found a "non-whitespace character that cannot be
            one of the above."  Make a token out of it.  */
@@ -590,7 +590,7 @@ append_tokens_without_splicing (struct macro_buffer *dest,
 
   gdb_assert (src->last_token != -1);
   gdb_assert (dest->last_token != -1);
-  
+
   /* First, just try appending the two, and call get_token to see if
      we got a splice.  */
   appendmem (dest, src->text, src->len);
@@ -716,7 +716,7 @@ macro_stringify (const char *str)
 /* Expanding macros!  */
 
 
-/* A singly-linked list of the names of the macros we are currently 
+/* A singly-linked list of the names of the macros we are currently
    expanding --- for detecting expansion loops.  */
 struct macro_name_list {
   const char *name;
@@ -760,7 +760,7 @@ currently_rescanning (struct macro_name_list *list, const char *name)
 
    If SRC doesn't contain a properly terminated argument list, then
    raise an error.
-   
+
    For a variadic macro, NARGS holds the number of formal arguments to
    the macro.  For a GNU-style variadic macro, this should be the
    number of named arguments.  For a non-variadic macro, NARGS should
@@ -839,7 +839,7 @@ gather_arguments (const char *name, struct macro_buffer *src,
         {
           if (! get_token (&tok, src))
             error (_("Malformed argument list for macro `%s'."), name);
-      
+
           /* Is tok an opening paren?  */
           if (tok.len == 1 && tok.text[0] == '(')
             depth++;
@@ -910,7 +910,7 @@ static void scan (struct macro_buffer *dest,
 
 
 /* A helper function for substitute_args.
-   
+
    ARGV is a vector of all the arguments; ARGC is the number of
    arguments.  IS_VARARGS is true if the macro being substituted is a
    varargs macro; in this case VA_ARG_NAME is the name of the
@@ -931,7 +931,7 @@ find_parameter (const struct macro_buffer *tok,
     return -1;
 
   for (i = 0; i < argc; ++i)
-    if (tok->len == strlen (argv[i]) 
+    if (tok->len == strlen (argv[i])
 	&& !memcmp (tok->text, argv[i], tok->len))
       return i;
 
@@ -941,7 +941,7 @@ find_parameter (const struct macro_buffer *tok,
 
   return -1;
 }
- 
+
 /* Given the macro definition DEF, being invoked with the actual
    arguments given by ARGC and ARGV, substitute the arguments into the
    replacement list, and store the result in DEST.
@@ -958,7 +958,7 @@ find_parameter (const struct macro_buffer *tok,
    NO_LOOP.  */
 
 static void
-substitute_args (struct macro_buffer *dest, 
+substitute_args (struct macro_buffer *dest,
                  struct macro_definition *def,
 		 int is_varargs, const struct macro_buffer *va_arg_name,
                  int argc, struct macro_buffer *argv,
@@ -1177,7 +1177,7 @@ substitute_args (struct macro_buffer *dest,
    we don't expand it.)  If we return zero, leave SRC unchanged.  */
 static int
 expand (const char *id,
-        struct macro_definition *def, 
+        struct macro_definition *def,
         struct macro_buffer *dest,
         struct macro_buffer *src,
         struct macro_name_list *no_loop,
@@ -1336,7 +1336,7 @@ maybe_expand (struct macro_buffer *dest,
 
       memcpy (id, src_first->text, src_first->len);
       id[src_first->len] = 0;
-          
+
       /* If we're currently re-scanning the result of expanding
          this macro, don't expand it again.  */
       if (! currently_rescanning (no_loop, id))

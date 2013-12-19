@@ -156,7 +156,7 @@ fetch_register (struct regcache *regcache, int regno)
   val = ptrace (PTRACE_PEEKUSER, tid,
 		i386_linux_gregset_reg_offset[regno], 0);
   if (errno != 0)
-    error (_("Couldn't read register %s (#%d): %s."), 
+    error (_("Couldn't read register %s (#%d): %s."),
 	   gdbarch_register_name (get_regcache_arch (regcache), regno),
 	   regno, safe_strerror (errno));
 
@@ -275,7 +275,7 @@ store_regs (const struct regcache *regcache, int tid, int regno)
     perror_with_name (_("Couldn't get registers"));
 
   fill_gregset (regcache, &regs, regno);
-  
+
   if (ptrace (PTRACE_SETREGS, tid, 0, (int) &regs) < 0)
     perror_with_name (_("Couldn't write registers"));
 }
@@ -293,7 +293,7 @@ static void store_regs (const struct regcache *regcache, int tid, int regno) {}
 /* Fill GDB's register array with the floating-point register values in
    *FPREGSETP.  */
 
-void 
+void
 supply_fpregset (struct regcache *regcache, const elf_fpregset_t *fpregsetp)
 {
   i387_supply_fsave (regcache, -1, fpregsetp);
@@ -395,7 +395,7 @@ store_xstateregs (const struct regcache *regcache, int tid, int regno)
 
   if (!have_ptrace_getregset)
     return 0;
-  
+
   iov.iov_base = xstateregs;
   iov.iov_len = sizeof(xstateregs);
   if (ptrace (PTRACE_GETREGSET, tid, (unsigned int) NT_X86_XSTATE,
@@ -451,7 +451,7 @@ store_fpxregs (const struct regcache *regcache, int tid, int regno)
 
   if (! have_ptrace_getfpxregs)
     return 0;
-  
+
   if (ptrace (PTRACE_GETFPXREGS, tid, 0, &fpxregs) == -1)
     {
       if (errno == EIO)
@@ -849,7 +849,7 @@ i386_linux_new_fork (struct lwp_info *parent, pid_t child_pid)
    storage (or its descriptor).  */
 
 ps_err_e
-ps_get_thread_area (const struct ps_prochandle *ph, 
+ps_get_thread_area (const struct ps_prochandle *ph,
 		    lwpid_t lwpid, int idx, void **base)
 {
   /* NOTE: cagney/2003-08-26: The definition of this buffer is found

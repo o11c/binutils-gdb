@@ -627,10 +627,10 @@ static int
 inf_has_multiple_thread_cb (struct thread_info *tp, void *data)
 {
   int *count_p = (int *) data;
-  
+
   if (current_inferior ()->pid == ptid_get_pid (tp->ptid))
     (*count_p)++;
-  
+
   /* Stop the iteration if multiple threads have been detected.  */
   return *count_p > 1;
 }
@@ -658,14 +658,14 @@ checkpoint_command (char *args, int from_tty)
   pid_t retpid;
   struct cleanup *old_chain;
 
-  if (!target_has_execution) 
+  if (!target_has_execution)
     error (_("The program is not being run."));
 
   /* Ensure that the inferior is not multithreaded.  */
   update_thread_list ();
   if (inf_has_multiple_threads ())
     error (_("checkpoint: can't checkpoint multiple threads."));
-  
+
   /* Make the inferior fork, record its (and gdb's) state.  */
 
   if (lookup_minimal_symbol ("fork", NULL, NULL) != NULL)

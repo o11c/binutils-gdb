@@ -340,7 +340,7 @@ extract_identifier (char **expp, int is_parameter)
 	;
     }
 
-  if (is_parameter && !strncmp (p, "...", 3))      
+  if (is_parameter && !strncmp (p, "...", 3))
     p += 3;
 
   len = p - *expp;

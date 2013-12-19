@@ -414,7 +414,7 @@ filename_is_in_auto_load_safe_path_vec (const char *filename,
        ++ix)
     if (*filename_realp == NULL && filename_is_in_pattern (filename, pattern))
       break;
-  
+
   if (pattern == NULL)
     {
       if (*filename_realp == NULL)

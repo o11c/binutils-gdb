@@ -97,7 +97,7 @@ static void *
 user_regs_init (struct gdbarch *gdbarch)
 {
   struct user_reg *reg;
-  struct gdb_user_regs *regs 
+  struct gdb_user_regs *regs
     = GDBARCH_OBSTACK_ZALLOC (gdbarch, struct gdb_user_regs);
 
   regs->last = &regs->first;

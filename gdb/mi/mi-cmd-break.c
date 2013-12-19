@@ -350,8 +350,8 @@ mi_cmd_break_passcount (char *command, char **argv, int argc)
 }
 
 /* Insert a watchpoint. The type of watchpoint is specified by the
-   first argument: 
-   -break-watch <expr> --> insert a regular wp.  
+   first argument:
+   -break-watch <expr> --> insert a regular wp.
    -break-watch -r <expr> --> insert a read watchpoint.
    -break-watch -a <expr> --> insert an access wp.  */
 

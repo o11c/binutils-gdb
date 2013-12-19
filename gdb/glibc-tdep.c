@@ -30,7 +30,7 @@
 /* See the comments for SKIP_SOLIB_RESOLVER at the top of infrun.c.
    This function:
    1) decides whether a PLT has sent us into the linker to resolve
-      a function reference, and 
+      a function reference, and
    2) if so, tells us where to set a temporary breakpoint that will
       trigger when the dynamic linker is done.  */
 
@@ -46,14 +46,14 @@ glibc_skip_solib_resolver (struct gdbarch *gdbarch, CORE_ADDR pc)
      the same objfile.  If we are at the entry point of `fixup', then
      we set a breakpoint at the return address (at the top of the
      stack), and continue.
-  
+
      It's kind of gross to do all these checks every time we're
      called, since they don't change once the executable has gotten
      started.  But this is only a temporary hack --- upcoming versions
      of GNU/Linux will provide a portable, efficient interface for
      debugging programs that use shared libraries.  */
 
-  struct bound_minimal_symbol resolver 
+  struct bound_minimal_symbol resolver
     = lookup_minimal_symbol_and_objfile ("_dl_runtime_resolve");
 
   if (resolver.minsym)
@@ -61,7 +61,7 @@ glibc_skip_solib_resolver (struct gdbarch *gdbarch, CORE_ADDR pc)
       /* The dynamic linker began using this name in early 2005.  */
       struct minimal_symbol *fixup
 	= lookup_minimal_symbol ("_dl_fixup", NULL, resolver.objfile);
-      
+
       /* This is the name used in older versions.  */
       if (! fixup)
         fixup = lookup_minimal_symbol ("fixup", NULL, resolver.objfile);
@@ -71,4 +71,4 @@ glibc_skip_solib_resolver (struct gdbarch *gdbarch, CORE_ADDR pc)
     }
 
   return 0;
-}      
+}

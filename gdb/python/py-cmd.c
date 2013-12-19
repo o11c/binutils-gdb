@@ -470,10 +470,10 @@ cmdpy_init (PyObject *self, PyObject *args, PyObject *kw)
       if (cmp == 1)
 	{
 	  int i, out;
-	
+
 	  /* Make a normalized form of the command name.  */
 	  pfx_name = xmalloc (strlen (name) + 2);
-	
+
 	  i = 0;
 	  out = 0;
 	  while (name[i])

@@ -602,7 +602,7 @@ add_language (const struct language_defn *lang)
    any non-NULL struct language_defn.skip_trampoline() functions.
    Return the result from the first that returns non-zero, or 0 if all
    `fail'.  */
-CORE_ADDR 
+CORE_ADDR
 skip_language_trampoline (struct frame_info *frame, CORE_ADDR pc)
 {
   int i;
@@ -628,7 +628,7 @@ skip_language_trampoline (struct frame_info *frame, CORE_ADDR pc)
    FIXME: Sometimes the demangler is invoked when we don't know the
    language, so we can't use this everywhere.  */
 char *
-language_demangle (const struct language_defn *current_language, 
+language_demangle (const struct language_defn *current_language,
 				const char *mangled, int options)
 {
   if (current_language != NULL && current_language->la_demangle)

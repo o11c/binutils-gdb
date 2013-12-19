@@ -89,7 +89,7 @@ do
 	    -ex "set pagination off" -ex "set height 0" -ex "set width 0" \
 	    -ex "attach $pid" -ex "gcore $name.$pid" -ex detach -ex quit
 
-	if [ -r $name.$pid ] ; then 
+	if [ -r $name.$pid ] ; then
 	    rc=0
 	else
 	    echo "@GCORE_TRANSFORM_NAME@: failed to create $name.$pid"

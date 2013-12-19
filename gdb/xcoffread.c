@@ -379,7 +379,7 @@ add_stab_to_list (char *stabname, struct pending_stabs **stabvector)
    static foo2()
    40   0x700
    50   0x800
-   60   0x900           
+   60   0x900
 
    and that breaks gdb's binary search on line numbers, if the
    above table is not sorted on line numbers.  And that sort
@@ -519,7 +519,7 @@ arrange_linetable (struct linetable *oldLineTb)
   return newLineTb;
 }
 
-/* include file support: C_BINCL/C_EINCL pairs will be kept in the 
+/* include file support: C_BINCL/C_EINCL pairs will be kept in the
    following `IncludeChain'.  At the end of each symtab (end_symtab),
    we will determine if we should create additional symtab's to
    represent if (the include files.  */
@@ -832,7 +832,7 @@ aix_process_linenos (struct objfile *objfile)
    can be called in the following two ways:
    enter_line_range (subfile, beginoffset, endoffset,
                      startaddr, 0, firstLine)  or
-   enter_line_range (subfile, beginoffset, 0, 
+   enter_line_range (subfile, beginoffset, 0,
                      startaddr, endaddr, firstLine)
 
    endoffset points to the last line table entry that we should pay
@@ -1455,7 +1455,7 @@ read_xcoff_symtab (struct objfile *objfile, struct partial_symtab *pst)
 	  /* beginning of include file */
 	  /* In xlc output, C_BINCL/C_EINCL pair doesn't show up in sorted
 	     order.  Thus, when wee see them, we might not know enough info
-	     to process them.  Thus, we'll be saving them into a table 
+	     to process them.  Thus, we'll be saving them into a table
 	     (inclTable) and postpone their processing.  */
 
 	  record_include_begin (cs);
@@ -2337,7 +2337,7 @@ scan_xcoff_symtab (struct objfile *objfile)
 		      }
 		    /* Activate the misc_func_recorded mechanism for
 		       compiler- and linker-generated CSECTs like ".strcmp"
-		       and "@FIX1".  */ 
+		       and "@FIX1".  */
 		    if (namestring && (namestring[0] == '.'
 				       || namestring[0] == '@'))
 		      {
@@ -2940,7 +2940,7 @@ xcoff_get_toc_offset (struct objfile *objfile)
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to dbx_symfile_init, which 
+   We have been initialized by a call to dbx_symfile_init, which
    put all the relevant info into a "struct dbx_symfile_info",
    hung off the objfile structure.
 

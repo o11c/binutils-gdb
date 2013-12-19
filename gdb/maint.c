@@ -151,7 +151,7 @@ maintenance_demangle (char *args, int from_tty)
     }
   else
     {
-      demangled = language_demangle (current_language, args, 
+      demangled = language_demangle (current_language, args,
 				     DMGL_ANSI | DMGL_PARAMS);
       if (demangled != NULL)
 	{
@@ -225,7 +225,7 @@ match_substring (const char *string, const char *substr)
   return 0;
 }
 
-static int 
+static int
 match_bfd_flags (char *string, flagword flags)
 {
   if (flags & SEC_ALLOC)
@@ -298,8 +298,8 @@ print_bfd_flags (flagword flags)
 }
 
 static void
-maint_print_section_info (const char *name, flagword flags, 
-			  CORE_ADDR addr, CORE_ADDR endaddr, 
+maint_print_section_info (const char *name, flagword flags,
+			  CORE_ADDR addr, CORE_ADDR endaddr,
 			  unsigned long filepos, int addr_size)
 {
   printf_filtered ("    %s", hex_string_custom (addr, addr_size));
@@ -312,8 +312,8 @@ maint_print_section_info (const char *name, flagword flags,
 }
 
 static void
-print_bfd_section_info (bfd *abfd, 
-			asection *asect, 
+print_bfd_section_info (bfd *abfd,
+			asection *asect,
 			void *arg)
 {
   flagword flags = bfd_get_section_flags (abfd, asect);
@@ -336,8 +336,8 @@ print_bfd_section_info (bfd *abfd,
 }
 
 static void
-print_objfile_section_info (bfd *abfd, 
-			    struct obj_section *asect, 
+print_objfile_section_info (bfd *abfd,
+			    struct obj_section *asect,
 			    char *string)
 {
   flagword flags = bfd_get_section_flags (abfd, asect->the_bfd_section);
@@ -372,16 +372,16 @@ maintenance_info_sections (char *arg, int from_tty)
 	  struct objfile *ofile;
 	  struct obj_section *osect;
 
-	  /* Only this function cares about the 'ALLOBJ' argument; 
+	  /* Only this function cares about the 'ALLOBJ' argument;
 	     if 'ALLOBJ' is the only argument, discard it rather than
-	     passing it down to print_objfile_section_info (which 
+	     passing it down to print_objfile_section_info (which
 	     wouldn't know how to handle it).  */
 	  if (strcmp (arg, "ALLOBJ") == 0)
 	    arg = NULL;
 
 	  ALL_OBJFILES (ofile)
 	    {
-	      printf_filtered (_("  Object file: %s\n"), 
+	      printf_filtered (_("  Object file: %s\n"),
 			       bfd_get_filename (ofile->obfd));
 	      ALL_OBJFILE_OSECTIONS (ofile, osect)
 		{
@@ -389,7 +389,7 @@ maintenance_info_sections (char *arg, int from_tty)
 		}
 	    }
 	}
-      else 
+      else
 	bfd_map_over_sections (exec_bfd, print_bfd_section_info, arg);
     }
 
@@ -754,7 +754,7 @@ static struct cmd_list_element *per_command_showlist;
 /* Records a run time and space usage to be used as a base for
    reporting elapsed time or change in space.  */
 
-struct cmd_stats 
+struct cmd_stats
 {
   /* Zero if the saved time is from the beginning of GDB execution.
      One if from the beginning of an individual command execution.  */

@@ -1,5 +1,5 @@
 /* Partial symbol tables.
-   
+
    Copyright (C) 2009-2013 Free Software Foundation, Inc.
 
    This file is part of GDB.
@@ -1201,7 +1201,7 @@ psymtab_to_fullname (struct partial_symtab *ps)
 	    ps->fullname = xstrdup (fullname);
 	  do_cleanups (back_to);
 	}
-    } 
+    }
 
   return ps->fullname;
 }
@@ -1223,7 +1223,7 @@ map_block (const char *name, domain_enum namespace, struct objfile *objfile,
   for (sym = block_iter_match_first (block, name, match, &iter);
        sym != NULL; sym = block_iter_match_next (name, match, &iter))
     {
-      if (symbol_matches_domain (SYMBOL_LANGUAGE (sym), 
+      if (symbol_matches_domain (SYMBOL_LANGUAGE (sym),
 				 SYMBOL_DOMAIN (sym), namespace))
 	{
 	  if (callback (block, sym, data))
@@ -1270,7 +1270,7 @@ map_matching_symbols_psymtab (struct objfile *objfile,
 	    return;
 	}
     }
-}	    
+}
 
 /* A helper for expand_symtabs_matching_via_partial that handles
    searching included psymtabs.  This returns 1 if a symbol is found,
@@ -1570,7 +1570,7 @@ psymbol_bcache_full (struct partial_symbol *sym,
                       added);
 }
 
-/* Helper function, initialises partial symbol structure and stashes 
+/* Helper function, initialises partial symbol structure and stashes
    it into objfile's bcache.  Note that our caching mechanism will
    use all fields of struct partial_symbol to determine hash value of the
    structure.  In other words, having two symbols with the same name but
@@ -1665,7 +1665,7 @@ void
 add_psymbol_to_list (const char *name, int namelength, int copy_name,
 		     domain_enum domain,
 		     enum address_class class,
-		     struct psymbol_allocation_list *list, 
+		     struct psymbol_allocation_list *list,
 		     long val,	/* Value as a long */
 		     CORE_ADDR coreaddr,	/* Value as a CORE_ADDR */
 		     enum language language, struct objfile *objfile)
@@ -1920,14 +1920,14 @@ maintenance_info_psymtabs (char *regexp, int from_tty)
 		{
 		  printf_filtered ("{ objfile %s ", objfile_name (objfile));
 		  wrap_here ("  ");
-		  printf_filtered ("((struct objfile *) %s)\n", 
+		  printf_filtered ("((struct objfile *) %s)\n",
 				   host_address_to_string (objfile));
 		  printed_objfile_start = 1;
 		}
 
 	      printf_filtered ("  { psymtab %s ", psymtab->filename);
 	      wrap_here ("    ");
-	      printf_filtered ("((struct partial_symtab *) %s)\n", 
+	      printf_filtered ("((struct partial_symtab *) %s)\n",
 			       host_address_to_string (psymtab));
 
 	      printf_filtered ("    readin %s\n",
@@ -1978,7 +1978,7 @@ maintenance_info_psymtabs (char *regexp, int from_tty)
 		      /* Note the string concatenation there --- no comma.  */
 		      printf_filtered ("      psymtab %s "
 				       "((struct partial_symtab *) %s)\n",
-				       dep->filename, 
+				       dep->filename,
 				       host_address_to_string (dep));
 		    }
 		  printf_filtered ("    }\n");

@@ -607,7 +607,7 @@ source_command (char *args, int from_tty)
   int search_path = 0;
 
   *old_source_verbose = source_verbose;
-  old_cleanups = make_cleanup (source_verbose_cleanup, 
+  old_cleanups = make_cleanup (source_verbose_cleanup,
 			       old_source_verbose);
 
   /* -v causes the source command to run in verbose mode.
@@ -878,7 +878,7 @@ list_command (char *arg, int from_tty)
   if (strcmp (arg, "-") == 0)
     {
       print_source_lines (cursal.symtab,
-			  max (get_first_line_listed () 
+			  max (get_first_line_listed ()
 			       - get_lines_to_list (), 1),
 			  get_first_line_listed (), 0);
       return;
@@ -1231,7 +1231,7 @@ show_user (char *args, int from_tty)
 /* Search through names of commands and documentations for a certain
    regular expression.  */
 
-static void 
+static void
 apropos_command (char *searchstr, int from_tty)
 {
   regex_t pattern;

@@ -1,5 +1,5 @@
 /* A simple growing buffer for GDB.
-  
+
    Copyright (C) 2009-2013 Free Software Foundation, Inc.
 
    This file is part of GDB.
@@ -102,7 +102,7 @@ buffer_xml_printf (struct buffer *buffer, const char *format, ...)
 	  char *p;
 	  char *str = buf;
 	  const char *f_old = f;
-	  
+
 	  switch (*f)
 	    {
 	    case 's':

@@ -548,7 +548,7 @@ call_site_to_target_addr (struct gdbarch *call_site_gdbarch,
 	if (dwarf_block == NULL)
 	  {
 	    struct bound_minimal_symbol msym;
-	    
+
 	    msym = lookup_minimal_symbol_by_pc (call_site->pc - 1);
 	    throw_error (NO_ENTRY_VALUE_ERROR,
 			 _("DW_AT_GNU_call_site_target is not specified "
@@ -556,12 +556,12 @@ call_site_to_target_addr (struct gdbarch *call_site_gdbarch,
 			 paddress (call_site_gdbarch, call_site->pc),
 			 (msym.minsym == NULL ? "???"
 			  : SYMBOL_PRINT_NAME (msym.minsym)));
-			
+
 	  }
 	if (caller_frame == NULL)
 	  {
 	    struct bound_minimal_symbol msym;
-	    
+
 	    msym = lookup_minimal_symbol_by_pc (call_site->pc - 1);
 	    throw_error (NO_ENTRY_VALUE_ERROR,
 			 _("DW_AT_GNU_call_site_target DWARF block resolving "
@@ -570,7 +570,7 @@ call_site_to_target_addr (struct gdbarch *call_site_gdbarch,
 			 paddress (call_site_gdbarch, call_site->pc),
 			 (msym.minsym == NULL ? "???"
 			  : SYMBOL_PRINT_NAME (msym.minsym)));
-			
+
 	  }
 	caller_arch = get_frame_arch (caller_frame);
 	caller_core_addr_type = builtin_type (caller_arch)->builtin_func_ptr;
@@ -602,7 +602,7 @@ call_site_to_target_addr (struct gdbarch *call_site_gdbarch,
 			   "at %s in %s"),
 			 physname, paddress (call_site_gdbarch, call_site->pc),
 			 msym == NULL ? "???" : SYMBOL_PRINT_NAME (msym));
-			
+
 	  }
 	return SYMBOL_VALUE_ADDRESS (msym);
       }
@@ -662,7 +662,7 @@ func_verify_no_selftailcall (struct gdbarch *gdbarch, CORE_ADDR verify_addr)
   VEC (CORE_ADDR) *todo = NULL;
 
   obstack_init (&addr_obstack);
-  old_chain = make_cleanup_obstack_free (&addr_obstack);   
+  old_chain = make_cleanup_obstack_free (&addr_obstack);
   addr_hash = htab_create_alloc_ex (64, core_addr_hash, core_addr_eq, NULL,
 				    &addr_obstack, hashtab_obstack_allocate,
 				    NULL);
@@ -693,7 +693,7 @@ func_verify_no_selftailcall (struct gdbarch *gdbarch, CORE_ADDR verify_addr)
 	  if (target_addr == verify_addr)
 	    {
 	      struct bound_minimal_symbol msym;
-	      
+
 	      msym = lookup_minimal_symbol_by_pc (verify_addr);
 	      throw_error (NO_ENTRY_VALUE_ERROR,
 			   _("DW_OP_GNU_entry_value resolving has found "
@@ -871,7 +871,7 @@ call_site_find_chain_1 (struct gdbarch *gdbarch, CORE_ADDR caller_pc,
   back_to_retval = make_cleanup (free_current_contents, &retval);
 
   obstack_init (&addr_obstack);
-  back_to_workdata = make_cleanup_obstack_free (&addr_obstack);   
+  back_to_workdata = make_cleanup_obstack_free (&addr_obstack);
   addr_hash = htab_create_alloc_ex (64, core_addr_hash, core_addr_eq, NULL,
 				    &addr_obstack, hashtab_obstack_allocate,
 				    NULL);
@@ -960,7 +960,7 @@ call_site_find_chain_1 (struct gdbarch *gdbarch, CORE_ADDR caller_pc,
   if (retval == NULL)
     {
       struct bound_minimal_symbol msym_caller, msym_callee;
-      
+
       msym_caller = lookup_minimal_symbol_by_pc (caller_pc);
       msym_callee = lookup_minimal_symbol_by_pc (callee_pc);
       throw_error (NO_ENTRY_VALUE_ERROR,
@@ -1128,7 +1128,7 @@ dwarf_expr_reg_to_entry_parameter (struct frame_info *frame,
       throw_error (NO_ENTRY_VALUE_ERROR, _("Cannot find matching parameter "
 					   "at DW_TAG_GNU_call_site %s at %s"),
 		   paddress (gdbarch, caller_pc),
-		   msym == NULL ? "???" : SYMBOL_PRINT_NAME (msym)); 
+		   msym == NULL ? "???" : SYMBOL_PRINT_NAME (msym));
     }
 
   *per_cu_return = call_site->per_cu;
@@ -1476,13 +1476,13 @@ extract_bits_primitive (const gdb_byte **source,
 
 /* Extract some bits from a source buffer and move forward in the
    buffer.
-   
+
    SOURCE is the source buffer.  It is updated as bytes are read.
    SOURCE_OFFSET_BITS is the offset into SOURCE.  It is updated as
    bits are read.
    NBITS is the number of bits to read.
    BITS_BIG_ENDIAN is taken directly from gdbarch.
-   
+
    This function returns the bits that were read.  */
 
 static unsigned int
@@ -1512,7 +1512,7 @@ extract_bits (const gdb_byte **source, unsigned int *source_offset_bits,
 }
 
 /* Write some bits into a buffer and move forward in the buffer.
-   
+
    DATUM is the bits to write.  The low-order bits of DATUM are used.
    DEST is the destination buffer.  It is updated as bytes are
    written.
@@ -1548,7 +1548,7 @@ insert_bits (unsigned int datum,
 }
 
 /* Copy bits from a source to a destination.
-   
+
    DEST is where the bits should be written.
    DEST_OFFSET_BITS is the bit offset into DEST.
    SOURCE is the source of bits.
@@ -1909,7 +1909,7 @@ write_pieced_value (struct value *to, struct value *from)
 				  bits_big_endian);
 		  }
 
-		put_frame_register_bytes (frame, gdb_regnum, reg_offset, 
+		put_frame_register_bytes (frame, gdb_regnum, reg_offset,
 					  this_size, source_buffer);
 	      }
 	    else
@@ -2153,7 +2153,7 @@ copy_pieced_value_closure (const struct value *v)
 {
   struct piece_closure *c
     = (struct piece_closure *) value_computed_closure (v);
-  
+
   ++c->refc;
   return c;
 }
@@ -2688,14 +2688,14 @@ get_ax_pc (void *baton)
 }
 
 /* Compile a DWARF location expression to an agent expression.
-   
+
    EXPR is the agent expression we are building.
    LOC is the agent value we modify.
    ARCH is the architecture.
    ADDR_SIZE is the size of addresses, in bytes.
    OP_PTR is the start of the location expression.
    OP_END is one past the last byte of the location expression.
-   
+
    This will throw an exception for various kinds of errors -- for
    example, if the expression cannot be compiled, or if the expression
    is invalid.  */
@@ -3016,7 +3016,7 @@ dwarf2_compile_expr_to_ax (struct agent_expr *expr, struct axs_value *loc,
 	  offset = *op_ptr++;
 	  ax_pick (expr, offset);
 	  break;
-	  
+
 	case DW_OP_swap:
 	  ax_simple (expr, aop_swap);
 	  break;
@@ -3457,7 +3457,7 @@ locexpr_describe_location_piece (struct symbol *symbol, struct ui_file *stream,
       if (base_data[0] >= DW_OP_breg0 && base_data[0] <= DW_OP_breg31)
 	{
 	  const gdb_byte *buf_end;
-	  
+
 	  frame_reg = base_data[0] - DW_OP_breg0;
 	  buf_end = safe_read_sleb128 (base_data + 1, base_data + base_size,
 				       &base_offset);
@@ -3522,7 +3522,7 @@ locexpr_describe_location_piece (struct symbol *symbol, struct ui_file *stream,
       offset = extract_unsigned_integer (data + 1, addr_size,
 					 gdbarch_byte_order (gdbarch));
 
-      fprintf_filtered (stream, 
+      fprintf_filtered (stream,
 			_("a thread-local variable at offset 0x%s "
 			  "in the thread-local storage for `%s'"),
 			phex_nz (offset, addr_size), objfile_name (objfile));
@@ -3545,7 +3545,7 @@ locexpr_describe_location_piece (struct symbol *symbol, struct ui_file *stream,
 
       data = safe_read_uleb128 (data + 1, end, &offset);
       offset = dwarf2_read_addr_index (per_cu, offset);
-      fprintf_filtered (stream, 
+      fprintf_filtered (stream,
 			_("a thread-local variable at offset 0x%s "
 			  "in the thread-local storage for `%s'"),
 			phex_nz (offset, addr_size), objfile_name (objfile));
@@ -3981,7 +3981,7 @@ locexpr_describe_location_1 (struct symbol *symbol, CORE_ADDR addr,
       if (data < end)
 	{
 	  int empty = data == here;
-	      
+
 	  if (disassemble)
 	    fprintf_filtered (stream, "   ");
 	  if (data[0] == DW_OP_piece)

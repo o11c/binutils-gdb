@@ -413,7 +413,7 @@ gdb_mangle_name (struct type *type, int method_id, int signature_id)
 
   is_full_physname_constructor = is_constructor_name (physname);
 
-  is_constructor = is_full_physname_constructor 
+  is_constructor = is_full_physname_constructor
     || (newname && strcmp (field_name, newname) == 0);
 
   if (!is_destructor)
@@ -862,7 +862,7 @@ symbol_set_names (struct general_symbol_info *gsymbol,
 	 mangled name saved, and we don't have a demangled name.  So,
 	 you might think we could save a little space by not recording
 	 this in the hash table at all.
-	 
+
 	 It turns out that it is actually important to still save such
 	 an entry in the hash table, because storing this name gives
 	 us better bcache hit rates for partial symbols.  */
@@ -1524,7 +1524,7 @@ lookup_symbol_aux_local (const char *name, const struct block *block,
   struct symbol *sym;
   const struct block *static_block = block_static_block (block);
   const char *scope = block_scope (block);
-  
+
   /* Check if either no block is specified or it's a global block.  */
 
   if (static_block == NULL)
@@ -2093,10 +2093,10 @@ lookup_block_symbol (const struct block *block, const char *name,
 }
 
 /* Iterate over the symbols named NAME, matching DOMAIN, in BLOCK.
-   
+
    For each symbol that matches, CALLBACK is called.  The symbol and
    DATA are passed to the callback.
-   
+
    If CALLBACK returns zero, the iteration ends.  Otherwise, the
    search continues.  */
 
@@ -2583,7 +2583,7 @@ find_line_symtab (struct symtab *symtab, int line,
 	  continue;
 	if (FILENAME_CMP (symtab_to_fullname (symtab),
 			  symtab_to_fullname (s)) != 0)
-	  continue;	
+	  continue;
 	l = LINETABLE (s);
 	ind = find_line_common (l, line, &exact, 0);
 	if (ind >= 0)
@@ -3702,7 +3702,7 @@ search_symbols (char *regexp, enum search_domain kind,
 			 && !(SYMBOL_CLASS (sym) == LOC_CONST
 			      && TYPE_CODE (SYMBOL_TYPE (sym))
 			      == TYPE_CODE_ENUM))
-			|| (kind == FUNCTIONS_DOMAIN 
+			|| (kind == FUNCTIONS_DOMAIN
 			    && SYMBOL_CLASS (sym) == LOC_BLOCK)
 			|| (kind == TYPES_DOMAIN
 			    && SYMBOL_CLASS (sym) == LOC_TYPEDEF))))
@@ -3961,7 +3961,7 @@ rbreak_command (char *regexp, int from_tty)
 	  memcpy (file_name, regexp, colon_index);
 	  file_name[colon_index--] = 0;
 	  while (isspace (file_name[colon_index]))
-	    file_name[colon_index--] = 0; 
+	    file_name[colon_index--] = 0;
 	  files = &file_name;
 	  nfiles = 1;
 	  regexp = skip_spaces (colon + 1);

@@ -2790,10 +2790,10 @@ cmd_qtenable_disable (char *own_buf, int enable)
 	      write_enn (own_buf);
 	      return;
 	    }
-	  
+
 	  ret = write_inferior_integer (obj_addr, enable);
 	  done_accessing_memory ();
-	  
+
 	  if (ret)
 	    {
 	      trace_debug ("Cannot write enabled flag into "
@@ -3004,7 +3004,7 @@ have_fast_tracepoint_trampoline_buffer (char *buf)
       fatal ("error extracting trampoline_buffer_end");
       return 0;
     }
-  
+
   if (buf)
     {
       buf[0] = '\0';

@@ -328,7 +328,7 @@ static int
 ia64_cannot_store_register (struct gdbarch *gdbarch, int regno)
 {
   /* Rationale behind not permitting stores to bspstore...
-  
+
      The IA-64 architecture provides bspstore and bsp which refer
      memory locations in the RSE's backing store.  bspstore is the
      next location which will be written when the RSE needs to write
@@ -835,7 +835,7 @@ ia64_linux_store_registers (struct target_ops *ops,
 
 static target_xfer_partial_ftype *super_xfer_partial;
 
-static LONGEST 
+static LONGEST
 ia64_linux_xfer_partial (struct target_ops *ops,
 			 enum target_object object,
 			 const char *annex,

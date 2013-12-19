@@ -248,7 +248,7 @@ print_it_exception_catchpoint (bpstat bs)
   annotate_catchpoint (b->number);
 
   bp_temp = b->disposition == disp_del;
-  ui_out_text (uiout, 
+  ui_out_text (uiout,
 	       bp_temp ? "Temporary catchpoint "
 		       : "Catchpoint ");
   if (!ui_out_is_mi_like_p (uiout))
@@ -259,7 +259,7 @@ print_it_exception_catchpoint (bpstat bs)
 		   : " (exception rethrown), ")));
   if (ui_out_is_mi_like_p (uiout))
     {
-      ui_out_field_string (uiout, "reason", 
+      ui_out_field_string (uiout, "reason",
 			   async_reason_lookup (EXEC_ASYNC_BREAKPOINT_HIT));
       ui_out_field_string (uiout, "disp", bpdisp_text (b->disposition));
       ui_out_field_int (uiout, "bkptno", b->number);
@@ -268,7 +268,7 @@ print_it_exception_catchpoint (bpstat bs)
 }
 
 static void
-print_one_exception_catchpoint (struct breakpoint *b, 
+print_one_exception_catchpoint (struct breakpoint *b,
 				struct bp_location **last_loc)
 {
   struct value_print_options opts;
@@ -348,7 +348,7 @@ print_mention_exception_catchpoint (struct breakpoint *b)
    catch catchpoints.  */
 
 static void
-print_recreate_exception_catchpoint (struct breakpoint *b, 
+print_recreate_exception_catchpoint (struct breakpoint *b,
 				     struct ui_file *fp)
 {
   int bp_temp;
@@ -408,11 +408,11 @@ handle_gnu_v3_exceptions (int tempflag, char *except_rx, char *cond_string,
 
 /* Look for an "if" token in *STRING.  The "if" token must be preceded
    by whitespace.
-   
+
    If there is any non-whitespace text between *STRING and the "if"
    token, then it is returned in a newly-xmalloc'd string.  Otherwise,
    this returns NULL.
-   
+
    STRING is updated to point to the "if" token, if it exists, or to
    the end of the string.  */
 

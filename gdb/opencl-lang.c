@@ -1070,7 +1070,7 @@ opencl_print_type (struct type *type, const char *varstring,
 	show = 0;
     }
 
-  c_print_type (type, varstring, stream, show, level, flags); 
+  c_print_type (type, varstring, stream, show, level, flags);
 }
 
 static void

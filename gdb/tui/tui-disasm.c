@@ -40,7 +40,7 @@
 
 #include "gdb_curses.h"
 
-struct tui_asm_line 
+struct tui_asm_line
 {
   CORE_ADDR addr;
   char *addr_string;
@@ -66,7 +66,7 @@ tui_disassemble (struct gdbarch *gdbarch, struct tui_asm_line *asm_lines,
         xfree (asm_lines->addr_string);
       if (asm_lines->insn)
         xfree (asm_lines->insn);
-      
+
       print_address (gdbarch, pc, gdb_dis_out);
       asm_lines->addr = pc;
       asm_lines->addr_string = xstrdup (tui_file_get_strbuf (gdb_dis_out));
@@ -114,7 +114,7 @@ tui_find_disassembly_address (struct gdbarch *gdbarch, CORE_ADDR pc, int from)
       CORE_ADDR last_addr;
       int pos;
       struct minimal_symbol *msymbol;
-              
+
       /* Find backward an address which is a symbol and for which
          disassembling from that address will fill completely the
          window.  */
@@ -140,7 +140,7 @@ tui_find_disassembly_address (struct gdbarch *gdbarch, CORE_ADDR pc, int from)
         do
           {
             CORE_ADDR next_addr;
-                 
+
             pos++;
             if (pos >= max_lines)
               pos = 0;
@@ -181,7 +181,7 @@ tui_set_disassem_content (struct gdbarch *gdbarch, CORE_ADDR pc)
   int insn_pos;
   int addr_size, max_size;
   char *line;
-  
+
   if (pc == 0)
     return TUI_FAILURE;
 
@@ -286,7 +286,7 @@ tui_show_disassem (struct gdbarch *gdbarch, CORE_ADDR start_addr)
 
   /* If the focus was in the src win, put it in the asm win, if the
      source view isn't split.  */
-  if (tui_current_layout () != SRC_DISASSEM_COMMAND 
+  if (tui_current_layout () != SRC_DISASSEM_COMMAND
       && win_with_focus == TUI_SRC_WIN)
     tui_set_win_focus_to (TUI_DISASM_WIN);
 

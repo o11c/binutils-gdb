@@ -125,7 +125,7 @@ fetch_register (struct regcache *regcache, int regno)
       memcpy (&buf[i], &val, sizeof (long));
       regaddr += sizeof (long);
       if (errno != 0)
-	error (_("Couldn't read register %s (#%d): %s."), 
+	error (_("Couldn't read register %s (#%d): %s."),
 	       gdbarch_register_name (gdbarch, regno),
 	       regno, safe_strerror (errno));
     }
@@ -567,7 +567,7 @@ fetch_core_registers (struct regcache *regcache,
 /* Fetch the thread-local storage pointer for libthread_db.  */
 
 ps_err_e
-ps_get_thread_area (const struct ps_prochandle *ph, 
+ps_get_thread_area (const struct ps_prochandle *ph,
 		    lwpid_t lwpid, int idx, void **base)
 {
   if (ptrace (PTRACE_GET_THREAD_AREA, lwpid, NULL, base) < 0)

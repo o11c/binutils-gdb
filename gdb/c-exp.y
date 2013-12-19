@@ -32,7 +32,7 @@
    with include files (<malloc.h> and <stdlib.h> for example) just became
    too messy, particularly when such includes can be inserted at random
    times by the parser generator.  */
-   
+
 %{
 
 #include "defs.h"
@@ -72,13 +72,13 @@
 #define	yylval	c_lval
 #define	yychar	c_char
 #define	yydebug	c_debug
-#define	yypact	c_pact	
-#define	yyr1	c_r1			
-#define	yyr2	c_r2			
-#define	yydef	c_def		
-#define	yychk	c_chk		
-#define	yypgo	c_pgo		
-#define	yyact	c_act		
+#define	yypact	c_pact
+#define	yyr1	c_r1
+#define	yyr2	c_r2
+#define	yydef	c_def
+#define	yychk	c_chk
+#define	yypgo	c_pgo
+#define	yyact	c_act
 #define	yyexca	c_exca
 #define yyerrflag c_errflag
 #define yynerrs	c_nerrs
@@ -222,7 +222,7 @@ static void c_print_token (FILE *file, int type, YYSTYPE value);
    E.g. "c" when input_radix==16.  Depending on the parse, it will be
    turned into a name or into a number.  */
 
-%token <ssym> NAME_OR_INT 
+%token <ssym> NAME_OR_INT
 
 %token OPERATOR
 %token STRUCT CLASS UNION ENUM SIZEOF UNSIGNED COLONCOLON
@@ -266,7 +266,7 @@ static void c_print_token (FILE *file, int type, YYSTYPE value);
 %left '*' '/' '%'
 %right UNARY INCREMENT DECREMENT
 %right ARROW ARROW_STAR '.' DOT_STAR '[' OBJC_LBRAC '('
-%token <ssym> BLOCKNAME 
+%token <ssym> BLOCKNAME
 %token <bval> FILENAME
 %type <bval> block
 %left COLONCOLON
@@ -531,7 +531,7 @@ msgarg	:	name ':' exp
 			{ add_msglist(0, 0);   }
 	;
 
-exp	:	exp '(' 
+exp	:	exp '('
 			/* This is to save the value of arglist_len
 			   being accumulated by an outer function call.  */
 			{ start_arglist (); }
@@ -700,7 +700,7 @@ exp	:	exp OROR exp
 exp	:	exp '?' exp ':' exp	%prec '?'
 			{ write_exp_elt_opcode (TERNOP_COND); }
 	;
-			  
+
 exp	:	exp '=' exp
 			{ write_exp_elt_opcode (BINOP_ASSIGN); }
 	;
@@ -874,14 +874,14 @@ exp     :	NSSTRING	/* ObjC NextStep NSString constant
 	;
 
 /* C++.  */
-exp     :       TRUEKEYWORD    
+exp     :       TRUEKEYWORD
                         { write_exp_elt_opcode (OP_LONG);
                           write_exp_elt_type (parse_type->builtin_bool);
                           write_exp_elt_longcst ((LONGEST) 1);
                           write_exp_elt_opcode (OP_LONG); }
 	;
 
-exp     :       FALSEKEYWORD   
+exp     :       FALSEKEYWORD
                         { write_exp_elt_opcode (OP_LONG);
                           write_exp_elt_type (parse_type->builtin_bool);
                           write_exp_elt_longcst ((LONGEST) 0);
@@ -1038,7 +1038,7 @@ variable:	name_not_typename
 			      if (symbol_read_needs_frame (sym))
 				{
 				  if (innermost_block == 0
-				      || contained_in (block_found, 
+				      || contained_in (block_found,
 						       innermost_block))
 				    innermost_block = block_found;
 				}
@@ -1096,10 +1096,10 @@ cv_with_space_id : const_or_volatile space_identifier const_or_volatile
 	;
 
 const_or_volatile_or_space_identifier_noopt: cv_with_space_id
-	| const_or_volatile_noopt 
+	| const_or_volatile_noopt
 	;
 
-const_or_volatile_or_space_identifier: 
+const_or_volatile_or_space_identifier:
 		const_or_volatile_or_space_identifier_noopt
 	|
 	;
@@ -1108,7 +1108,7 @@ ptr_operator:
 		ptr_operator '*'
 			{ insert_type (tp_pointer); }
 		const_or_volatile_or_space_identifier
-	|	'*' 
+	|	'*'
 			{ insert_type (tp_pointer); }
 		const_or_volatile_or_space_identifier
 	|	'&'
@@ -1128,7 +1128,7 @@ ptr_operator_ts: ptr_operator
 
 abs_decl:	ptr_operator_ts direct_abs_decl
 			{ $$ = append_type_stack ($2, $1); }
-	|	ptr_operator_ts 
+	|	ptr_operator_ts
 	|	direct_abs_decl
 	;
 
@@ -1287,7 +1287,7 @@ typebase  /* Implements (approximately): (type-qualifier)* type-specifier */
 			{ $$ = lookup_unsigned_typename (parse_language,
 							 parse_gdbarch,
 							 "short"); }
-	|	SHORT UNSIGNED 
+	|	SHORT UNSIGNED
 			{ $$ = lookup_unsigned_typename (parse_language,
 							 parse_gdbarch,
 							 "short"); }
@@ -1377,14 +1377,14 @@ typebase  /* Implements (approximately): (type-qualifier)* type-specifier */
 						       "int"); }
                 /* It appears that this rule for templates is never
                    reduced; template recognition happens by lookahead
-                   in the token processing code in yylex. */         
+                   in the token processing code in yylex. */
 	|	TEMPLATE name '<' type '>'
 			{ $$ = lookup_template_type(copy_name($2), $4,
 						    expression_context_block);
 			}
-	| const_or_volatile_or_space_identifier_noopt typebase 
+	| const_or_volatile_or_space_identifier_noopt typebase
 			{ $$ = follow_types ($2); }
-	| typebase const_or_volatile_or_space_identifier_noopt 
+	| typebase const_or_volatile_or_space_identifier_noopt
 			{ $$ = follow_types ($1); }
 	;
 
@@ -1460,9 +1460,9 @@ const_and_volatile: 	CONST_KEYWORD VOLATILE_KEYWORD
 	| 		VOLATILE_KEYWORD CONST_KEYWORD
 	;
 
-const_or_volatile_noopt:  	const_and_volatile 
+const_or_volatile_noopt:  	const_and_volatile
 			{ insert_type (tp_const);
-			  insert_type (tp_volatile); 
+			  insert_type (tp_volatile);
 			}
 	| 		CONST_KEYWORD
 			{ insert_type (tp_const); }
@@ -1647,7 +1647,7 @@ write_destructor_name (struct stoken token)
 }
 
 /* Returns a stoken of the operator name given by OP (which does not
-   include the string "operator").  */ 
+   include the string "operator").  */
 static struct stoken
 operator_stoken (const char *op)
 {
@@ -1864,7 +1864,7 @@ parse_number (const char *buf, int len, int parsed_float, YYSTYPE *putithere)
 	 FIXME: This check is wrong; for example it doesn't find overflow
 	 on 0x123456789 when LONGEST is 32 bits.  */
       if (c != 'l' && c != 'u' && n != 0)
-	{	
+	{
 	  if ((unsigned_p && (ULONGEST) prevn >= (ULONGEST) n))
 	    error (_("Numeric constant too large."));
 	}
@@ -1908,7 +1908,7 @@ parse_number (const char *buf, int len, int parsed_float, YYSTYPE *putithere)
   else
     {
       int shift;
-      if (sizeof (ULONGEST) * HOST_CHAR_BIT 
+      if (sizeof (ULONGEST) * HOST_CHAR_BIT
 	  < gdbarch_long_long_bit (parse_gdbarch))
 	/* A long long does not fit in a LONGEST.  */
 	shift = (sizeof (ULONGEST) * HOST_CHAR_BIT - 1);
@@ -1924,11 +1924,11 @@ parse_number (const char *buf, int len, int parsed_float, YYSTYPE *putithere)
    /* If the high bit of the worked out type is set then this number
       has to be unsigned. */
 
-   if (unsigned_p || (n & high_bit)) 
+   if (unsigned_p || (n & high_bit))
      {
        putithere->typed_val_int.type = unsigned_type;
      }
-   else 
+   else
      {
        putithere->typed_val_int.type = signed_type;
      }
@@ -2367,7 +2367,7 @@ scanning_macro_expansion (void)
 }
 
 
-static void 
+static void
 finished_macro_expansion (void)
 {
   /* There'd better be something to pop back to.  */
@@ -2703,7 +2703,7 @@ lex_one_token (int *is_quoted_name)
 		 that we look ahead only when the '<' adjoins non-whitespace
 		 characters; for comparison expressions, e.g. "a < b > c",
 		 there must be spaces before the '<', etc. */
-               
+
 	      const char *p = find_template_name_end (tokstart + namelen);
 
 	      if (p)
@@ -2832,7 +2832,7 @@ classify_name (const struct block *block, int is_quoted_name)
      we can refer to it unconditionally below.  */
   memset (&is_a_field_of_this, 0, sizeof (is_a_field_of_this));
 
-  sym = lookup_symbol (copy, block, VAR_DOMAIN, 
+  sym = lookup_symbol (copy, block, VAR_DOMAIN,
 		       parse_language->la_name_of_this
 		       ? &is_a_field_of_this : NULL);
 
@@ -3011,7 +3011,7 @@ classify_inner_name (const struct block *block, struct type *context)
    problem in our parsing approach, where the parser could not
    distinguish between qualified names and qualified types at the
    right point.
-   
+
    This approach is still not ideal, because it mishandles template
    types.  See the comment in lex_one_token for an example.  However,
    this is still an improvement over the earlier approach, and will
@@ -3126,7 +3126,7 @@ yylex (void)
 	  current.token = classification;
 
 	  last_was_coloncolon = 0;
-	  
+
 	  if (classification == NAME)
 	    break;
 

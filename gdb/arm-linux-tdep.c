@@ -89,16 +89,16 @@ static const gdb_byte arm_linux_thumb2_be_breakpoint[] = { 0xf7, 0xf0, 0xa0, 0x0
 
 static const gdb_byte arm_linux_thumb2_le_breakpoint[] = { 0xf0, 0xf7, 0x00, 0xa0 };
 
-/* Description of the longjmp buffer.  The buffer is treated as an array of 
+/* Description of the longjmp buffer.  The buffer is treated as an array of
    elements of size ARM_LINUX_JB_ELEMENT_SIZE.
 
    The location of saved registers in this buffer (in particular the PC
-   to use after longjmp is called) varies depending on the ABI (in 
+   to use after longjmp is called) varies depending on the ABI (in
    particular the FP model) and also (possibly) the C Library.
 
-   For glibc, eglibc, and uclibc the following holds:  If the FP model is 
-   SoftVFP or VFP (which implies EABI) then the PC is at offset 9 in the 
-   buffer.  This is also true for the SoftFPA model.  However, for the FPA 
+   For glibc, eglibc, and uclibc the following holds:  If the FP model is
+   SoftVFP or VFP (which implies EABI) then the PC is at offset 9 in the
+   buffer.  This is also true for the SoftFPA model.  However, for the FPA
    model the PC is at offset 21 in the buffer.  */
 #define ARM_LINUX_JB_ELEMENT_SIZE	INT_REGISTER_SIZE
 #define ARM_LINUX_JB_PC_FPA		21
@@ -139,7 +139,7 @@ static const gdb_byte arm_linux_thumb2_le_breakpoint[] = { 0xf0, 0xf7, 0x00, 0xa
    with the real function address.  Subsequent calls go through steps
    1, 2 and 3 and end up calling the real code.
 
-   1) In the code: 
+   1) In the code:
 
    b    function_call
    bl   function_call
@@ -820,12 +820,12 @@ arm_linux_get_syscall_number (struct gdbarch *gdbarch,
     }
   else
     {
-      enum bfd_endian byte_order_for_code = 
+      enum bfd_endian byte_order_for_code =
 	gdbarch_byte_order_for_code (gdbarch);
 
       /* PC gets incremented before the syscall-stop, so read the
 	 previous instruction.  */
-      unsigned long this_instr = 
+      unsigned long this_instr =
 	read_memory_unsigned_integer (pc - 4, 4, byte_order_for_code);
 
       unsigned long svc_operand = (0x00ffffff & this_instr);
@@ -864,9 +864,9 @@ arm_linux_syscall_next_pc (struct frame_info *frame)
   else
     {
       struct gdbarch *gdbarch = get_frame_arch (frame);
-      enum bfd_endian byte_order_for_code = 
+      enum bfd_endian byte_order_for_code =
 	gdbarch_byte_order_for_code (gdbarch);
-      unsigned long this_instr = 
+      unsigned long this_instr =
 	read_memory_unsigned_integer (pc, 4, byte_order_for_code);
 
       unsigned long svc_operand = (0x00ffffff & this_instr);
@@ -1009,7 +1009,7 @@ arm_linux_copy_svc (struct gdbarch *gdbarch, struct regcache *regs,
       else if (debug_displaced)
 	fprintf_unfiltered (gdb_stdlog, "displaced: sigreturn/rt_sigreturn "
 			    "SVC call not in signal trampoline frame\n");
-    
+
 
   /* Preparation: If we detect sigreturn, set momentary breakpoint at resume
 		  location, else nothing.

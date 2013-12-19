@@ -139,7 +139,7 @@ get_user_print_options (struct value_print_options *opts)
    pretty-formatting disabled.  */
 void
 get_no_prettyformat_print_options (struct value_print_options *opts)
-{  
+{
   *opts = user_print_options;
   opts->prettyformat = Val_no_prettyformat;
 }
@@ -367,9 +367,9 @@ val_print_invalid_address (struct ui_file *stream)
    handle most type codes, though not all, notably exception
    TYPE_CODE_UNION and TYPE_CODE_STRUCT, which must be implemented by
    the caller.
-   
+
    Most arguments are as to val_print.
-   
+
    The additional DECORATIONS argument can be used to customize the
    output in some small, language-specific ways.  */
 
@@ -993,15 +993,15 @@ val_print_scalar_formatted (struct type *type,
 }
 
 /* Print a number according to FORMAT which is one of d,u,x,o,b,h,w,g.
-   The raison d'etre of this function is to consolidate printing of 
-   LONG_LONG's into this one function.  The format chars b,h,w,g are 
+   The raison d'etre of this function is to consolidate printing of
+   LONG_LONG's into this one function.  The format chars b,h,w,g are
    from print_scalar_formatted().  Numbers are printed using C
    format.
 
-   USE_C_FORMAT means to use C format in all cases.  Without it, 
+   USE_C_FORMAT means to use C format in all cases.  Without it,
    'o' and 'x' format do not include the standard C radix prefix
-   (leading 0 or 0x). 
-   
+   (leading 0 or 0x).
+
    Hilfinger/2004-09-09: USE_C_FORMAT was originally called USE_LOCAL
    and was intended to request formating according to the current
    language and would be used for most integers that GDB prints.  The
@@ -1039,7 +1039,7 @@ print_longest (struct ui_file *stream, int format, int use_c_format,
     default:
       internal_error (__FILE__, __LINE__,
 		      _("failed internal consistency check"));
-    } 
+    }
   fputs_filtered (val, stream);
 }
 
@@ -1590,8 +1590,8 @@ print_function_pointer_address (const struct value_print_options *options,
 
 /* Print on STREAM using the given OPTIONS the index for the element
    at INDEX of an array whose index type is INDEX_TYPE.  */
-    
-void  
+
+void
 maybe_print_array_index (struct type *index_type, LONGEST index,
                          struct ui_file *stream,
 			 const struct value_print_options *options)
@@ -1599,8 +1599,8 @@ maybe_print_array_index (struct type *index_type, LONGEST index,
   struct value *index_value;
 
   if (!options->print_array_indexes)
-    return; 
-    
+    return;
+
   index_value = value_from_longest (index_type, index);
 
   LA_PRINT_ARRAY_INDEX (index_value, stream, options);
@@ -2354,8 +2354,8 @@ print_converted_chars_to_obstack (struct obstack *obstack,
    omitted.  */
 
 void
-generic_printstr (struct ui_file *stream, struct type *type, 
-		  const gdb_byte *string, unsigned int length, 
+generic_printstr (struct ui_file *stream, struct type *type,
+		  const gdb_byte *string, unsigned int length,
 		  const char *encoding, int force_ellipses,
 		  int quote_char, int c_style_terminator,
 		  const struct value_print_options *options)

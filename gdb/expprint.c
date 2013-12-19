@@ -723,7 +723,7 @@ dump_raw_expression (struct expression *exp, struct ui_file *stream,
 }
 
 /* Dump the subexpression of prefix expression EXP whose operator is at
-   position ELT onto STREAM.  Returns the position of the next 
+   position ELT onto STREAM.  Returns the position of the next
    subexpression in EXP.  */
 
 int
@@ -749,7 +749,7 @@ dump_subexp (struct expression *exp, struct ui_file *stream, int elt)
 }
 
 /* Dump the operands of prefix expression EXP whose opcode is at
-   position ELT onto STREAM.  Returns the position of the next 
+   position ELT onto STREAM.  Returns the position of the next
    subexpression in EXP.  */
 
 static int
@@ -761,7 +761,7 @@ dump_subexp_body (struct expression *exp, struct ui_file *stream, int elt)
 /* Default value for subexp_body in exp_descriptor vector.  */
 
 int
-dump_subexp_body_standard (struct expression *exp, 
+dump_subexp_body_standard (struct expression *exp,
 			   struct ui_file *stream, int elt)
 {
   int opcode = exp->elts[elt++].opcode;

@@ -186,7 +186,7 @@
 
 /* A cleanup function for a vector.
    void VEC_T_cleanup(void *);
-   
+
    Clean up a vector.  */
 
 #define VEC_cleanup(T)	(VEC_OP(T,cleanup))

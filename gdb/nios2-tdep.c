@@ -1525,7 +1525,7 @@ nios2_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
       tdesc_data = tdesc_data_alloc ();
 
       valid_p = 1;
-      
+
       for (i = 0; i < NIOS2_NUM_REGS; i++)
 	valid_p &= tdesc_numbered_register (feature, tdesc_data, i,
 					    nios2_reg_names[i]);

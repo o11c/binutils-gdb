@@ -38,7 +38,7 @@ static int fetch_inferior_event_wrapper (gdb_client_data client_data);
    otherwise it assumes that all is OK, and goes on reading data from
    the fd.  This however may not always be what we want to do.  */
 void
-inferior_event_handler (enum inferior_event_type event_type, 
+inferior_event_handler (enum inferior_event_type event_type,
 			gdb_client_data client_data)
 {
   struct cleanup *cleanup_if_error = make_bpstat_clear_actions_cleanup ();
@@ -50,7 +50,7 @@ inferior_event_handler (enum inferior_event_type event_type,
 	 fetch_inferior_event (i.e. readchar) can return meaningful
 	 error status.  If an error occurs while getting an event from
 	 the target, just cancel the current command.  */
-      if (!catch_errors (fetch_inferior_event_wrapper, 
+      if (!catch_errors (fetch_inferior_event_wrapper,
 			 client_data, "", RETURN_MASK_ALL))
 	{
 	  bpstat_clear_actions ();
@@ -139,7 +139,7 @@ inferior_event_handler (enum inferior_event_type event_type,
   discard_cleanups (cleanup_if_error);
 }
 
-static int 
+static int
 fetch_inferior_event_wrapper (gdb_client_data client_data)
 {
   fetch_inferior_event (client_data);

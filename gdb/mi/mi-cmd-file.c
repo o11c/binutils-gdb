@@ -26,7 +26,7 @@
 #include "objfiles.h"
 #include "psymtab.h"
 
-/* Return to the client the absolute path and line number of the 
+/* Return to the client the absolute path and line number of the
    current file being executed.  */
 
 void
@@ -34,7 +34,7 @@ mi_cmd_file_list_exec_source_file (char *command, char **argv, int argc)
 {
   struct symtab_and_line st;
   struct ui_out *uiout = current_uiout;
-  
+
   if (!mi_valid_noargs ("-file-list-exec-source-file", argc, argv))
     error (_("-file-list-exec-source-file: Usage: No args"));
 

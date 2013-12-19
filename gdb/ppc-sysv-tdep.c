@@ -1111,7 +1111,7 @@ convert_code_addr_to_desc_addr (CORE_ADDR code_addr, CORE_ADDR *desc_addr)
 
 static void
 ppc64_sysv_abi_push_float (struct gdbarch *gdbarch, struct regcache *regcache,
-			   struct gdbarch_tdep *tdep, struct type *type, 
+			   struct gdbarch_tdep *tdep, struct type *type,
 			   const bfd_byte *val, int freg, int greg,
 			   CORE_ADDR gparam)
 {
@@ -1982,7 +1982,7 @@ ppc64_sysv_abi_return_value (struct gdbarch *gdbarch, struct value *function,
 	      if (writebuf != NULL)
 		{
 		  convert_typed_floating ((const bfd_byte *) writebuf +
-					  i * TYPE_LENGTH (target_type), 
+					  i * TYPE_LENGTH (target_type),
 					  target_type, regval, regtype);
 		  regcache_cooked_write (regcache,
                                          tdep->ppc_fp0_regnum + 1 + i,

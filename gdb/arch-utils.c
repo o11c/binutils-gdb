@@ -190,7 +190,7 @@ cannot_register_not (struct gdbarch *gdbarch, int regnum)
    cooked or raw.  */
 
 void
-legacy_virtual_frame_pointer (struct gdbarch *gdbarch, 
+legacy_virtual_frame_pointer (struct gdbarch *gdbarch,
 			      CORE_ADDR pc,
 			      int *frame_regnum,
 			      LONGEST *frame_offset)
@@ -211,7 +211,7 @@ legacy_virtual_frame_pointer (struct gdbarch *gdbarch,
   else
     /* Should this be an internal error?  I guess so, it is reflecting
        an architectural limitation in the current design.  */
-    internal_error (__FILE__, __LINE__, 
+    internal_error (__FILE__, __LINE__,
 		    _("No virtual frame pointer available"));
   *frame_offset = 0;
 }
@@ -587,7 +587,7 @@ initialize_current_architecture (void)
 
   /* determine a default architecture and byte order.  */
   gdbarch_info_init (&info);
-  
+
   /* Find a default architecture.  */
   if (default_bfd_arch == NULL)
     {
@@ -662,7 +662,7 @@ initialize_current_architecture (void)
     arches[nr + 0] = "auto";
     arches[nr + 1] = NULL;
     add_setshow_enum_cmd ("architecture", class_support,
-			  arches, &set_architecture_string, 
+			  arches, &set_architecture_string,
 			  _("Set architecture of target."),
 			  _("Show architecture of target."), NULL,
 			  set_architecture, show_architecture,
@@ -813,7 +813,7 @@ void
 _initialize_gdbarch_utils (void)
 {
   add_setshow_enum_cmd ("endian", class_support,
-			endian_enum, &set_endian_string, 
+			endian_enum, &set_endian_string,
 			_("Set endianness of target."),
 			_("Show endianness of target."),
 			NULL, set_endian, show_endian,

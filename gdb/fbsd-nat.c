@@ -109,7 +109,7 @@ fbsd_find_memory_regions (find_memory_region_ftype func, void *obfd)
   make_cleanup_fclose (mapfile);
 
   if (info_verbose)
-    fprintf_filtered (gdb_stdout, 
+    fprintf_filtered (gdb_stdout,
 		      "Reading memory regions from %s\n", mapfilename);
 
   /* Now iterate until end-of-file.  */
@@ -123,7 +123,7 @@ fbsd_find_memory_regions (find_memory_region_ftype func, void *obfd)
 
       if (info_verbose)
 	{
-	  fprintf_filtered (gdb_stdout, 
+	  fprintf_filtered (gdb_stdout,
 			    "Save segment, %ld bytes at %s (%c%c%c)\n",
 			    size, paddress (target_gdbarch (), start),
 			    read ? 'r' : '-',

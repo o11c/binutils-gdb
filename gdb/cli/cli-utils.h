@@ -64,7 +64,7 @@ extern void init_number_or_range (struct get_number_or_range_state *state,
 
 /* Parse a number or a range.
    A number will be of the form handled by get_number.
-   A range will be of the form <number1> - <number2>, and 
+   A range will be of the form <number1> - <number2>, and
    will represent all the integers between number1 and number2,
    inclusive.
 
@@ -79,12 +79,12 @@ extern void init_number_or_range (struct get_number_or_range_state *state,
 
 extern int get_number_or_range (struct get_number_or_range_state *state);
 
-/* Accept a number and a string-form list of numbers such as is 
+/* Accept a number and a string-form list of numbers such as is
    accepted by get_number_or_range.  Return TRUE if the number is
    in the list.
 
-   By definition, an empty list includes all numbers.  This is to 
-   be interpreted as typing a command such as "delete break" with 
+   By definition, an empty list includes all numbers.  This is to
+   be interpreted as typing a command such as "delete break" with
    no arguments.  */
 
 extern int number_is_in_list (char *list, int number);

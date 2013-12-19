@@ -2,7 +2,7 @@ dnl Autoconf configure snippets for common.
 dnl Copyright (C) 1995-2013 Free Software Foundation, Inc.
 dnl
 dnl This file is part of GDB.
-dnl 
+dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
 dnl the Free Software Foundation; either version 3 of the License, or

@@ -45,10 +45,10 @@ static struct ui_out_impl tui_ui_out_impl;
 /* Output an int field.  */
 
 static void
-tui_field_int (struct ui_out *uiout, 
+tui_field_int (struct ui_out *uiout,
 	       int fldno, int width,
 	       enum ui_align alignment,
-	       const char *fldname, 
+	       const char *fldname,
 	       int value)
 {
   tui_out_data *data = ui_out_data (uiout);
@@ -93,7 +93,7 @@ tui_field_string (struct ui_out *uiout,
         }
       return;
     }
-  
+
   data->start_of_line++;
 
   (*cli_ui_out_impl.field_string) (uiout, fldno,

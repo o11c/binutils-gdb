@@ -179,7 +179,7 @@ set_cmd_completer (struct cmd_list_element *cmd, completer_ftype *completer)
 
    Add this command to command list *LIST.
 
-   Returns a pointer to the added command (not necessarily the head 
+   Returns a pointer to the added command (not necessarily the head
    of *LIST).  */
 
 struct cmd_list_element *
@@ -621,13 +621,13 @@ add_setshow_optional_filename_cmd (const char *name, enum command_class class,
 				   struct cmd_list_element **show_list)
 {
   struct cmd_list_element *set_result;
- 
+
   add_setshow_cmd_full (name, class, var_optional_filename, var,
 			set_doc, show_doc, help_doc,
 			set_func, show_func,
 			set_list, show_list,
 			&set_result, NULL);
-		
+
   set_cmd_completer (set_result, filename_completer);
 
 }
@@ -877,8 +877,8 @@ add_com_alias (const char *name, const char *oldname, enum command_class class,
    documentation of commands that match our regex in either their
    name, or their documentation.
 */
-void 
-apropos_cmd (struct ui_file *stream, 
+void
+apropos_cmd (struct ui_file *stream,
 	     struct cmd_list_element *commandlist,
 	     struct re_pattern_buffer *regex, char *prefix)
 {
@@ -896,7 +896,7 @@ apropos_cmd (struct ui_file *stream,
 				   0, strlen (c->name), NULL);
 	  if (returnvalue >= 0)
 	    {
-	      print_help_for_command (c, prefix, 
+	      print_help_for_command (c, prefix,
 				      0 /* don't recurse */, stream);
 	    }
 	}
@@ -905,7 +905,7 @@ apropos_cmd (struct ui_file *stream,
 	  /* Try to match against documentation.  */
 	  if (re_search(regex,c->doc,strlen(c->doc),0,strlen(c->doc),NULL) >=0)
 	    {
-	      print_help_for_command (c, prefix, 
+	      print_help_for_command (c, prefix,
 				      0 /* don't recurse */, stream);
 	    }
 	}
@@ -1149,7 +1149,7 @@ print_help_for_command (struct cmd_list_element *c, char *prefix, int recurse,
   fprintf_filtered (stream, "%s%s -- ", prefix, c->name);
   print_doc_line (stream, c->doc);
   fputs_filtered ("\n", stream);
-  
+
   if (recurse
       && c->prefixlist != 0
       && c->abbrev_flag == 0)
@@ -1182,7 +1182,7 @@ help_cmd_list (struct cmd_list_element *list, enum command_class class,
   struct cmd_list_element *c;
 
   for (c = list; c; c = c->next)
-    {      
+    {
       if (c->abbrev_flag == 0
 	  && (class == all_commands
 	      || (class == all_classes && c->func == NULL)
@@ -1193,7 +1193,7 @@ help_cmd_list (struct cmd_list_element *list, enum command_class class,
       else if (c->abbrev_flag == 0 && recurse
 	       && class == class_user && c->prefixlist != NULL)
 	/* User-defined commands may be subcommands.  */
-	help_cmd_list (*c->prefixlist, class, c->prefixname, 
+	help_cmd_list (*c->prefixlist, class, c->prefixname,
 		       recurse, stream);
     }
 }
@@ -1394,7 +1394,7 @@ lookup_cmd_1 (const char **text, struct cmd_list_element *clist,
        are warning about the alias, we may also warn about the command
        itself and we will adjust the appropriate DEPRECATED_WARN_USER
        flags.  */
-      
+
       if (found->flags & DEPRECATED_WARN_USER)
 	deprecated_cmd_warning (line);
       found = found->cmd_pointer;
@@ -1571,23 +1571,23 @@ lookup_cmd (const char **line, struct cmd_list_element *list, char *cmdtype,
    deprecated and a warning message should be generated.  This
    function decodes TEXT and potentially generates a warning message
    as outlined below.
-   
+
    Example for 'set endian big' which has a fictitious alias 'seb'.
-   
+
    If alias wasn't used in TEXT, and the command is deprecated:
-   "warning: 'set endian big' is deprecated." 
-   
+   "warning: 'set endian big' is deprecated."
+
    If alias was used, and only the alias is deprecated:
    "warning: 'seb' an alias for the command 'set endian big' is deprecated."
-   
+
    If alias was used and command is deprecated (regardless of whether
    the alias itself is deprecated:
-   
+
    "warning: 'set endian big' (seb) is deprecated."
 
    After the message has been sent, clear the appropriate flags in the
    command and/or the alias so the user is no longer bothered.
-   
+
 */
 void
 deprecated_cmd_warning (const char *text)
@@ -1601,27 +1601,27 @@ deprecated_cmd_warning (const char *text)
     return;
 
   if (!((alias ? (alias->flags & DEPRECATED_WARN_USER) : 0)
-      || (cmd->flags & DEPRECATED_WARN_USER) ) ) 
+      || (cmd->flags & DEPRECATED_WARN_USER) ) )
     /* Return if nothing is deprecated.  */
     return;
-  
+
   printf_filtered ("Warning:");
-  
+
   if (alias && !(cmd->flags & CMD_DEPRECATED))
     printf_filtered (" '%s', an alias for the", alias->name);
-    
+
   printf_filtered (" command '");
-  
+
   if (prefix_cmd)
     printf_filtered ("%s", prefix_cmd->prefixname);
-  
+
   printf_filtered ("%s", cmd->name);
 
   if (alias && (cmd->flags & CMD_DEPRECATED))
     printf_filtered ("' (%s) is deprecated.\n", alias->name);
   else
-    printf_filtered ("' is deprecated.\n"); 
-  
+    printf_filtered ("' is deprecated.\n");
+
 
   /* If it is only the alias that is deprecated, we want to indicate
      the new alias, otherwise we'll indicate the new command.  */
@@ -1632,7 +1632,7 @@ deprecated_cmd_warning (const char *text)
 	printf_filtered ("Use '%s'.\n\n", alias->replacement);
       else
 	printf_filtered ("No alternative known.\n\n");
-     }  
+     }
   else
     {
       if (cmd->replacement)
@@ -1644,29 +1644,29 @@ deprecated_cmd_warning (const char *text)
   /* We've warned you, now we'll keep quiet.  */
   if (alias)
     alias->flags &= ~DEPRECATED_WARN_USER;
-  
+
   cmd->flags &= ~DEPRECATED_WARN_USER;
 }
 
 
 /* Look up the contents of LINE as a command in the command list 'cmdlist'.
    Return 1 on success, 0 on failure.
-   
+
    If LINE refers to an alias, *alias will point to that alias.
-   
+
    If LINE is a postfix command (i.e. one that is preceded by a prefix
    command) set *prefix_cmd.
-   
+
    Set *cmd to point to the command LINE indicates.
-   
-   If any of *alias, *prefix_cmd, or *cmd cannot be determined or do not 
+
+   If any of *alias, *prefix_cmd, or *cmd cannot be determined or do not
    exist, they are NULL when we return.
-   
+
 */
 int
 lookup_cmd_composition (const char *text,
                       struct cmd_list_element **alias,
-                      struct cmd_list_element **prefix_cmd, 
+                      struct cmd_list_element **prefix_cmd,
                       struct cmd_list_element **cmd)
 {
   char *command;
@@ -1677,38 +1677,38 @@ lookup_cmd_composition (const char *text,
   *alias = NULL;
   *prefix_cmd = NULL;
   *cmd = NULL;
-  
+
   cur_list = cmdlist;
-  
+
   while (1)
-    { 
+    {
       /* Go through as many command lists as we need to,
 	 to find the command TEXT refers to.  */
-      
+
       prev_cmd = *cmd;
-      
+
       while (*text == ' ' || *text == '\t')
 	(text)++;
-      
+
       /* Identify the name of the command.  */
       len = find_command_name_length (text);
-      
+
       /* If nothing but whitespace, return.  */
       if (len == 0)
 	return 0;
-      
+
       /* Text is the start of the first command word to lookup (and
 	 it's length is len).  We copy this into a local temporary.  */
-      
+
       command = (char *) alloca (len + 1);
       memcpy (command, text, len);
       command[len] = '\0';
-      
+
       /* Look it up.  */
       *cmd = 0;
       nfound = 0;
       *cmd = find_cmd (command, len, cur_list, 1, &nfound);
-      
+
       /* We didn't find the command in the entered case, so lower case
 	 it and search again.
       */
@@ -1722,12 +1722,12 @@ lookup_cmd_composition (const char *text,
 	    }
 	  *cmd = find_cmd (command, len, cur_list, 1, &nfound);
 	}
-      
+
       if (*cmd == CMD_LIST_AMBIGUOUS)
 	{
 	  return 0;              /* ambiguous */
 	}
-      
+
       if (*cmd == NULL)
 	return 0;                /* nothing found */
       else
@@ -1745,7 +1745,7 @@ lookup_cmd_composition (const char *text,
 	cur_list = *(*cmd)->prefixlist;
       else
 	return 1;
-      
+
       text += len;
     }
 }

@@ -284,7 +284,7 @@ print_exception (struct ui_file *file, struct gdb_exception e)
 	  end++;
 	  ui_file_write (file, start, end - start);
 	}
-    }					    
+    }
   fprintf_filtered (file, "\n");
 
   /* Now append the annotation.  */

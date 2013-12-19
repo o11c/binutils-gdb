@@ -474,7 +474,7 @@ darwin_solib_get_all_image_info_addr_at_init (struct darwin_info *info)
   info->all_image_addr += load_addr;
 }
 
-/* Extract dyld_all_image_addr reading it from 
+/* Extract dyld_all_image_addr reading it from
    TARGET_OBJECT_DARWIN_DYLD_INFO.  */
 
 static void

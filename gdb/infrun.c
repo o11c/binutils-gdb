@@ -980,7 +980,7 @@ static int stepping_past_singlestep_breakpoint;
 /* If not equal to null_ptid, this means that after stepping over breakpoint
    is finished, we need to switch to deferred_step_ptid, and step it.
 
-   The use case is when one thread has hit a breakpoint, and then the user 
+   The use case is when one thread has hit a breakpoint, and then the user
    has switched to another thread and issued 'step'.  We need to step over
    breakpoint in the thread which hit the breakpoint, but then continue
    stepping the thread user has selected.  */
@@ -2291,15 +2291,15 @@ proceed (CORE_ADDR addr, enum gdb_signal siggnal, int step)
      done in stop_stepping, however, setting prev_pc there did not handle
      scenarios such as inferior function calls or returning from
      a function via the return command.  In those cases, the prev_pc
-     value was not set properly for subsequent commands.  The prev_pc value 
-     is used to initialize the starting line number in the ecs.  With an 
+     value was not set properly for subsequent commands.  The prev_pc value
+     is used to initialize the starting line number in the ecs.  With an
      invalid value, the gdb next command ends up stopping at the position
      represented by the next line table entry past our start position.
      On platforms that generate one line table entry per line, this
      is not a problem.  However, on the ia64, the compiler generates
      extraneous line table entries that do not increase the line number.
      When we issue the gdb next command on the ia64 after an inferior call
-     or a return command, we often end up a few instructions forward, still 
+     or a return command, we often end up a few instructions forward, still
      within the original line we started.
 
      An attempt was made to refresh the prev_pc at the same time the
@@ -2980,7 +2980,7 @@ adjust_pc_after_break (struct execution_control_state *ecs)
      generates these signals at breakpoints (the code has been in GDB since at
      least 1992) so I can not guess how to handle them here.
 
-     In earlier versions of GDB, a target with 
+     In earlier versions of GDB, a target with
      gdbarch_have_nonsteppable_watchpoint would have the PC after hitting a
      watchpoint affected by gdbarch_decr_pc_after_break.  I haven't found any
      target with both of these set in GDB history, and it seems unlikely to be
@@ -3056,7 +3056,7 @@ adjust_pc_after_break (struct execution_control_state *ecs)
 	 differentiate between the two, as the latter needs adjusting
 	 but the former does not.
 
-	 The SIGTRAP can be due to a completed hardware single-step only if 
+	 The SIGTRAP can be due to a completed hardware single-step only if
 	  - we didn't insert software single-step breakpoints
 	  - the thread to be examined is still the current thread
 	  - this thread is currently being stepped
@@ -3959,7 +3959,7 @@ handle_signal_stop (struct execution_control_state *ecs)
   if (ecs->event_thread->suspend.stop_signal == GDB_SIGNAL_TRAP)
     {
       int thread_hop_needed = 0;
-      struct address_space *aspace = 
+      struct address_space *aspace =
 	get_regcache_aspace (get_thread_regcache (ecs->ptid));
 
       /* Check if a regular breakpoint has been hit before checking
@@ -4182,7 +4182,7 @@ handle_signal_stop (struct execution_control_state *ecs)
      inline function call sites).  */
   if (ecs->event_thread->control.step_range_end != 1)
     {
-      struct address_space *aspace = 
+      struct address_space *aspace =
 	get_regcache_aspace (get_thread_regcache (ecs->ptid));
 
       /* skip_inline_frames is expensive, so we avoid it if we can
@@ -4245,8 +4245,8 @@ handle_signal_stop (struct execution_control_state *ecs)
 	  /* The user issued a step when stopped at a breakpoint.
 	     Maybe we should stop, maybe we should not - the delay
 	     slot *might* correspond to a line of source.  In any
-	     case, don't decide that here, just set 
-	     ecs->stepping_over_breakpoint, making sure we 
+	     case, don't decide that here, just set
+	     ecs->stepping_over_breakpoint, making sure we
 	     single-step again before breakpoints are re-inserted.  */
 	  ecs->event_thread->stepping_over_breakpoint = 1;
 	}
@@ -4905,7 +4905,7 @@ process_event_stop_test (struct execution_control_state *ecs)
 	{
 	  /* Any solib trampoline code can be handled in reverse
 	     by simply continuing to single-step.  We have already
-	     executed the solib function (backwards), and a few 
+	     executed the solib function (backwards), and a few
 	     steps will take us back through the trampoline to the
 	     caller.  */
 	  keep_going (ecs);
@@ -5051,7 +5051,7 @@ process_event_stop_test (struct execution_control_state *ecs)
 	{
 	  /* Any solib trampoline code can be handled in reverse
 	     by simply continuing to single-step.  We have already
-	     executed the solib function (backwards), and a few 
+	     executed the solib function (backwards), and a few
 	     steps will take us back through the trampoline to the
 	     caller.  */
 	  keep_going (ecs);
@@ -5067,7 +5067,7 @@ process_event_stop_test (struct execution_control_state *ecs)
 	  init_sal (&sr_sal);
 	  sr_sal.pc = ecs->stop_func_start;
 	  sr_sal.pspace = get_frame_program_space (frame);
-	  insert_step_resume_breakpoint_at_sal (gdbarch, 
+	  insert_step_resume_breakpoint_at_sal (gdbarch,
 						sr_sal, null_frame_id);
 	  keep_going (ecs);
 	  return;
@@ -5077,7 +5077,7 @@ process_event_stop_test (struct execution_control_state *ecs)
   stop_pc_sal = find_pc_line (stop_pc, 0);
 
   /* NOTE: tausq/2004-05-24: This if block used to be done before all
-     the trampoline processing logic, however, there are some trampolines 
+     the trampoline processing logic, however, there are some trampolines
      that have no names, so we should do trampoline handling first.  */
   if (ecs->event_thread->control.step_over_calls == STEP_OVER_UNDEBUGGABLE
       && ecs->stop_func_name == NULL
@@ -5705,12 +5705,12 @@ check_exception_resume (struct execution_control_state *ecs,
 
       /* The exception breakpoint is a thread-specific breakpoint on
 	 the unwinder's debug hook, declared as:
-	 
+
 	 void _Unwind_DebugHook (void *cfa, void *handler);
-	 
+
 	 The CFA argument indicates the frame to which control is
 	 about to be transferred.  HANDLER is the destination PC.
-	 
+
 	 We ignore the CFA and set a temporary breakpoint at HANDLER.
 	 This is not extremely efficient but it avoids issues in gdb
 	 with computing the DWARF CFA, and it also works even in weird
@@ -5863,7 +5863,7 @@ prepare_to_wait (struct execution_control_state *ecs)
    print_*_reason functions functions from handle_inferior_event each time
    stop_stepping is called.  */
 
-/* Print why the inferior has stopped.  
+/* Print why the inferior has stopped.
    We are done with a step/next/si/ni command, print why the inferior has
    stopped.  For now print nothing.  Print a message only if not in the middle
    of doing a "step n" operation for n > 1.  */
@@ -5916,7 +5916,7 @@ print_exited_reason (int exitstatus)
   if (exitstatus)
     {
       if (ui_out_is_mi_like_p (uiout))
-	ui_out_field_string (uiout, "reason", 
+	ui_out_field_string (uiout, "reason",
 			     async_reason_lookup (EXEC_ASYNC_EXITED));
       ui_out_text (uiout, "[Inferior ");
       ui_out_text (uiout, plongest (inf->num));
@@ -7412,7 +7412,7 @@ By default, the debugger will use the same inferior."),
 			show_follow_exec_mode_string,
 			&setlist, &showlist);
 
-  add_setshow_enum_cmd ("scheduler-locking", class_run, 
+  add_setshow_enum_cmd ("scheduler-locking", class_run,
 			scheduler_enums, &scheduler_mode, _("\
 Set mode for locking scheduler during execution."), _("\
 Show mode for locking scheduler during execution."), _("\
@@ -7420,7 +7420,7 @@ off  == no locking (threads may preempt at any time)\n\
 on   == full locking (no thread except the current thread may run)\n\
 step == scheduler locked during every single-step operation.\n\
 	In this mode, no other thread may run during a step command.\n\
-	Other threads may run while stepping over a function call ('next')."), 
+	Other threads may run while stepping over a function call ('next')."),
 			set_schedlock_func,	/* traps on target vector */
 			show_scheduler_mode,
 			&setlist, &showlist);

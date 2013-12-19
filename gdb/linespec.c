@@ -1403,7 +1403,7 @@ decode_line_2 (struct linespec_state *self,
   if (select_mode == multiple_symbols_cancel && items_count > 1)
     error (_("canceled because the command is ambiguous\n"
 	     "See set/show multiple-symbol."));
-  
+
   if (select_mode == multiple_symbols_all || items_count == 1)
     {
       do_cleanups (old_chain);
@@ -1517,7 +1517,7 @@ symbol_not_found_error (const char *symbol, const char *filename)
     }
 }
 
-/* Throw an appropriate error when an unexpected token is encountered 
+/* Throw an appropriate error when an unexpected token is encountered
    in the input.  */
 
 static void ATTRIBUTE_NORETURN
@@ -2572,9 +2572,9 @@ initialize_defaults (struct symtab **default_symtab, int *default_line)
       /* Use whatever we have for the default source line.  We don't use
          get_current_or_default_symtab_and_line as it can recurse and call
 	 us back!  */
-      struct symtab_and_line cursal = 
+      struct symtab_and_line cursal =
 	get_current_source_symtab_and_line ();
-      
+
       *default_symtab = cursal.symtab;
       *default_line = cursal.line;
     }
@@ -2626,7 +2626,7 @@ decode_objc (struct linespec_state *self, linespec_p ls, const char **argptr)
   values.nelts = 0;
   values.sals = NULL;
 
-  new_argptr = find_imps (*argptr, &symbol_names); 
+  new_argptr = find_imps (*argptr, &symbol_names);
   if (VEC_empty (const_char_ptr, symbol_names))
     {
       do_cleanups (cleanup);
@@ -3023,7 +3023,7 @@ static VEC (symtab_ptr) *
 symtabs_from_filename (const char *filename)
 {
   VEC (symtab_ptr) *result;
-  
+
   result = collect_symtabs_from_filename (filename);
 
   if (VEC_empty (symtab_ptr, result))

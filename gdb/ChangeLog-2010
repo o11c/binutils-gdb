@@ -129,7 +129,7 @@
 	* gdb.h: Ditto.
 	* main.c: Ditto.
 	* top.c: Ditto.
-	* top.h: Ditto.	
+	* top.h: Ditto.
 
 2010-12-28  Pedro Alves  <pedro@codesourcery.com>
 
@@ -2414,11 +2414,11 @@
 
 	* arm-linux-tdep.c (arm_linux_sigreturn_return_addr): New.
 	(arm_linux_syscall_next_pc): New.
-	(arm_linux_copy_svc): Use arm_linux_sigreturn_return_addr instead. 
+	(arm_linux_copy_svc): Use arm_linux_sigreturn_return_addr instead.
 	(arm_linux_init_abi): Initialize syscall_next_pc.
 	* arm-tdep.c (thumb_get_next_pc_raw):  Get next pc of SWI in Thumb mode.
 	(arm_get_next_pc_raw): Get next pc of SWI in ARM mode.
-	* arm-tdep.h (struct gdbarch_tdep): Add a function pointer syscall_next_pc. 
+	* arm-tdep.h (struct gdbarch_tdep): Add a function pointer syscall_next_pc.
 	Declare arm_frame_is_thumb.
 
 2010-08-30  Jan Kratochvil  <jan.kratochvil@redhat.com>
@@ -3015,7 +3015,7 @@
 	(gdbsim_close): Free sim_argv and null it out as appropriate.
 	Close sim instances in all inferiors.
 	(gdbsim_cntrl_c): Stop all inferiors.
-	(gdbsim_wait): 
+	(gdbsim_wait):
 	(_initialize_remote_sim): Initialize `sim_inferior_data_key'.
 
 2010-08-09  Sami Wagiaalla  <swagiaal@redhat.com>

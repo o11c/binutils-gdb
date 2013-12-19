@@ -109,7 +109,7 @@ static struct target_so_ops powerpc_so_ops;
    actually called, the code in the PLT is hit and the function is
    resolved.  In order to better illustrate this, an example is in
    order; the following example is from the gdb testsuite.
-	    
+
 	We start the program shmain.
 
 	    [kev@arroyo testsuite]$ ../gdb gdb.base/shmain
@@ -133,7 +133,7 @@ static struct target_so_ops powerpc_so_ops;
 	Now run 'til main.
 
 	    (gdb) r
-	    Starting program: gdb.base/shmain 
+	    Starting program: gdb.base/shmain
 	    Breakpoint 1 at 0xffaf790: file gdb.base/shr1.c, line 19.
 
 	    Breakpoint 2, main ()
@@ -245,7 +245,7 @@ static enum return_value_convention
 ppc_linux_return_value (struct gdbarch *gdbarch, struct value *function,
 			struct type *valtype, struct regcache *regcache,
 			gdb_byte *readbuf, const gdb_byte *writebuf)
-{  
+{
   if ((TYPE_CODE (valtype) == TYPE_CODE_STRUCT
        || TYPE_CODE (valtype) == TYPE_CODE_UNION)
       && !((TYPE_LENGTH (valtype) == 16 || TYPE_LENGTH (valtype) == 8)
@@ -684,7 +684,7 @@ ppc64_linux_sighandler_cache_init (const struct tramp_frame *self,
 static struct tramp_frame ppc32_linux_sigaction_tramp_frame = {
   SIGTRAMP_FRAME,
   4,
-  { 
+  {
     { 0x380000ac, -1 }, /* li r0, 172 */
     { 0x44000002, -1 }, /* sc */
     { TRAMP_SENTINEL_INSN },
@@ -705,7 +705,7 @@ static struct tramp_frame ppc64_linux_sigaction_tramp_frame = {
 static struct tramp_frame ppc32_linux_sighandler_tramp_frame = {
   SIGTRAMP_FRAME,
   4,
-  { 
+  {
     { 0x38000077, -1 }, /* li r0,119 */
     { 0x44000002, -1 }, /* sc */
     { TRAMP_SENTINEL_INSN },
@@ -715,7 +715,7 @@ static struct tramp_frame ppc32_linux_sighandler_tramp_frame = {
 static struct tramp_frame ppc64_linux_sighandler_tramp_frame = {
   SIGTRAMP_FRAME,
   4,
-  { 
+  {
     { 0x38210080, -1 }, /* addi r1,r1,128 */
     { 0x38000077, -1 }, /* li r0,119 */
     { 0x44000002, -1 }, /* sc */
@@ -1329,7 +1329,7 @@ ppc_linux_init_abi (struct gdbarch_info info,
 
       set_gdbarch_skip_solib_resolver (gdbarch, glibc_skip_solib_resolver);
     }
-  
+
   if (tdep->wordsize == 8)
     {
       /* Handle PPC GNU/Linux 64-bit function pointers (which are really

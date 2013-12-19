@@ -236,7 +236,7 @@ ui_file_write_async_safe (struct ui_file *file,
 long
 ui_file_read (struct ui_file *file, char *buf, long length_buf)
 {
-  return file->to_read (file, buf, length_buf); 
+  return file->to_read (file, buf, length_buf);
 }
 
 int

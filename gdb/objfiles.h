@@ -76,7 +76,7 @@ struct objfile_data;
    process startup code.  Since we have no guarantee that the linked
    in startup modules have any debugging information that gdb can use,
    we need to avoid following frame pointers back into frames that might
-   have been built in the startup code, as we might get hopelessly 
+   have been built in the startup code, as we might get hopelessly
    confused.  However, we almost always have debugging information
    available for main().
 
@@ -171,7 +171,7 @@ struct objfile_per_bfd_storage
   /* The storage has an obstack of its own.  */
 
   struct obstack storage_obstack;
-  
+
   /* Byte cache for file names.  */
 
   struct bcache *filename_cache;
@@ -272,7 +272,7 @@ struct objfile
     /* Obstack to hold objects that should be freed when we load a new symbol
        table from this object file.  */
 
-    struct obstack objfile_obstack; 
+    struct obstack objfile_obstack;
 
     /* A byte cache where we can stash arbitrary "chunks" of bytes that
        will not change.  */

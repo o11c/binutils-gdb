@@ -127,7 +127,7 @@ show_filename_display_string (struct ui_file *file, int from_tty,
 {
   fprintf_filtered (file, _("Filenames are displayed as \"%s\".\n"), value);
 }
- 
+
 /* Line number of last line printed.  Default for various commands.
    current_source_line is usually, but not always, the same as this.  */
 
@@ -166,7 +166,7 @@ get_lines_to_list (void)
 
 /* Return the current source file for listing and next line to list.
    NOTE: The returned sal pc and end fields are not valid.  */
-   
+
 struct symtab_and_line
 get_current_source_symtab_and_line (void)
 {
@@ -177,7 +177,7 @@ get_current_source_symtab_and_line (void)
   cursal.line = current_source_line;
   cursal.pc = 0;
   cursal.end = 0;
-  
+
   return cursal;
 }
 
@@ -188,7 +188,7 @@ get_current_source_symtab_and_line (void)
    process of determining a new default may call the caller!
    Use get_current_source_symtab_and_line only to get whatever
    we have without erroring out or trying to get a default.  */
-   
+
 void
 set_default_source_symtab_and_line (void)
 {
@@ -204,7 +204,7 @@ set_default_source_symtab_and_line (void)
    (the returned sal pc and end fields are not valid.)
    and set the current default to whatever is in SAL.
    NOTE: The returned sal pc and end fields are not valid.  */
-   
+
 struct symtab_and_line
 set_current_source_symtab_and_line (const struct symtab_and_line *sal)
 {
@@ -687,7 +687,7 @@ is_regular_file (const char *name)
    the actual file opened (this string will always start with a "/").  We
    have to take special pains to avoid doubling the "/" between the directory
    and the file, sigh!  Emacs gets confuzzed by this when we print the
-   source file name!!! 
+   source file name!!!
 
    If OPTS has OPF_RETURN_REALPATH set return FILENAME_OPENED resolved by
    gdb_realpath.  Even without OPF_RETURN_REALPATH this function still returns
@@ -921,7 +921,7 @@ substitute_path_rule_matches (const struct substitute_path_rule *rule,
   /* Make sure that the region in the path that matches the substitution
      rule is immediately followed by a directory separator (or the end of
      string character).  */
-  
+
   if (path[from_len] != '\0' && !IS_DIR_SEPARATOR (path[from_len]))
     return 0;
 
@@ -945,17 +945,17 @@ get_substitute_path_rule (const char *path)
 /* If the user specified a source path substitution rule that applies
    to PATH, then apply it and return the new path.  This new path must
    be deallocated afterwards.
-   
+
    Return NULL if no substitution rule was specified by the user,
    or if no rule applied to the given PATH.  */
-   
+
 char *
 rewrite_source_path (const char *path)
 {
   const struct substitute_path_rule *rule = get_substitute_path_rule (path);
   char *new_path;
   int from_len;
-  
+
   if (rule == NULL)
     return NULL;
 
@@ -1025,7 +1025,7 @@ find_and_open_source (const char *filename,
           make_cleanup (xfree, rewritten_dirname);
           dirname = rewritten_dirname;
         }
-      
+
       /* Replace a path entry of $cdir with the compilation directory
 	 name.  */
 #define	cdir_len	5
@@ -1076,8 +1076,8 @@ find_and_open_source (const char *filename,
 }
 
 /* Open a source file given a symtab S.  Returns a file descriptor or
-   negative number for error.  
-   
+   negative number for error.
+
    This function is a convience function to find_and_open_source.  */
 
 int
@@ -1129,7 +1129,7 @@ symtab_to_fullname (struct symtab *s)
 	    s->fullname = xstrdup (fullname);
 	  do_cleanups (back_to);
 	}
-    } 
+    }
 
   return s->fullname;
 }
@@ -1181,7 +1181,7 @@ find_source_lines (struct symtab *s, int desc)
   {
     struct cleanup *old_cleanups;
 
-    /* st_size might be a large type, but we only support source files whose 
+    /* st_size might be a large type, but we only support source files whose
        size fits in an int.  */
     size = (int) st.st_size;
 
@@ -1841,7 +1841,7 @@ show_substitute_path_command (char *args, int from_tty)
   char **argv;
   char *from = NULL;
   struct cleanup *cleanup;
-  
+
   argv = gdb_buildargv (args);
   cleanup = make_cleanup_freeargv (argv);
 
@@ -1914,7 +1914,7 @@ unset_substitute_path_command (char *args, int from_tty)
 
       rule = next;
     }
-  
+
   /* If the user asked for a specific rule to be deleted but
      we could not find it, then report an error.  */
 
@@ -1934,7 +1934,7 @@ set_substitute_path_command (char *args, int from_tty)
   char **argv;
   struct substitute_path_rule *rule;
   struct cleanup *cleanup;
-  
+
   argv = gdb_buildargv (args);
   cleanup = make_cleanup_freeargv (argv);
 
@@ -1958,7 +1958,7 @@ set_substitute_path_command (char *args, int from_tty)
   rule = find_substitute_path_rule (argv[0]);
   if (rule != NULL)
     delete_substitute_path_rule (rule);
-      
+
   /* Insert the new substitution rule.  */
 
   add_substitute_path_rule (argv[0], argv[1]);

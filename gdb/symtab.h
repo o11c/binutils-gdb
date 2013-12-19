@@ -533,7 +533,7 @@ enum address_class
      The linker might even remove the minimal symbol if the global
      symbol is never referenced, in which case the symbol remains
      unresolved.
-     
+
      GDB would normally find the symbol in the minimal symbol table if it will
      not find it in the full symbol table.  But a reference to an external
      symbol in a local block shadowing other definition requires full symbol
@@ -954,7 +954,7 @@ DEF_VEC_P (symtab_ptr);
 
 
 /* The virtual function table is now an array of structures which have the
-   form { int16 offset, delta; void *pfn; }. 
+   form { int16 offset, delta; void *pfn; }.
 
    In normal virtual function tables, OFFSET is unused.
    DELTA is the amount which is added to the apparent object's base
@@ -980,7 +980,7 @@ extern const char multiple_symbols_cancel[];
 
 const char *multiple_symbols_select_mode (void);
 
-int symbol_matches_domain (enum language symbol_language, 
+int symbol_matches_domain (enum language symbol_language,
 			   domain_enum symbol_domain,
 			   domain_enum domain);
 

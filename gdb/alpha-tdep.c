@@ -128,7 +128,7 @@ alpha_register_type (struct gdbarch *gdbarch, int regno)
   if (regno == ALPHA_PC_REGNUM)
     return builtin_type (gdbarch)->builtin_func_ptr;
 
-  /* Don't need to worry about little vs big endian until 
+  /* Don't need to worry about little vs big endian until
      some jerk tries to port to alpha-unicosmk.  */
   if (regno >= ALPHA_FP0_REGNUM && regno < ALPHA_FP0_REGNUM + 31)
     return builtin_type (gdbarch)->builtin_double;
@@ -142,7 +142,7 @@ static int
 alpha_register_reggroup_p (struct gdbarch *gdbarch, int regnum,
 			   struct reggroup *group)
 {
-  /* Filter out any registers eliminated, but whose regnum is 
+  /* Filter out any registers eliminated, but whose regnum is
      reserved for backward compatibility, e.g. the vfp.  */
   if (gdbarch_register_name (gdbarch, regnum) == NULL
       || *gdbarch_register_name (gdbarch, regnum) == '\0')
@@ -535,7 +535,7 @@ alpha_extract_return_value (struct type *valtype, struct regcache *regcache,
     }
 }
 
-/* Insert the given value into REGCACHE as if it was being 
+/* Insert the given value into REGCACHE as if it was being
    returned by a function.  */
 
 static void
@@ -766,10 +766,10 @@ static const int stq_c_opcode = 0x2f;
 
 /* Checks for an atomic sequence of instructions beginning with a LDL_L/LDQ_L
    instruction and ending with a STL_C/STQ_C instruction.  If such a sequence
-   is found, attempt to step through it.  A breakpoint is placed at the end of 
+   is found, attempt to step through it.  A breakpoint is placed at the end of
    the sequence.  */
 
-static int 
+static int
 alpha_deal_with_atomic_sequence (struct frame_info *frame)
 {
   struct gdbarch *gdbarch = get_frame_arch (frame);
@@ -781,7 +781,7 @@ alpha_deal_with_atomic_sequence (struct frame_info *frame)
   unsigned int insn = alpha_read_insn (gdbarch, loc);
   int insn_count;
   int index;
-  int last_breakpoint = 0; /* Defaults to 0 (no breakpoints placed).  */  
+  int last_breakpoint = 0; /* Defaults to 0 (no breakpoints placed).  */
   const int atomic_sequence_length = 16; /* Instruction sequence length.  */
   int bc_insn_count = 0; /* Conditional branch instruction count.  */
 
@@ -790,7 +790,7 @@ alpha_deal_with_atomic_sequence (struct frame_info *frame)
       && INSN_OPCODE (insn) != ldq_l_opcode)
     return 0;
 
-  /* Assume that no atomic sequence is longer than "atomic_sequence_length" 
+  /* Assume that no atomic sequence is longer than "atomic_sequence_length"
      instructions.  */
   for (insn_count = 0; insn_count < atomic_sequence_length; ++insn_count)
     {
@@ -798,7 +798,7 @@ alpha_deal_with_atomic_sequence (struct frame_info *frame)
       insn = alpha_read_insn (gdbarch, loc);
 
       /* Assume that there is at most one branch in the atomic
-	 sequence.  If a branch is found, put a breakpoint in 
+	 sequence.  If a branch is found, put a breakpoint in
 	 its destination address.  */
       if (INSN_OPCODE (insn) >= br_opcode)
 	{
@@ -807,7 +807,7 @@ alpha_deal_with_atomic_sequence (struct frame_info *frame)
 	  immediate = (immediate ^ 0x400000) - 0x400000;
 
 	  if (bc_insn_count >= 1)
-	    return 0; /* More than one branch found, fallback 
+	    return 0; /* More than one branch found, fallback
 			 to the standard single-step code.  */
 
 	  breaks[1] = loc + ALPHA_INSN_SIZE + immediate;
@@ -833,7 +833,7 @@ alpha_deal_with_atomic_sequence (struct frame_info *frame)
   breaks[0] = loc;
 
   /* Check for duplicated breakpoints.  Check also for a breakpoint
-     placed (branch instruction's destination) anywhere in sequence.  */ 
+     placed (branch instruction's destination) anywhere in sequence.  */
   if (last_breakpoint
       && (breaks[1] == breaks[0]
 	  || (breaks[1] >= pc && breaks[1] <= closing_insn)))
@@ -908,7 +908,7 @@ alpha_sigtramp_frame_unwind_cache (struct frame_info *this_frame,
 static CORE_ADDR
 alpha_sigtramp_register_address (struct gdbarch *gdbarch,
 				 CORE_ADDR sigcontext_addr, int regnum)
-{ 
+{
   struct gdbarch_tdep *tdep = gdbarch_tdep (gdbarch);
 
   if (regnum >= 0 && regnum < 32)
@@ -916,7 +916,7 @@ alpha_sigtramp_register_address (struct gdbarch *gdbarch,
   else if (regnum >= ALPHA_FP0_REGNUM && regnum < ALPHA_FP0_REGNUM + 32)
     return sigcontext_addr + tdep->sc_fpregs_offset + regnum * 8;
   else if (regnum == ALPHA_PC_REGNUM)
-    return sigcontext_addr + tdep->sc_pc_offset; 
+    return sigcontext_addr + tdep->sc_pc_offset;
 
   return 0;
 }
@@ -1121,7 +1121,7 @@ Otherwise, you told GDB there was a function where there isn't one, or\n\
    something about the traditional layout of alpha stack frames.  */
 
 struct alpha_heuristic_unwind_cache
-{ 
+{
   CORE_ADDR vfp;
   CORE_ADDR start_pc;
   struct trad_frame_saved_reg *saved_regs;
@@ -1151,7 +1151,7 @@ alpha_heuristic_analyze_probing_loop (struct gdbarch *gdbarch, CORE_ADDR *pc,
         subq    REG_INDEX,0x1,REG_INDEX
         lda     REG_PROBE,<immediate>(REG_PROBE)
         bne     REG_INDEX, LOOP_START
- 
+
         lda     sp,<immediate>(REG_PROBE)
 
      If anything different is found, the function returns without
@@ -1177,14 +1177,14 @@ alpha_heuristic_analyze_probing_loop (struct gdbarch *gdbarch, CORE_ADDR *pc,
   cur_frame_size -= MEM_DISP (insn);
 
   /* stq     zero,<immediate>(REG_PROBE) */
-  
+
   cur_pc += ALPHA_INSN_SIZE;
   insn = alpha_read_insn (gdbarch, cur_pc);
   if (INSN_OPCODE (insn) != stq_opcode
       || MEM_RA (insn) != 0x1f
       || MEM_RB (insn) != reg_probe)
     return;
-  
+
   /* subq    REG_INDEX,0x1,REG_INDEX */
 
   cur_pc += ALPHA_INSN_SIZE;
@@ -1196,9 +1196,9 @@ alpha_heuristic_analyze_probing_loop (struct gdbarch *gdbarch, CORE_ADDR *pc,
       || OPR_RA (insn) != reg_index
       || OPR_RC (insn) != reg_index)
     return;
-  
+
   /* lda     REG_PROBE,<immediate>(REG_PROBE) */
-  
+
   cur_pc += ALPHA_INSN_SIZE;
   insn = alpha_read_insn (gdbarch, cur_pc);
   if (INSN_OPCODE (insn) != lda_opcode
@@ -1430,7 +1430,7 @@ alpha_heuristic_frame_prev_register (struct frame_info *this_frame,
      the correct place.  */
   if (regnum == ALPHA_PC_REGNUM)
     regnum = info->return_reg;
-  
+
   return trad_frame_get_prev_register (this_frame, info->saved_regs, regnum);
 }
 
@@ -1575,7 +1575,7 @@ alpha_fill_fp_regs (const struct regcache *regcache,
 
 /* Return nonzero if the G_floating register value in REG is equal to
    zero for FP control instructions.  */
-   
+
 static int
 fp_register_zero_p (LONGEST reg)
 {
@@ -1650,7 +1650,7 @@ alpha_next_pc (struct frame_info *frame, CORE_ADDR pc)
           case 0x35:              /* FBNE */
             regno += gdbarch_fp0_regnum (gdbarch);
 	}
-      
+
       rav = get_frame_register_signed (frame, regno);
 
       switch (op)
@@ -1689,7 +1689,7 @@ alpha_next_pc (struct frame_info *frame, CORE_ADDR pc)
 	  break;
 
         /* Floating point branches.  */
-        
+
         case 0x31:              /* FBEQ */
           if (fp_register_zero_p (rav))
             goto branch_taken;

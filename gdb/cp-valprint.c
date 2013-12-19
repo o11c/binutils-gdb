@@ -168,7 +168,7 @@ cp_print_value_fields (struct type *type, struct type *real_type,
   static int last_set_recurse = -1;
 
   CHECK_TYPEDEF (type);
-  
+
   if (recurse == 0)
     {
       /* Any object can be left on obstacks only during an unexpected
@@ -196,7 +196,7 @@ cp_print_value_fields (struct type *type, struct type *real_type,
      duplicates of virtual baseclasses.  */
 
   if (n_baseclasses > 0)
-    cp_print_value (type, real_type, valaddr, 
+    cp_print_value (type, real_type, valaddr,
 		    offset, address, stream,
 		    recurse + 1, val, options,
 		    dont_print_vb);
@@ -345,7 +345,7 @@ cp_print_value_fields (struct type *type, struct type *real_type,
 		  if (valprint_check_validity (stream, i_type, i_offset, val))
 		    {
 		      CORE_ADDR addr;
-		      
+
 		      addr = extract_typed_address (valaddr + i_offset, i_type);
 		      print_function_pointer_address (options,
 						      get_type_arch (type),
@@ -358,7 +358,7 @@ cp_print_value_fields (struct type *type, struct type *real_type,
 
 		  opts.deref_ref = 0;
 		  val_print (TYPE_FIELD_TYPE (type, i),
-			     valaddr, 
+			     valaddr,
 			     offset + TYPE_FIELD_BITPOS (type, i) / 8,
 			     address,
 			     stream, recurse + 1, val, &opts,
@@ -389,7 +389,7 @@ cp_print_value_fields (struct type *type, struct type *real_type,
 	    {
 	      int obstack_final_size =
 		obstack_object_size (&dont_print_stat_array_obstack);
-	      
+
 	      if (obstack_final_size > stat_array_obstack_initial_size)
 		{
 		  void *free_to_ptr =
@@ -427,7 +427,7 @@ cp_print_value_fields_rtti (struct type *type,
 			    struct ui_file *stream, int recurse,
 			    const struct value *val,
 			    const struct value_print_options *options,
-			    struct type **dont_print_vb, 
+			    struct type **dont_print_vb,
 			    int dont_print_statmem)
 {
   struct type *real_type = NULL;
@@ -594,7 +594,7 @@ cp_print_value (struct type *type, struct type *real_type,
 					       options, current_language);
 
 
-	  	  
+
 	  if (!result)
 	    cp_print_value_fields (baseclass, thistype, base_valaddr,
 				   thisoffset + boffset,
@@ -707,7 +707,7 @@ cp_print_static_field (struct type *type,
 
   opts = *options;
   opts.deref_ref = 0;
-  val_print (type, value_contents_for_printing (val), 
+  val_print (type, value_contents_for_printing (val),
 	     value_embedded_offset (val),
 	     value_address (val),
 	     stream, recurse, val,

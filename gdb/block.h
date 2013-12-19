@@ -91,7 +91,7 @@ struct block
       /* Contains information about namespace-related info relevant to
 	 this block: using directives and the current namespace
 	 scope.  */
-      
+
       struct block_namespace_info *namespace;
     }
     cplus_specific;
@@ -147,7 +147,7 @@ extern int contained_in (const struct block *, const struct block *);
 
 extern struct blockvector *blockvector_for_pc (CORE_ADDR, struct block **);
 
-extern struct blockvector *blockvector_for_pc_sect (CORE_ADDR, 
+extern struct blockvector *blockvector_for_pc_sect (CORE_ADDR,
 						    struct obj_section *,
 						    struct block **,
                                                     struct symtab *);
@@ -261,7 +261,7 @@ extern struct symbol *block_iter_match_first (const struct block *block,
 /* Advance ITERATOR to point at the next symbol in BLOCK whose
    SYMBOL_SEARCH_NAME is NAME, as tested using COMPARE (see
    block_iter_match_first), or NULL if there are no more such symbols.
-   Don't call this if you've previously received NULL from 
+   Don't call this if you've previously received NULL from
    block_iterator_match_first or block_iterator_match_next on this
    iteration.  And don't call it unless ITERATOR was created by a
    previous call to block_iter_match_first with the same NAME and COMPARE.  */

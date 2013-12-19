@@ -276,8 +276,8 @@ const char *
 get_osdata_column (struct osdata_item *item, const char *name)
 {
   struct osdata_column *col;
-  int ix_cols; 
-  
+  int ix_cols;
+
   for (ix_cols = 0;
        VEC_iterate (osdata_column_s, item->columns,
 		    ix_cols, col);
@@ -306,7 +306,7 @@ info_osdata_command (char *type, int from_tty)
 
   if (!type && nrows == 0)
     error (_("Available types of OS data not reported."));
-  
+
   if (!VEC_empty (osdata_item_s, osdata->items))
     {
       last = VEC_last (osdata_item_s, osdata->items);
@@ -399,7 +399,7 @@ info_osdata_command (char *type, int from_tty)
 	     snprintf (col_name, 32, "col%d", ix_cols);
 	     ui_out_field_string (uiout, col_name, col->value);
 	   }
-	 
+
          do_cleanups (old_chain);
 
          ui_out_text (uiout, "\n");

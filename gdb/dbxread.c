@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* This module provides three functions: dbx_symfile_init,
-   which initializes to read a symbol file; dbx_new_init, which 
+   which initializes to read a symbol file; dbx_new_init, which
    discards existing cached information when all symbols are being
    discarded; and dbx_symfile_read, which reads a symbol table
    from a file.
@@ -483,7 +483,7 @@ record_minimal_symbol (const char *name, CORE_ADDR address, int type,
     case N_DATA:
       ms_type = mst_file_data;
 
-      /* Check for __DYNAMIC, which is used by Sun shared libraries. 
+      /* Check for __DYNAMIC, which is used by Sun shared libraries.
          Record it as global even if it's local, not global, so
          lookup_minimal_symbol can find it.  We don't check symbol_leading_char
          because for SunOS4 it always is '_'.  */
@@ -520,7 +520,7 @@ record_minimal_symbol (const char *name, CORE_ADDR address, int type,
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to dbx_symfile_init, which 
+   We have been initialized by a call to dbx_symfile_init, which
    put all the relevant info into a "struct dbx_symfile_info",
    hung off the objfile structure.  */
 
@@ -960,7 +960,7 @@ make_cleanup_free_bincl_list (struct objfile *objfile)
   return make_cleanup (do_free_bincl_list_cleanup, objfile);
 }
 
-/* Set namestring based on nlist.  If the string table index is invalid, 
+/* Set namestring based on nlist.  If the string table index is invalid,
    give a fake name, and print a single error message per symbol file read,
    rather than abort the symbol reading or flood the user with messages.  */
 
@@ -977,7 +977,7 @@ set_namestring (struct objfile *objfile, const struct internal_nlist *nlist)
 		 _("bad string table offset in symbol %d"),
 		 symnum);
       namestring = "<bad string table offset>";
-    } 
+    }
   else
     namestring = (nlist->n_strx + file_string_table_offset
 		  + DBX_STRINGTAB (objfile));
@@ -1531,7 +1531,7 @@ read_dbx_symtab (struct objfile *objfile)
 		/* Save the directory name SOs locally, then save it into
 		   the psymtab when it's created below.  */
 	        dirname_nso = namestring;
-	        continue;		
+	        continue;
 	      }
 
 	    /* Some other compilers (C++ ones in particular) emit useless
@@ -1873,19 +1873,19 @@ read_dbx_symtab (struct objfile *objfile)
 		  function_outside_compilation_unit_complaint (name);
 		  xfree (name);
 		}
-	      nlist.n_value += ANOFFSET (objfile->section_offsets, 
+	      nlist.n_value += ANOFFSET (objfile->section_offsets,
 					 SECT_OFF_TEXT (objfile));
 	      /* Kludges for ELF/STABS with Sun ACC.  */
 	      last_function_name = namestring;
 	      /* Do not fix textlow==0 for .o or NLM files, as 0 is a legit
 		 value for the bottom of the text seg in those cases.  */
-	      if (nlist.n_value == ANOFFSET (objfile->section_offsets, 
+	      if (nlist.n_value == ANOFFSET (objfile->section_offsets,
 					     SECT_OFF_TEXT (objfile))
 		  && gdbarch_sofun_address_maybe_missing (gdbarch))
 		{
-		  CORE_ADDR minsym_valu = 
-		    find_stab_function_addr (namestring, 
-					     pst ? pst->filename : NULL, 
+		  CORE_ADDR minsym_valu =
+		    find_stab_function_addr (namestring,
+					     pst ? pst->filename : NULL,
 					     objfile);
 
 		  /* find_stab_function_addr will return 0 if the minimal
@@ -1943,19 +1943,19 @@ read_dbx_symtab (struct objfile *objfile)
 		  function_outside_compilation_unit_complaint (name);
 		  xfree (name);
 		}
-	      nlist.n_value += ANOFFSET (objfile->section_offsets, 
+	      nlist.n_value += ANOFFSET (objfile->section_offsets,
 					 SECT_OFF_TEXT (objfile));
 	      /* Kludges for ELF/STABS with Sun ACC.  */
 	      last_function_name = namestring;
 	      /* Do not fix textlow==0 for .o or NLM files, as 0 is a legit
 		 value for the bottom of the text seg in those cases.  */
-	      if (nlist.n_value == ANOFFSET (objfile->section_offsets, 
+	      if (nlist.n_value == ANOFFSET (objfile->section_offsets,
 					     SECT_OFF_TEXT (objfile))
 		  && gdbarch_sofun_address_maybe_missing (gdbarch))
 		{
-		  CORE_ADDR minsym_valu = 
-		    find_stab_function_addr (namestring, 
-					     pst ? pst->filename : NULL, 
+		  CORE_ADDR minsym_valu =
+		    find_stab_function_addr (namestring,
+					     pst ? pst->filename : NULL,
 					     objfile);
 
 		  /* find_stab_function_addr will return 0 if the minimal
@@ -2525,7 +2525,7 @@ read_ofile_symtab (struct objfile *objfile, struct partial_symtab *pst)
   /* This cannot be simply objfile->section_offsets because of
      elfstab_offset_sections() which initializes the psymtab section
      offsets information in a special way, and that is different from
-     objfile->section_offsets.  */ 
+     objfile->section_offsets.  */
   section_offsets = pst->section_offsets;
 
   dbxread_objfile = objfile;
@@ -3166,7 +3166,7 @@ process_one_symbol (int type, int desc, CORE_ADDR valu, char *name,
 				       SECT_OFF_TEXT (objfile))
 		  && gdbarch_sofun_address_maybe_missing (gdbarch))
 		{
-		  CORE_ADDR minsym_valu = 
+		  CORE_ADDR minsym_valu =
 		    find_stab_function_addr (name, get_last_source_file (),
 					     objfile);
 

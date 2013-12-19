@@ -204,7 +204,7 @@ interp_set (struct interp *interp, int top_level)
       return 0;
     }
 
-  /* Finally, put up the new prompt to show that we are indeed here. 
+  /* Finally, put up the new prompt to show that we are indeed here.
      Also, display_gdb_prompt for the console does some readline magic
      which is needed for the console interpreter, at least...  */
 
@@ -345,7 +345,7 @@ interp_set_quiet (struct interp *interp, int quiet)
   return old_val;
 }
 
-/* interp_exec - This executes COMMAND_STR in the current 
+/* interp_exec - This executes COMMAND_STR in the current
    interpreter.  */
 
 struct gdb_exception
@@ -486,14 +486,14 @@ interpreter_completer (struct cmd_list_element *ignore,
 struct interp *
 top_level_interpreter (void)
 {
-  return top_level_interpreter_ptr;  
+  return top_level_interpreter_ptr;
 }
 
 void *
 top_level_interpreter_data (void)
 {
   gdb_assert (top_level_interpreter_ptr);
-  return top_level_interpreter_ptr->data;  
+  return top_level_interpreter_ptr->data;
 }
 
 /* This just adds the "interpreter-exec" command.  */

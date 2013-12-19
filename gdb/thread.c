@@ -363,11 +363,11 @@ find_thread_ptid (ptid_t ptid)
  * Calls a callback function once for each thread, so long as
  * the callback function returns false.  If the callback function
  * returns true, the iteration will end and the current thread
- * will be returned.  This can be useful for implementing a 
+ * will be returned.  This can be useful for implementing a
  * search for a thread with arbitrary attributes, or for applying
  * some operation to every thread.
  *
- * FIXME: some of the existing functionality, such as 
+ * FIXME: some of the existing functionality, such as
  * "Thread apply all", might be rewritten using this functionality.
  */
 
@@ -396,7 +396,7 @@ thread_count (void)
   for (tp = thread_list; tp; tp = tp->next)
     ++result;
 
-  return result;  
+  return result;
 }
 
 int
@@ -585,8 +585,8 @@ set_running (ptid_t ptid, int running)
   struct thread_info *tp;
   int all = ptid_equal (ptid, minus_one_ptid);
 
-  /* We try not to notify the observer if no thread has actually changed 
-     the running state -- merely to reduce the number of messages to 
+  /* We try not to notify the observer if no thread has actually changed
+     the running state -- merely to reduce the number of messages to
      frontend.  Frontend is supposed to handle multiple *running just fine.  */
   if (all || ptid_is_pid (ptid))
     {
@@ -972,7 +972,7 @@ No selected thread.  See `help thread'.\n");
     }
 }
 
-/* Print information about currently known threads 
+/* Print information about currently known threads
 
    Optional ARG is a thread id, or list of thread ids.
 
@@ -1256,7 +1256,7 @@ thread_apply_all_command (char *cmd, int from_tty)
         if (thread_alive (tp_array[k]))
           {
             switch_to_thread (tp_array[k]->ptid);
-            printf_filtered (_("\nThread %d (%s):\n"), 
+            printf_filtered (_("\nThread %d (%s):\n"),
 			     tp_array[k]->num,
 			     target_pid_to_str (inferior_ptid));
             execute_command (cmd, from_tty);
@@ -1523,7 +1523,7 @@ _initialize_thread (void)
 {
   static struct cmd_list_element *thread_apply_list = NULL;
 
-  add_info ("threads", info_threads_command, 
+  add_info ("threads", info_threads_command,
 	    _("Display currently known threads.\n\
 Usage: info threads [ID]...\n\
 Optional arguments are thread IDs with spaces between.\n\

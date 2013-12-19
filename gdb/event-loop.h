@@ -81,14 +81,14 @@ extern void initialize_event_loop (void);
 extern void start_event_loop (void);
 extern int gdb_do_one_event (void);
 extern void delete_file_handler (int fd);
-extern void add_file_handler (int fd, handler_func *proc, 
+extern void add_file_handler (int fd, handler_func *proc,
 			      gdb_client_data client_data);
 extern struct async_signal_handler *
-  create_async_signal_handler (sig_handler_func *proc, 
+  create_async_signal_handler (sig_handler_func *proc,
 			       gdb_client_data client_data);
 extern void delete_async_signal_handler (struct async_signal_handler **);
-extern int create_timer (int milliseconds, 
-			 timer_handler_func *proc, 
+extern int create_timer (int milliseconds,
+			 timer_handler_func *proc,
 			 gdb_client_data client_data);
 extern void delete_timer (int id);
 

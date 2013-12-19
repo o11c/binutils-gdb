@@ -189,8 +189,8 @@ c_printchar (int c, struct type *type, struct ui_file *stream)
    characters, or if FORCE_ELLIPSES.  */
 
 void
-c_printstr (struct ui_file *stream, struct type *type, 
-	    const gdb_byte *string, unsigned int length, 
+c_printstr (struct ui_file *stream, struct type *type,
+	    const gdb_byte *string, unsigned int length,
 	    const char *user_encoding, int force_ellipses,
 	    const struct value_print_options *options)
 {
@@ -301,7 +301,7 @@ c_get_string (struct value *value, gdb_byte **buffer,
 	  if (extract_unsigned_integer (contents + i * width,
 					width, byte_order) == 0)
  	    break;
-  
+
       /* I is now either a user-defined length, the number of non-null
  	 characters, or FETCHLIMIT.  */
       *length = i * width;
@@ -347,7 +347,7 @@ c_get_string (struct value *value, gdb_byte **buffer,
  	&& extract_unsigned_integer (*buffer + *length - width,
 				     width, byte_order) == 0)
       *length -= width;
-  
+
   /* The read_string function will return the number of bytes read.
      If length returned from read_string was > 0, return the number of
      characters read by dividing the number of bytes by width.  */
@@ -426,7 +426,7 @@ emit_numeric_character (struct type *type, unsigned long value,
    pointer to just after the final digit of the escape sequence.  */
 
 static char *
-convert_octal (struct type *type, char *p, 
+convert_octal (struct type *type, char *p,
 	       char *limit, struct obstack *output)
 {
   int i;
@@ -818,7 +818,7 @@ c_language_arch_info (struct gdbarch *gdbarch,
   lai->bool_type_default = builtin->builtin_int;
 }
 
-const struct exp_descriptor exp_descriptor_c = 
+const struct exp_descriptor exp_descriptor_c =
 {
   print_subexp_standard,
   operator_length_standard,

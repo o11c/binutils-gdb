@@ -404,7 +404,7 @@ cli_out_set_stream (struct ui_out *uiout, struct ui_file *stream)
 {
   cli_out_data *data = ui_out_data (uiout);
   struct ui_file *old;
-  
+
   old = VEC_pop (ui_filep, data->streams);
   VEC_quick_push (ui_filep, data->streams, stream);
 

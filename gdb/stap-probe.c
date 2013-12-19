@@ -353,9 +353,9 @@ stap_get_expected_argument_type (struct gdbarch *gdbarch,
    RS  = register suffix
    RIP = register indirection prefix
    RIS = register indirection suffix
-   
+
    Then a register operand can be:
-   
+
    [RIP] [RP] REGISTER [RS] [RIS]
 
    This function takes care of a register's indirection, displacement and
@@ -1319,7 +1319,7 @@ static const struct internalvar_funcs probe_funcs =
    - Probe's provider name;
    - Probe's name;
    - Probe's argument format
-   
+
    This function returns 1 if the handling was successful, and zero
    otherwise.  */
 

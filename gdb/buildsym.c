@@ -376,8 +376,8 @@ finish_block_internal (struct symbol *symbol, struct pending **listhead,
      start of this scope that don't have superblocks yet.  */
 
   opblock = NULL;
-  for (pblock = pending_blocks; 
-       pblock && pblock != old_blocks; 
+  for (pblock = pending_blocks;
+       pblock && pblock != old_blocks;
        pblock = pblock->next)
     {
       if (BLOCK_SUPERBLOCK (pblock->block) == NULL)
@@ -729,7 +729,7 @@ push_subfile (void)
   subfile_stack = tem;
   if (current_subfile == NULL || current_subfile->name == NULL)
     {
-      internal_error (__FILE__, __LINE__, 
+      internal_error (__FILE__, __LINE__,
 		      _("failed internal consistency check"));
     }
   tem->name = current_subfile->name;
@@ -1242,7 +1242,7 @@ end_symtab_from_static_block (struct block *static_block,
                  Otherwise, we can run into trouble because various parts
                  such as the block-vector are uninitialized whereas
                  the rest of the code assumes that they are.
-                 
+
                  We can only unlink the symtab because it was allocated
                  on the objfile obstack.  */
               struct symtab *s;

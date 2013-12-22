@@ -25,6 +25,9 @@
 #include "objfiles.h"
 #include "symtab.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 typedef struct blpy_block_object {
   PyObject_HEAD
   /* The GDB block structure that represents a frame's code block.  */
@@ -78,7 +81,7 @@ typedef struct {
       }									\
   } while (0)
 
-static PyTypeObject block_syms_iterator_object_type
+static_decl PyTypeObject block_syms_iterator_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("block_syms_iterator_object");
 static const struct objfile_data *blpy_objfile_data_key;
 
@@ -517,7 +520,7 @@ Return true if this block iterator is valid, false if not." },
   {NULL}  /* Sentinel */
 };
 
-static PyTypeObject block_syms_iterator_object_type = {
+static_def PyTypeObject block_syms_iterator_object_type = {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.BlockIterator",		  /*tp_name*/
   sizeof (block_syms_iterator_object),	      /*tp_basicsize*/

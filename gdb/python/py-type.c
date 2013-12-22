@@ -30,6 +30,9 @@
 #include "vec.h"
 #include "typeprint.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 typedef struct pyty_type_object
 {
   PyObject_HEAD
@@ -42,7 +45,7 @@ typedef struct pyty_type_object
   struct pyty_type_object *next;
 } type_object;
 
-static PyTypeObject type_object_type
+static_decl PyTypeObject type_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("type_object");
 
 /* A Field object.  */
@@ -54,7 +57,7 @@ typedef struct pyty_field_object
   PyObject *dict;
 } field_object;
 
-static PyTypeObject field_object_type
+static_decl PyTypeObject field_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("field_object");
 
 /* A type iterator object.  */
@@ -68,7 +71,7 @@ typedef struct {
   struct pyty_type_object *source;
 } typy_iterator_object;
 
-static PyTypeObject type_iterator_object_type
+static_decl PyTypeObject type_iterator_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("typy_iterator_object");
 
 /* This is used to initialize various gdb.TYPE_ constants.  */
@@ -1518,7 +1521,7 @@ static PyMappingMethods typy_mapping = {
   NULL				  /* no "set" method */
 };
 
-static PyTypeObject type_object_type =
+static_def PyTypeObject type_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Type",			  /*tp_name*/
@@ -1567,7 +1570,7 @@ static PyGetSetDef field_object_getset[] =
   { NULL }
 };
 
-static PyTypeObject field_object_type =
+static_def PyTypeObject field_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Field",			  /*tp_name*/
@@ -1609,7 +1612,7 @@ static PyTypeObject field_object_type =
   0,				  /* tp_new */
 };
 
-static PyTypeObject type_iterator_object_type = {
+static_def PyTypeObject type_iterator_object_type = {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.TypeIterator",		  /*tp_name*/
   sizeof (typy_iterator_object),  /*tp_basicsize*/

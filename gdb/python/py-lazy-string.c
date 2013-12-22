@@ -26,6 +26,9 @@
 #include "language.h"
 #include "gdb_assert.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 typedef struct {
   PyObject_HEAD
   /*  Holds the address of the lazy string.  */
@@ -47,7 +50,7 @@ typedef struct {
   struct type *type;
 } lazy_string_object;
 
-static PyTypeObject lazy_string_object_type
+static_decl PyTypeObject lazy_string_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("lazy_string_object");
 
 static PyObject *
@@ -217,7 +220,7 @@ static PyGetSetDef lazy_string_object_getset[] = {
   { NULL }  /* Sentinel */
 };
 
-static PyTypeObject lazy_string_object_type = {
+static_def PyTypeObject lazy_string_object_type = {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.LazyString",	          /*tp_name*/
   sizeof (lazy_string_object),	  /*tp_basicsize*/

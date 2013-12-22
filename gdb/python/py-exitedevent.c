@@ -20,7 +20,10 @@
 #include "defs.h"
 #include "py-event.h"
 
-static PyTypeObject exited_event_object_type
+#define static_decl extern
+#define static_def /*static*/
+
+static_decl PyTypeObject exited_event_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("event_object");
 
 static PyObject *
@@ -89,4 +92,4 @@ GDBPY_NEW_EVENT_TYPE (exited,
                       "ExitedEvent",
                       "GDB exited event object",
                       event_object_type,
-                      static);
+                      static_def);

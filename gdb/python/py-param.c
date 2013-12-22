@@ -29,6 +29,9 @@
 #include "language.h"
 #include "arch-utils.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 /* Parameter constants and their values.  */
 struct parm_constant
 {
@@ -89,7 +92,7 @@ struct parmpy_object
 
 typedef struct parmpy_object parmpy_object;
 
-static PyTypeObject parmpy_object_type
+static_decl PyTypeObject parmpy_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("parmpy_object");
 
 /* Some handy string constants.  */
@@ -780,7 +783,7 @@ gdbpy_initialize_parameters (void)
 
 
 
-static PyTypeObject parmpy_object_type =
+static_def PyTypeObject parmpy_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Parameter",		  /*tp_name*/

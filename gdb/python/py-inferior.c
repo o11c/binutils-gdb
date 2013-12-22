@@ -31,6 +31,9 @@
 #include "py-event.h"
 #include "py-stopevent.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 struct threadlist_entry {
   thread_object *thread_obj;
   struct threadlist_entry *next;
@@ -51,7 +54,7 @@ typedef struct
   int nthreads;
 } inferior_object;
 
-static PyTypeObject inferior_object_type
+static_decl PyTypeObject inferior_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("inferior_object");
 
 static const struct inferior_data *infpy_inf_data_key;
@@ -65,7 +68,7 @@ typedef struct {
   CORE_ADDR length;
 } membuf_object;
 
-static PyTypeObject membuf_object_type
+static_decl PyTypeObject membuf_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("membuf_object");
 
 /* Require that INFERIOR be a valid inferior ID.  */
@@ -837,7 +840,7 @@ Return a long with the address of a match, or None." },
   { NULL }
 };
 
-static PyTypeObject inferior_object_type =
+static_def PyTypeObject inferior_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Inferior",		  /* tp_name */
@@ -904,7 +907,7 @@ static PyBufferProcs buffer_procs = {
 };
 #endif	/* IS_PY3K */
 
-static PyTypeObject membuf_object_type = {
+static_def PyTypeObject membuf_object_type = {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Membuf",			  /*tp_name*/
   sizeof (membuf_object),	  /*tp_basicsize*/

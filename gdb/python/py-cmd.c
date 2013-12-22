@@ -29,6 +29,9 @@
 #include "completer.h"
 #include "language.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 /* Struct representing built-in completion types.  */
 struct cmdpy_completer
 {
@@ -69,7 +72,7 @@ struct cmdpy_object
 
 typedef struct cmdpy_object cmdpy_object;
 
-static PyTypeObject cmdpy_object_type
+static_decl PyTypeObject cmdpy_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("cmdpy_object");
 
 /* Constants used by this module.  */
@@ -625,7 +628,7 @@ static PyMethodDef cmdpy_object_methods[] =
   { 0 }
 };
 
-static PyTypeObject cmdpy_object_type =
+static_def PyTypeObject cmdpy_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Command",		  /*tp_name*/

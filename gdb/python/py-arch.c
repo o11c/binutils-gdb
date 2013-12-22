@@ -23,6 +23,9 @@
 #include "disasm.h"
 #include "python-internal.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 typedef struct arch_object_type_object {
   PyObject_HEAD
   struct gdbarch *gdbarch;
@@ -42,7 +45,7 @@ static struct gdbarch_data *arch_object_data = NULL;
       }								\
   } while (0)
 
-static PyTypeObject arch_object_type
+static_decl PyTypeObject arch_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("arch_object");
 
 /* Associates an arch_object with GDBARCH as gdbarch_data via the gdbarch
@@ -281,7 +284,7 @@ END_PC." },
   {NULL}  /* Sentinel */
 };
 
-static PyTypeObject arch_object_type = {
+static_def PyTypeObject arch_object_type = {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Architecture",                 /* tp_name */
   sizeof (arch_object),               /* tp_basicsize */

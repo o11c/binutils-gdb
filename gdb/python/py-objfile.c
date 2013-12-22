@@ -23,6 +23,9 @@
 #include "objfiles.h"
 #include "language.h"
 
+#define static_decl extern
+#define static_def /*static*/
+
 typedef struct
 {
   PyObject_HEAD
@@ -39,7 +42,7 @@ typedef struct
   PyObject *type_printers;
 } objfile_object;
 
-static PyTypeObject objfile_object_type
+static_decl PyTypeObject objfile_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("objfile_object");
 
 static const struct objfile_data *objfpy_objfile_data_key;
@@ -336,7 +339,7 @@ static PyGetSetDef objfile_getset[] =
   { NULL }
 };
 
-static PyTypeObject objfile_object_type =
+static_def PyTypeObject objfile_object_type =
 {
   PyVarObject_HEAD_INIT (NULL, 0)
   "gdb.Objfile",		  /*tp_name*/

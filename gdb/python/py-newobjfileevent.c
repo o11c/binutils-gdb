@@ -20,7 +20,10 @@
 #include "defs.h"
 #include "py-event.h"
 
-static PyTypeObject new_objfile_event_object_type
+#define static_decl extern
+#define static_def /*static*/
+
+static_decl PyTypeObject new_objfile_event_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("event_object");
 
 static PyObject *
@@ -71,4 +74,4 @@ GDBPY_NEW_EVENT_TYPE (new_objfile,
                       "NewObjFileEvent",
                       "GDB new object file event object",
                       event_object_type,
-                      static);
+                      static_def);

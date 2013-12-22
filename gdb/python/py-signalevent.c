@@ -20,7 +20,10 @@
 #include "defs.h"
 #include "py-stopevent.h"
 
-static PyTypeObject signal_event_object_type
+#define static_decl extern
+#define static_def /*static*/
+
+static_decl PyTypeObject signal_event_object_type
     CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF ("event_object");
 
 PyObject *
@@ -58,4 +61,4 @@ GDBPY_NEW_EVENT_TYPE (signal,
                       "SignalEvent",
                       "GDB signal event object",
                       stop_event_object_type,
-                      static);
+                      static_def);

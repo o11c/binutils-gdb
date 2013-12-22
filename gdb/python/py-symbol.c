@@ -293,7 +293,7 @@ set_symbol (symbol_object *obj, struct symbol *symbol)
   obj->prev = NULL;
   if (SYMBOL_SYMTAB (symbol))
     {
-      obj->next = objfile_data (SYMBOL_SYMTAB (symbol)->objfile,
+      obj->next = (struct sympy_symbol_object *) objfile_data (SYMBOL_SYMTAB (symbol)->objfile,
 				sympy_objfile_data_key);
 
       if (obj->next)
@@ -384,7 +384,7 @@ gdbpy_lookup_symbol (PyObject *self, PyObject *args, PyObject *kw)
 
   TRY_CATCH (except, RETURN_MASK_ALL)
     {
-      symbol = lookup_symbol (name, block, domain, &is_a_field_of_this);
+      symbol = lookup_symbol (name, block, (domain_enum) domain, &is_a_field_of_this);
     }
   GDB_PY_HANDLE_EXCEPTION (except);
 
@@ -434,7 +434,7 @@ gdbpy_lookup_global_symbol (PyObject *self, PyObject *args, PyObject *kw)
 
   TRY_CATCH (except, RETURN_MASK_ALL)
     {
-      symbol = lookup_symbol_global (name, NULL, domain);
+      symbol = lookup_symbol_global (name, NULL, (domain_enum) domain);
     }
   GDB_PY_HANDLE_EXCEPTION (except);
 
@@ -461,7 +461,7 @@ gdbpy_lookup_global_symbol (PyObject *self, PyObject *args, PyObject *kw)
 static void
 del_objfile_symbols (struct objfile *objfile, void *datum)
 {
-  symbol_object *obj = datum;
+  symbol_object *obj = (symbol_object *) datum;
   while (obj)
     {
       symbol_object *next = obj->next;

@@ -148,7 +148,7 @@ struct cleanup *
 ensure_python_env (struct gdbarch *gdbarch,
                    const struct language_defn *language)
 {
-  struct python_env *env = xmalloc (sizeof *env);
+  struct python_env *env = (struct python_env *) xmalloc (sizeof *env);
 
   /* We should not ever enter Python unless initialized.  */
   if (!gdb_python_initialized)
@@ -239,7 +239,7 @@ python_interactive_command (char *arg, int from_tty)
   if (arg && *arg)
     {
       int len = strlen (arg);
-      char *script = xmalloc (len + 2);
+      char *script = (char *) xmalloc (len + 2);
 
       strcpy (script, arg);
       script[len] = '\n';
@@ -326,7 +326,7 @@ compute_python_string (struct command_line *l)
   for (iter = l; iter; iter = iter->next)
     size += strlen (iter->line) + 1;
 
-  script = xmalloc (size + 1);
+  script = (char *) xmalloc (size + 1);
   here = 0;
   for (iter = l; iter; iter = iter->next)
     {
@@ -1279,7 +1279,7 @@ apply_type_printers (void *printers, struct type *type)
   struct cleanup *cleanups;
   PyObject *type_obj, *type_module = NULL, *func = NULL;
   PyObject *result_obj = NULL;
-  PyObject *printers_obj = printers;
+  PyObject *printers_obj = (PyObject *) printers;
   char *result = NULL;
 
   if (printers_obj == NULL)
@@ -1341,7 +1341,7 @@ void
 free_type_printers (void *arg)
 {
   struct cleanup *cleanups;
-  PyObject *printers = arg;
+  PyObject *printers = (PyObject *) arg;
 
   if (printers == NULL)
     return;
